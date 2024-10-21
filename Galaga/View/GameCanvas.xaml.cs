@@ -1,4 +1,5 @@
-﻿using Galaga.Model;
+﻿using System;
+using Galaga.Model;
 using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Core;
@@ -12,7 +13,7 @@ namespace Galaga.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GameCanvas
+    public sealed partial class GameCanvas 
     {
         private readonly GameManager gameManager;
 
@@ -22,16 +23,25 @@ namespace Galaga.View
         public GameCanvas()
         {
             this.InitializeComponent();
-
+            this.setWindowTitle("Galaga by Gates A3");
+            
             Width = this.canvas.Width;
             Height= this.canvas.Height;
             ApplicationView.PreferredLaunchViewSize = new Size { Width = Width, Height = Height };
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(Width, Height));
-
+            
             Window.Current.CoreWindow.KeyDown += this.coreWindowOnKeyDown;
-
+            
             this.gameManager = new GameManager(this.canvas);
+        }
+
+
+        private void setWindowTitle(string title)
+        {
+            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            appView.Title = String.Empty;
+            appView.Title = title;
         }
 
         private void coreWindowOnKeyDown(CoreWindow sender, KeyEventArgs args)
