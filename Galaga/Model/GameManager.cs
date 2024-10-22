@@ -42,7 +42,50 @@ namespace Galaga.Model
         private void initializeGame()
         {
             this.createAndPlacePlayer();
+            this.createAndPlaceEnemies();
         }
+
+        private void createAndPlaceEnemies()
+        {
+            
+
+            
+            for (int i = 0; i < 5; i++)
+            {
+                
+                var enemy = new Enemy
+                {
+                    X = 50 + i * 60,
+                    Y = 5
+                };
+                this.canvas.Children.Add(enemy.Sprite);
+            }
+
+            
+            for (int i = 0; i < 5; i++)
+            {
+                var enemy = new EnemyLevelTwo
+                {
+                    X = 50 + i * 60,
+                    Y = 100
+                };
+                this.canvas.Children.Add(enemy.Sprite);
+            }
+
+            
+            for (int i = 0; i < 5; i++)
+            {
+                var enemy = new EnemyLevelThree
+                {
+                    X = 50 + i * 60,
+                    Y = 300
+                };
+                this.canvas.Children.Add(enemy.Sprite);
+            }
+
+        }
+
+
 
         private void createAndPlacePlayer()
         {

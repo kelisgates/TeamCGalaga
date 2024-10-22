@@ -39,7 +39,7 @@ namespace Galaga.View
 
         private void setWindowTitle(string title)
         {
-            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            var appView = ApplicationView.GetForCurrentView();
             appView.Title = String.Empty;
             appView.Title = title;
         }
