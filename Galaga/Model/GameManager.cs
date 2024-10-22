@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Galaga.View;
+using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Galaga.Model
@@ -14,6 +16,12 @@ namespace Galaga.Model
         private readonly Canvas canvas;
         private readonly double canvasHeight;
         private readonly double canvasWidth;
+
+        private DispatcherTimer timer;
+        private double movementStep = 5;
+        private double movementRange = 50; 
+        private double elapsedSteps = 0;
+        private bool movingRight = true;
 
         private Player player;
 
@@ -39,10 +47,13 @@ namespace Galaga.Model
 
         #region Methods
 
+        
+
         private void initializeGame()
         {
             this.createAndPlacePlayer();
             this.createAndPlaceEnemies();
+            
         }
 
         private void createAndPlaceEnemies()
@@ -50,34 +61,34 @@ namespace Galaga.Model
             
 
             
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 
                 var enemy = new Enemy
                 {
-                    X = 50 + i * 60,
+                    X = 50 + i * 100,
                     Y = 5
                 };
                 this.canvas.Children.Add(enemy.Sprite);
             }
 
             
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 var enemy = new EnemyLevelTwo
                 {
-                    X = 50 + i * 60,
+                    X = 50 + i * 100,
                     Y = 100
                 };
                 this.canvas.Children.Add(enemy.Sprite);
             }
 
             
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 2; i++)
             {
                 var enemy = new EnemyLevelThree
                 {
-                    X = 50 + i * 60,
+                    X = 50 + i * 100,
                     Y = 300
                 };
                 this.canvas.Children.Add(enemy.Sprite);
@@ -125,7 +136,14 @@ namespace Galaga.Model
             
         }
 
+            
+
+        
+        
+    
+
+
         #endregion
 
-    }
+}
 }
