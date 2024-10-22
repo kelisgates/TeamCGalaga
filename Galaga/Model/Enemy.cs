@@ -20,21 +20,13 @@ namespace Galaga.Model
 
         #endregion
 
-        #region Properties        
-        /// <summary>
-        /// Gets the enemy level one.
-        /// </summary>
-        /// <value>
-        /// The enemy level one.
-        /// </value>
-        public EnemySprite EnemyLevelOne { get; }
-
         
-
-        #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Enemy"/> class.
+        /// </summary>
         public Enemy()
         { 
             

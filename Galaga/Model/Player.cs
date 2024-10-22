@@ -15,17 +15,7 @@ namespace Galaga.Model
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        /// Gets the manager.
-        /// </summary>
-        /// <value>
-        /// The manager.
-        /// </value>
-        public BulletManager Manager { get; }
-
-        #endregion
+        
 
         #region Constructors
 
