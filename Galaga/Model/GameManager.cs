@@ -1,7 +1,11 @@
 ﻿using Galaga.View;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Galaga.View.Sprites;
 
 namespace Galaga.Model
 {
@@ -20,7 +24,21 @@ namespace Galaga.Model
         private BulletManager manager;
         private Player player;
 
+        /// <summary>
+        /// Gets the score manager.
+        /// </summary>
+        /// <value>
+        /// The score manager.
+        /// </value>
+        public ScoreManager ScoreManager { get; set; }
+
+
+        private List<GameObject> enemies;
+
+
         #endregion
+
+        
 
         #region Constructors
 
@@ -46,12 +64,14 @@ namespace Galaga.Model
 
         private void initializeGame()
         {
-            
+            this.ScoreManager = new ScoreManager();
             this.createAndPlacePlayer();
+            this.enemies = new List<GameObject>();
             this.createAndPlaceEnemies();
 
-            
         }
+
+        
 
         private void createAndPlaceEnemies()
         {
@@ -67,6 +87,7 @@ namespace Galaga.Model
                     Y = 5
                 };
                 this.canvas.Children.Add(enemy.Sprite);
+                this.enemies.Add(enemy);
             }
 
             
@@ -78,6 +99,7 @@ namespace Galaga.Model
                     Y = 100
                 };
                 this.canvas.Children.Add(enemy.Sprite);
+                this.enemies.Add(enemy);
             }
 
             
@@ -89,6 +111,7 @@ namespace Galaga.Model
                     Y = 300
                 };
                 this.canvas.Children.Add(enemy.Sprite);
+                this.enemies.Add(enemy);
             }
 
         }
@@ -107,6 +130,53 @@ namespace Galaga.Model
         {
             this.player.X = this.canvasWidth / 2 - this.player.Width / 2.0;
             this.player.Y = this.canvasHeight - this.player.Height - PlayerOffsetFromBottom;
+        }
+
+
+        private void startBulletMovement(BulletManager bullet)
+        {
+            var timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(50)
+            };
+            timer.Tick += (s, e) =>
+            {
+                var position = this.manager.Y;
+                if (position > 0)
+                {
+                    bullet.Y -= 10;
+                    this.checkCollision(bullet);
+                }
+                else
+                {
+                    this.canvas.Children.Remove(bullet.Sprite);
+                    timer.Stop();
+                }
+            };
+            timer.Start();
+        }
+
+        private void checkCollision(BulletManager bullet)
+        {
+            var bulletRect = bullet.GetRectangle();
+
+            foreach (var enemy in this.enemies)
+            {
+                if (enemy is GameObject enemySprite)
+                {
+                    var enemyRect = enemySprite.GetRectangle();
+                    if (bulletRect.IntersectsWith(enemyRect))
+                    {
+                        this.canvas.Children.Remove(bullet.Sprite);
+                        this.canvas.Children.Remove(enemySprite.Sprite);
+                        this.enemies.Remove(enemy);
+
+                        this.ScoreManager.Score += 10;
+
+                        break;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -142,11 +212,12 @@ namespace Galaga.Model
             {
                 IsShooting = true,
                 X = this.player.X + 20,
-                Y = this.player.Y
+                Y = this.player.Y,
+
             };
 
             this.canvas.Children.Add(this.manager.Sprite);
-
+            this.startBulletMovement(this.manager);
 
             
         }

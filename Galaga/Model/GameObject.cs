@@ -1,6 +1,7 @@
 ﻿using System;
-using Windows.Foundation;
+using System.Drawing;
 using Galaga.View.Sprites;
+using Point = Windows.Foundation.Point;
 
 namespace Galaga.Model
 {
@@ -161,6 +162,15 @@ namespace Galaga.Model
 
             this.SpeedX = speedX;
             this.SpeedY = speedY;
+        }
+
+        /// <summary>
+        /// Gets the rectangle.
+        /// </summary>
+        /// <returns></returns>
+        public Rectangle GetRectangle()
+        {
+            return new Rectangle((int)this.X, (int)this.Y, (int)this.Width, (int)this.Height);
         }
 
         #endregion

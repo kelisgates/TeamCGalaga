@@ -128,6 +128,7 @@
     <Compile Include="Model\GameManager.cs" />
     <Compile Include="Model\GameObject.cs" />
     <Compile Include="Model\Player.cs" />
+    <Compile Include="Model\ScoreManager.cs" />
     <Compile Include="View\GameCanvas.xaml.cs">
       <DependentUpon>GameCanvas.xaml</DependentUpon>
     </Compile>

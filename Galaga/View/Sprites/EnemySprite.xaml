@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="55"
-    d:DesignWidth="60">
+    d:DesignWidth="60"
+    Height="55"
+    Width="60">
 
     <Canvas>
         <Ellipse Height="40" Width="60" Canvas.Top="10" Stroke="White" Fill="AliceBlue"/>
