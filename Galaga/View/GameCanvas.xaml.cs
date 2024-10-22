@@ -45,6 +45,11 @@ namespace Galaga.View
             appView.Title = title;
         }
 
+        private void displayGameWonOrLost()
+        {
+            this.gameWonTextBlock.Visibility = Visibility.Visible;
+        }
+
         private void coreWindowOnKeyDown(CoreWindow sender, KeyEventArgs args)
         {
             switch (args.VirtualKey)

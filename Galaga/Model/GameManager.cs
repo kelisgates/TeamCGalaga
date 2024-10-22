@@ -6,6 +6,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Galaga.View.Sprites;
+using Windows.UI.Xaml.Media;
 
 namespace Galaga.Model
 {
@@ -21,9 +22,15 @@ namespace Galaga.Model
         private readonly double canvasHeight;
         private readonly double canvasWidth;
 
+        
         private BulletManager manager;
         private Player player;
+        private List<GameObject> enemies;
 
+
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Gets the score manager.
         /// </summary>
@@ -31,9 +38,6 @@ namespace Galaga.Model
         /// The score manager.
         /// </value>
         public ScoreManager ScoreManager { get; set; }
-
-
-        private List<GameObject> enemies;
 
 
         #endregion
@@ -159,7 +163,6 @@ namespace Galaga.Model
         private void checkCollision(BulletManager bullet)
         {
             var bulletRect = bullet.GetRectangle();
-
             foreach (var enemy in this.enemies)
             {
                 if (enemy is GameObject enemySprite)
@@ -173,11 +176,34 @@ namespace Galaga.Model
 
                         this.ScoreManager.Score += 10;
 
+                        if (this.enemies.Count == 0)
+                        {
+                            this.displayGameWon();
+                        }
+
                         break;
                     }
                 }
             }
         }
+
+        private void displayGameWon()
+        {
+            var gameWonTextBlock = new TextBlock
+            {
+                Text = "Game Won!",
+                Foreground = new SolidColorBrush(Windows.UI.Colors.Green),
+                FontSize = 48,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            Canvas.SetLeft(gameWonTextBlock, (this.canvasWidth - gameWonTextBlock.ActualWidth) / 2);
+            Canvas.SetTop(gameWonTextBlock, (this.canvasHeight - gameWonTextBlock.ActualHeight) / 2);
+
+            this.canvas.Children.Add(gameWonTextBlock);
+        }
+
 
         /// <summary>
         /// Moves the player left.

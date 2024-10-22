@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Galaga.Model
 {
@@ -9,6 +10,7 @@ namespace Galaga.Model
     public class ScoreManager : INotifyPropertyChanged
     {
         private int score;
+        private List<GameObject> enemies;
 
         /// <summary>
         /// Gets or sets the score.
@@ -25,6 +27,25 @@ namespace Galaga.Model
                 {
                     this.score = value;
                     this.OnPropertyChanged(nameof(this.Score));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the enemies.
+        /// </summary>
+        /// <value>
+        /// The enemies.
+        /// </value>
+        public List<GameObject> Enemies
+        {
+            get => this.enemies;
+            set
+            {
+                if (this.enemies != value)
+                {
+                    this.enemies = value;
+                    this.OnPropertyChanged(nameof(this.Enemies));
                 }
             }
         }

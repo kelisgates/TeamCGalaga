@@ -12,5 +12,6 @@
 
     <Canvas x:Name="canvas" Width="640" Height="480" Background ="Black">
         <TextBlock Canvas.Left="445" TextWrapping="Wrap" Text="{Binding Score}" Canvas.Top="240" Foreground="White" FontSize="24"/>
+        <TextBlock x:Name="gameWonTextBlock" Text="You Win!" Foreground="DarkSeaGreen" FontSize="48" HorizontalTextAlignment="Center" Visibility="Collapsed"/>
     </Canvas>
 </Page>
