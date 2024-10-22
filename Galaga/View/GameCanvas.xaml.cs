@@ -54,6 +54,9 @@ namespace Galaga.View
                 case VirtualKey.Right:
                     this.gameManager.MovePlayerRight();
                     break;
+                case VirtualKey.Space:
+                    this.gameManager.PlayerShoot();
+                    break;
             }
         }
     }

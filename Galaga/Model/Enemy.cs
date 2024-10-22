@@ -46,34 +46,9 @@ namespace Galaga.Model
 
         #endregion
 
-        #region Methods
+        
 
-        /// <summary>
-        /// Sets the position.
-        /// </summary>
-        /// <param name="sprite">The sprite.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        public void SetPosition(BaseSprite sprite, double x, double y)
-        {
-            Canvas.SetLeft(sprite, x);
-            Canvas.SetTop(sprite, y);
-        }
-
-        /// <summary>
-        /// Adds to canvas.
-        /// </summary>
-        /// <param name="canvas">The canvas.</param>
-        /// <param name="sprite">The sprite.</param>
-        public void AddToCanvas(Canvas canvas, BaseSprite sprite)
-        {
-            if (!canvas.Children.Contains(sprite))
-            {
-                canvas.Children.Add(sprite);
-            }
-        }
-
-        #endregion
+        
 
 
     }

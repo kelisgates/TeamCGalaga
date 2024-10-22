@@ -12,6 +12,19 @@ namespace Galaga.Model
         private const int SpeedXDirection = 3;
         private const int SpeedYDirection = 0;
 
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the manager.
+        /// </summary>
+        /// <value>
+        /// The manager.
+        /// </value>
+        public BulletManager Manager { get; }
+
         #endregion
 
         #region Constructors
@@ -26,5 +39,11 @@ namespace Galaga.Model
         }
 
         #endregion
+
+
+
+
+        
+
     }
 }

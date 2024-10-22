@@ -34,5 +34,6 @@ namespace Galaga.Model
 
         #endregion
 
-       
+
     }
+}

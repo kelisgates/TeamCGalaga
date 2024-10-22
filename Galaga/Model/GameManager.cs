@@ -17,12 +17,7 @@ namespace Galaga.Model
         private readonly double canvasHeight;
         private readonly double canvasWidth;
 
-        private DispatcherTimer timer;
-        private double movementStep = 5;
-        private double movementRange = 50; 
-        private double elapsedSteps = 0;
-        private bool movingRight = true;
-
+        private BulletManager manager;
         private Player player;
 
         #endregion
@@ -51,8 +46,10 @@ namespace Galaga.Model
 
         private void initializeGame()
         {
+            
             this.createAndPlacePlayer();
             this.createAndPlaceEnemies();
+
             
         }
 
@@ -136,14 +133,30 @@ namespace Galaga.Model
             
         }
 
-            
+        /// <summary>
+        /// Player shoot a bullet.
+        /// </summary>
+        public void PlayerShoot()
+        {
+            this.manager = new BulletManager
+            {
+                IsShooting = true,
+                X = this.player.X + 20,
+                Y = this.player.Y
+            };
 
+            this.canvas.Children.Add(this.manager.Sprite);
+
+
+            
+        }
+    }
         
         
     
 
 
-        #endregion
+    #endregion
 
 }
-}
+
