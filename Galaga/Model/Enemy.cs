@@ -52,8 +52,10 @@ namespace Galaga.Model
         {
             this.steps = 0;
             this.movingRight = true;
-            this.timer = new DispatcherTimer();
-            this.timer.Interval = TimeSpan.FromMilliseconds(100);
+            this.timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(100)
+            };
             this.timer.Tick += (s, e) =>
             {
                 if (this.movingRight)

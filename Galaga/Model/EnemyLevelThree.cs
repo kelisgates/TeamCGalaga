@@ -22,7 +22,7 @@ namespace Galaga.Model
         private readonly Canvas canvas;
 
         private BulletManager bullet;
-        private Player player;
+        private readonly Player player;
 
 
 
@@ -75,8 +75,10 @@ namespace Galaga.Model
         {
             this.random = new Random();
 
-            this.Timer = new DispatcherTimer();
-            this.Timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
+            this.Timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000))
+            };
             this.Timer.Tick += this.shootingTimer_Tick;
             this.Timer.Start();
         }
@@ -140,7 +142,8 @@ namespace Galaga.Model
             {
                 this.canvas.Children.Remove(bulletManager.Sprite);
                 this.Timer.Stop();
-                this.displayGameWon();
+                this.canvas.Children.Clear();
+                this.displayGameOver();
             }
         }
 
@@ -152,7 +155,7 @@ namespace Galaga.Model
                      boundingBox1.Top + boundingBox1.Height < boundingBox2.Top);
         }
 
-        private void displayGameWon()
+        private void displayGameOver()
         {
             var gameWonTextBlock = new TextBlock
             {

@@ -49,7 +49,7 @@ namespace Galaga.Model
         /// <value>
         ///   <c>true</c> if [was collision]; otherwise, <c>false</c>.
         /// </value>
-        public bool wasCollision { get; set; }
+        public bool WasCollision { get; set; }
 
         #endregion
 
@@ -88,21 +88,21 @@ namespace Galaga.Model
 
         private void createAndPlaceEnemies()
         {
-            var numOfLevelOne = 4;
+            var numOfLevelOne = 2;
             var numOfLevelTwo = 3;
-            var numOfLevelThree = 2;
+            var numOfLevelThree = 4;
             var canvasMiddle = this.canvasWidth / 2.0;
             var startX = canvasMiddle - (numOfLevelOne * 100) / 2.0;
             var startX2 = canvasMiddle - (numOfLevelTwo * 100) / 2.0;
-            var startX3 = canvasMiddle - (numOfLevelThree * 80) / 2.0;
+            var startX3 = canvasMiddle - (numOfLevelThree * 100) / 2.0;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
 
                 var enemy = new EnemyLevelOne
                 {
                     X = startX + (i * 100),
-                    Y = 5
+                    Y = 150
                 };
                 this.canvas.Children.Add(enemy.Sprite);
                 this.enemies.Add(enemy);
@@ -121,12 +121,12 @@ namespace Galaga.Model
             }
 
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 4; i++)
             {
                 var enemy = new EnemyLevelThree(this.canvas, this.player)
                 {
                     X = startX3 + (i * 100),
-                    Y = 150
+                    Y = 5
                 };
                 this.canvas.Children.Add(enemy.Sprite);
                 this.enemies.Add(enemy);
@@ -165,9 +165,9 @@ namespace Galaga.Model
                     bullet.Y -= 10;
                     bullet.UpdateBoundingBox();
                     this.checkCollision(bullet);
-                    if (this.wasCollision)
+                    if (this.WasCollision)
                     {
-                        this.wasCollision = false;
+                        this.WasCollision = false;
                         this.canvas.Children.Remove(bullet.Sprite);
                         this.timer.Stop();
                         this.IsPlayerBulletActive = false;
@@ -203,7 +203,7 @@ namespace Galaga.Model
                         }
 
 
-                        this.wasCollision = true;
+                        this.WasCollision = true;
                         this.canvas.Children.Remove(bullet.Sprite);
                         this.canvas.Children.Remove(enemySprite.Sprite);
                         this.enemies.Remove(enemySprite);
