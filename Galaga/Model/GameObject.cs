@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using Windows.UI.Composition.Scenes;
 using Galaga.View.Sprites;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 using Point = Windows.Foundation.Point;
@@ -174,14 +172,6 @@ namespace Galaga.Model
             this.SpeedY = speedY;
         }
 
-        /// <summary>
-        /// Gets the rectangle.
-        /// </summary>
-        /// <returns></returns>
-        public Rectangle GetRectangle()
-        {
-            return new Rectangle((int)this.X, (int)this.Y, (int)this.Width, (int)this.Height);
-        }
 
         /// <summary>
         /// Updates the bounding box.

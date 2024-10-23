@@ -1,9 +1,4 @@
 ﻿using Galaga.View.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Galaga.Model
 {
@@ -31,6 +26,7 @@ namespace Galaga.Model
         public EnemyLevelOne()
         {
             Sprite = new EnemySprite();
+            ScoreValue = 10;
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }
 

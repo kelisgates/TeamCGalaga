@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Galaga.View.Sprites;
+﻿using Galaga.View.Sprites;
 
 namespace Galaga.Model
 {
@@ -13,8 +8,6 @@ namespace Galaga.Model
     public class EnemyLevelTwo : Enemy
     {
         #region Data members
-
-
 
         private const int SpeedXDirection = 3;
         private const int SpeedYDirection = 0;
@@ -29,6 +22,7 @@ namespace Galaga.Model
         public EnemyLevelTwo()
         {
             Sprite = new EnemyL2();
+            this.ScoreValue = 20;
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }
 

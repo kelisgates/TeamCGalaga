@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Galaga.View.Sprites;
@@ -21,7 +17,7 @@ namespace Galaga.Model
         private const int SpeedXDirection = 3;
         private const int SpeedYDirection = 0;
 
-        public DispatcherTimer timer;
+        
         private Random random;
         private readonly Canvas canvas;
 
@@ -42,6 +38,11 @@ namespace Galaga.Model
         /// </value>
         public bool IsShooting { get; set; }
 
+
+        /// <summary>
+        /// timer for shooting at player
+        /// </summary>
+        public DispatcherTimer Timer;
         #endregion
 
 
@@ -57,11 +58,15 @@ namespace Galaga.Model
             this.canvas = canvas;
             this.player = player;
             Sprite = new EnemyL3();
+            this.ScoreValue = 30;
             SetSpeed(SpeedXDirection, SpeedYDirection);
             this.shootAtPlayer();
         }
 
         #endregion
+
+        #region private methods
+
 
         /// <summary>
         /// Shoots at player.
@@ -70,22 +75,19 @@ namespace Galaga.Model
         {
             this.random = new Random();
 
-            this.timer = new DispatcherTimer();
-            this.timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
-            this.timer.Tick += this.shootingTimer_Tick;
-            this.timer.Start();
+            this.Timer = new DispatcherTimer();
+            this.Timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
+            this.Timer.Tick += this.shootingTimer_Tick;
+            this.Timer.Start();
         }
 
-        #region private methods
-
         
-
         
 
         private void shootingTimer_Tick(object sender, object e)
         {
             this.shoot();
-            this.timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
+            this.Timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
         }
 
         private void shoot()
@@ -105,7 +107,7 @@ namespace Galaga.Model
 
         }
 
-        private void startMovement(BulletManager bullet)
+        private void startMovement(BulletManager bulletParam)
         {
             var timer = new DispatcherTimer
             {
@@ -113,16 +115,16 @@ namespace Galaga.Model
             };
             timer.Tick += (s, e) =>
             {
-                var position = bullet.Y;
+                var position = bulletParam.Y;
                 if (position < 480)
                 {
-                    bullet.Y += 10;
-                    bullet.UpdateBoundingBox();
-                    this.checkCollision(bullet);
+                    bulletParam.Y += 10;
+                    bulletParam.UpdateBoundingBox();
+                    this.checkCollision(bulletParam);
                 }
                 else
                 {
-                    this.canvas.Children.Remove(bullet.Sprite);
+                    this.canvas.Children.Remove(bulletParam.Sprite);
                     timer.Stop();
                     this.IsShooting = false;
                 }
@@ -137,7 +139,7 @@ namespace Galaga.Model
             if (this.isCollision(this.bullet.BoundingBox, this.player.BoundingBox))
             {
                 this.canvas.Children.Remove(bulletManager.Sprite);
-                this.timer.Stop();
+                this.Timer.Stop();
                 this.displayGameWon();
             }
         }

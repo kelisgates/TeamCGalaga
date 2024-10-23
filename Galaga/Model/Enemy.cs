@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Galaga.View.Sprites;
-using Windows.UI.Xaml.Controls;
 
 namespace Galaga.Model
 {
@@ -25,6 +20,17 @@ namespace Galaga.Model
 
         #endregion
 
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the score value.
+        /// </summary>
+        /// <value>
+        /// The score value.
+        /// </value>
+        public int ScoreValue { get; set; }
+
+        #endregion
         
 
         #region Constructors
@@ -34,13 +40,14 @@ namespace Galaga.Model
         /// </summary>
         public Enemy()
         { 
-            
-
             Sprite = new EnemySprite();
             this.moveEnemy();
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }
 
+        #endregion
+
+        #region Methods
         private void moveEnemy()
         {
             this.steps = 0;

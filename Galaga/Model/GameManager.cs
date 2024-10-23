@@ -1,11 +1,7 @@
-﻿using Galaga.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Galaga.View.Sprites;
 using Windows.UI.Xaml.Media;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 
@@ -50,8 +46,6 @@ namespace Galaga.Model
 
         #endregion
 
-        
-
         #region Constructors
 
         /// <summary>
@@ -70,7 +64,7 @@ namespace Galaga.Model
 
         #endregion
 
-        #region Methods
+        #region Private Methods
 
         
 
@@ -192,7 +186,7 @@ namespace Galaga.Model
                         if (enemyLevelThree != null)
                         {
                             enemyLevelThree.IsShooting = false;
-                            enemyLevelThree.timer.Stop();
+                            enemyLevelThree.Timer.Stop();
                         }
 
 
@@ -200,8 +194,8 @@ namespace Galaga.Model
                         this.canvas.Children.Remove(bullet.Sprite);
                         this.canvas.Children.Remove(enemySprite.Sprite);
                         this.enemies.Remove(enemy);
-
-                        this.ScoreManager.Score += 10;
+                        var amount = enemy is EnemyLevelOne ? 10 : enemy is EnemyLevelTwo ? 20 : 30;
+                        this.ScoreManager.Score += amount;
 
                         if (this.enemies.Count == 0)
                         {
@@ -242,6 +236,9 @@ namespace Galaga.Model
         }
 
 
+        #endregion
+
+        #region Public Methods
         /// <summary>
         /// Moves the player left.
         /// </summary>
