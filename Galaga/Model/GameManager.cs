@@ -23,7 +23,7 @@ namespace Galaga.Model
         private BulletManager manager;
         private Player player;
         private List<GameObject> enemies;
-
+        private DispatcherTimer timer;
 
         #endregion
 
@@ -43,6 +43,13 @@ namespace Galaga.Model
         /// </value>
         public bool IsPlayerBulletActive { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [was collision].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [was collision]; otherwise, <c>false</c>.
+        /// </value>
+        public bool wasCollision { get; set; }
 
         #endregion
 
@@ -146,11 +153,11 @@ namespace Galaga.Model
 
         private void startBulletMovement(BulletManager bullet)
         {
-            var timer = new DispatcherTimer
+            this.timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(50)
             };
-            timer.Tick += (s, e) =>
+            this.timer.Tick += (s, e) =>
             {
                 var position = this.manager.Y;
                 if (position > 0)
@@ -158,15 +165,22 @@ namespace Galaga.Model
                     bullet.Y -= 10;
                     bullet.UpdateBoundingBox();
                     this.checkCollision(bullet);
+                    if (this.wasCollision)
+                    {
+                        this.wasCollision = false;
+                        this.canvas.Children.Remove(bullet.Sprite);
+                        this.timer.Stop();
+                        this.IsPlayerBulletActive = false;
+                    }
                 }
                 else
                 {
                     this.canvas.Children.Remove(bullet.Sprite);
-                    timer.Stop();
+                    this.timer.Stop();
                     this.IsPlayerBulletActive = false;
                 }
             };
-            timer.Start();
+            this.timer.Start();
         }
 
         
@@ -182,18 +196,17 @@ namespace Galaga.Model
                     enemy.UpdateBoundingBox();
                     if (this.isCollision(bullet.BoundingBox, enemy.BoundingBox))
                     {
-                        var enemyLevelThree = enemy as EnemyLevelThree;
-                        if (enemyLevelThree != null)
+                        if (enemy is EnemyLevelThree enemyLevelThree)
                         {
                             enemyLevelThree.IsShooting = false;
                             enemyLevelThree.Timer.Stop();
                         }
 
 
-
+                        this.wasCollision = true;
                         this.canvas.Children.Remove(bullet.Sprite);
                         this.canvas.Children.Remove(enemySprite.Sprite);
-                        this.enemies.Remove(enemy);
+                        this.enemies.Remove(enemySprite);
                         var amount = enemy is EnemyLevelOne ? 10 : enemy is EnemyLevelTwo ? 20 : 30;
                         this.ScoreManager.Score += amount;
 
