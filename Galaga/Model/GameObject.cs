@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using Windows.UI.Composition.Scenes;
 using Galaga.View.Sprites;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 using Point = Windows.Foundation.Point;
 
 namespace Galaga.Model
@@ -17,6 +19,14 @@ namespace Galaga.Model
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the bounding box.
+        /// </summary>
+        /// <value>
+        /// The bounding box.
+        /// </value>
+        public BoundingBox BoundingBox { get; set; }
 
         /// <summary>
         ///     Gets or sets the x location of the game object.
@@ -171,6 +181,17 @@ namespace Galaga.Model
         public Rectangle GetRectangle()
         {
             return new Rectangle((int)this.X, (int)this.Y, (int)this.Width, (int)this.Height);
+        }
+
+        public void UpdateBoundingBox()
+        {
+            this.BoundingBox = new BoundingBox
+            {
+                Left = (float)this.X,
+                Top = (float)this.Y,
+                Width = (float)this.Width,
+                Height = (float)this.Height
+            };
         }
 
         #endregion

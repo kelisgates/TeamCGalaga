@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Galaga.View.Sprites;
 using Windows.UI.Xaml.Media;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 
 namespace Galaga.Model
 {
@@ -107,7 +108,7 @@ namespace Galaga.Model
                 var enemy = new EnemyLevelTwo
                 {
                     X = 50 + i * 100,
-                    Y = 100
+                    Y = 70
                 };
                 this.canvas.Children.Add(enemy.Sprite);
                 this.enemies.Add(enemy);
@@ -119,7 +120,7 @@ namespace Galaga.Model
                 var enemy = new EnemyLevelThree(this.canvas, this.player)
                 {
                     X = 50 + i * 100,
-                    Y = 300
+                    Y = 150
                 };
                 this.canvas.Children.Add(enemy.Sprite);
                 this.enemies.Add(enemy);
@@ -156,6 +157,7 @@ namespace Galaga.Model
                 if (position > 0)
                 {
                     bullet.Y -= 10;
+                    bullet.UpdateBoundingBox();
                     this.checkCollision(bullet);
                 }
                 else
@@ -172,15 +174,24 @@ namespace Galaga.Model
 
         private void checkCollision(BulletManager bullet)
         {
-            var bulletRect = bullet.GetRectangle();
+            bullet.UpdateBoundingBox();
             
             foreach (var enemy in this.enemies)
             {
                 if (enemy is GameObject enemySprite)
                 {
-                    var enemyRect = enemySprite.GetRectangle();
-                    if (bulletRect.IntersectsWith(enemyRect))
+                    enemy.UpdateBoundingBox();
+                    if (this.isCollision(bullet.BoundingBox, enemy.BoundingBox))
                     {
+                        var enemyLevelThree = enemy as EnemyLevelThree;
+                        if (enemyLevelThree != null)
+                        {
+                            enemyLevelThree.IsShooting = false;
+                            enemyLevelThree.timer.Stop();
+                        }
+
+
+
                         this.canvas.Children.Remove(bullet.Sprite);
                         this.canvas.Children.Remove(enemySprite.Sprite);
                         this.enemies.Remove(enemy);
@@ -193,9 +204,19 @@ namespace Galaga.Model
                         }
 
                         break;
+                        
+                        
                     }
                 }
             }
+        }
+
+        private bool isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
+        {
+            return !(boundingBox1.Left > boundingBox2.Left + boundingBox2.Width ||
+                     boundingBox1.Left + boundingBox1.Width < boundingBox2.Left ||
+                     boundingBox1.Top > boundingBox2.Top + boundingBox2.Height ||
+                     boundingBox1.Top + boundingBox1.Height < boundingBox2.Top);
         }
 
         private void displayGameWon()
