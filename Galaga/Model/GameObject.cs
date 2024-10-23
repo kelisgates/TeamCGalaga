@@ -183,6 +183,9 @@ namespace Galaga.Model
             return new Rectangle((int)this.X, (int)this.Y, (int)this.Width, (int)this.Height);
         }
 
+        /// <summary>
+        /// Updates the bounding box.
+        /// </summary>
         public void UpdateBoundingBox()
         {
             this.BoundingBox = new BoundingBox

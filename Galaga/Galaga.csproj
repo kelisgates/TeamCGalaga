@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Model\BulletManager.cs" />
     <Compile Include="Model\Enemy.cs" />
+    <Compile Include="Model\EnemyLevelOne.cs" />
     <Compile Include="Model\EnemyLevelThree.cs" />
     <Compile Include="Model\EnemyLevelTwo.cs" />
     <Compile Include="Model\GameManager.cs" />
