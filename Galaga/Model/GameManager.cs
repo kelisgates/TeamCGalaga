@@ -38,6 +38,13 @@ namespace Galaga.Model
         /// The score manager.
         /// </value>
         public ScoreManager ScoreManager { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is player bullet active.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is player bullet active; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsPlayerBulletActive { get; set; }
 
 
         #endregion
@@ -155,6 +162,7 @@ namespace Galaga.Model
                 {
                     this.canvas.Children.Remove(bullet.Sprite);
                     timer.Stop();
+                    this.IsPlayerBulletActive = false;
                 }
             };
             timer.Start();
@@ -237,6 +245,10 @@ namespace Galaga.Model
         /// </summary>
         public void PlayerShoot()
         {
+            if (this.IsPlayerBulletActive)
+            {
+                return;
+            }
             this.manager = new BulletManager
             {
                 IsShooting = true,
@@ -246,6 +258,7 @@ namespace Galaga.Model
             };
 
             this.canvas.Children.Add(this.manager.Sprite);
+            this.IsPlayerBulletActive = true;
             this.startBulletMovement(this.manager);
 
             

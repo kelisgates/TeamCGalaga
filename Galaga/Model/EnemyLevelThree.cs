@@ -31,6 +31,15 @@ namespace Galaga.Model
 
         #endregion
 
+        #region Properties
+
+        private bool IsShooting { get; set; }
+
+        #endregion
+
+
+
+
         #region Constructors
 
         /// <summary>
@@ -74,12 +83,17 @@ namespace Galaga.Model
 
         private void shoot()
         {
+            if (this.IsShooting)
+            {
+                return;
+            }
             this.bullet = new BulletManager
             {
                 X = this.X ,
                 Y = this.Y 
             };
             this.canvas.Children.Add(this.bullet.Sprite);
+            this.IsShooting = true;
             this.startMovement(this.bullet);
 
         }
@@ -93,7 +107,7 @@ namespace Galaga.Model
             timer.Tick += (s, e) =>
             {
                 var position = bullet.Y;
-                if (position > 0)
+                if (position < 480)
                 {
                     bullet.Y += 10;
                     this.checkCollision(bullet);
@@ -102,6 +116,7 @@ namespace Galaga.Model
                 {
                     this.canvas.Children.Remove(bullet.Sprite);
                     timer.Stop();
+                    this.IsShooting = false;
                 }
             };
             timer.Start();
