@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Galaga.View.Sprites;
+using Windows.UI.Xaml;
 
 namespace Galaga.Model
 {
@@ -42,6 +43,7 @@ namespace Galaga.Model
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }
 
+        
         
     }
 }

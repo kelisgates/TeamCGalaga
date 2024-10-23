@@ -10,7 +10,6 @@ namespace Galaga.Model
     public class ScoreManager : INotifyPropertyChanged
     {
         private int score;
-        private List<GameObject> enemies;
 
         /// <summary>
         /// Gets or sets the score.
@@ -31,25 +30,7 @@ namespace Galaga.Model
             }
         }
 
-        /// <summary>
-        /// Gets or sets the enemies.
-        /// </summary>
-        /// <value>
-        /// The enemies.
-        /// </value>
-        public List<GameObject> Enemies
-        {
-            get => this.enemies;
-            set
-            {
-                if (this.enemies != value)
-                {
-                    this.enemies = value;
-                    this.OnPropertyChanged(nameof(this.Enemies));
-                }
-            }
-        }
-
+        
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>

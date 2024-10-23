@@ -109,7 +109,7 @@ namespace Galaga.Model
             
             for (int i = 0; i < 2; i++)
             {
-                var enemy = new EnemyLevelThree
+                var enemy = new EnemyLevelThree(this.canvas, this.player)
                 {
                     X = 50 + i * 100,
                     Y = 300
@@ -160,9 +160,12 @@ namespace Galaga.Model
             timer.Start();
         }
 
+        
+
         private void checkCollision(BulletManager bullet)
         {
             var bulletRect = bullet.GetRectangle();
+            
             foreach (var enemy in this.enemies)
             {
                 if (enemy is GameObject enemySprite)
