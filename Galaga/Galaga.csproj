@@ -143,11 +143,11 @@
     <Compile Include="View\Sprites\EnemyL2Sprite.xaml.cs">
       <DependentUpon>EnemyL2Sprite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sprites\EnemyL3.xaml.cs">
-      <DependentUpon>EnemyL3.xaml</DependentUpon>
+    <Compile Include="View\Sprites\EnemyL3Sprite.xaml.cs">
+      <DependentUpon>EnemyL3Sprite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sprites\EnemySprite.xaml.cs">
-      <DependentUpon>EnemySprite.xaml</DependentUpon>
+    <Compile Include="View\Sprites\EnemyL1Sprite.xaml.cs">
+      <DependentUpon>EnemyL1Sprite.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sprites\ISpriteRenderer.cs" />
     <Compile Include="View\Sprites\PlayerSprite.xaml.cs">
@@ -190,11 +190,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Sprites\EnemyL3.xaml">
+    <Page Include="View\Sprites\EnemyL3Sprite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Sprites\EnemySprite.xaml">
+    <Page Include="View\Sprites\EnemyL1Sprite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

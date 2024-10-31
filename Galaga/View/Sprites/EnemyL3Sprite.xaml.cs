@@ -8,12 +8,12 @@ namespace Galaga.View.Sprites
     /// the enemy level 3 sprite.
     /// </summary>
     /// <seealso cref="Galaga.View.Sprites.BaseSprite" />
-    public sealed partial class EnemyL3 
+    public sealed partial class EnemyL3Sprite 
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnemyL3"/> class.
+        /// Initializes a new instance of the <see cref="EnemyL3Sprite"/> class.
         /// </summary>
-        public EnemyL3()
+        public EnemyL3Sprite()
         {
             this.InitializeComponent();
         }

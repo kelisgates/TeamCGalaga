@@ -57,7 +57,7 @@ namespace Galaga.Model
         {
             this.canvas = canvas;
             this.player = player;
-            Sprite = new EnemyL3();
+            Sprite = new EnemyL3Sprite();
             this.ScoreValue = 30;
             SetSpeed(SpeedXDirection, SpeedYDirection);
             this.shootAtPlayer();

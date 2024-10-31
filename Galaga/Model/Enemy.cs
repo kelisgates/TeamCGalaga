@@ -40,7 +40,7 @@ namespace Galaga.Model
         /// </summary>
         public Enemy()
         { 
-            Sprite = new EnemySprite();
+            Sprite = new EnemyL1Sprite();
             this.moveEnemy();
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }

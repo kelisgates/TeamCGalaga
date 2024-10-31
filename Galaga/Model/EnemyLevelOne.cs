@@ -25,7 +25,7 @@ namespace Galaga.Model
         /// </summary>
         public EnemyLevelOne()
         {
-            Sprite = new EnemySprite();
+            Sprite = new EnemyL1Sprite();
             ScoreValue = 10;
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }
