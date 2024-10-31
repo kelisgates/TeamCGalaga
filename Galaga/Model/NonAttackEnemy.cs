@@ -7,7 +7,7 @@ namespace Galaga.Model
     /// <summary>
     /// Represents an enemy in the game.
     /// </summary>
-    public class Enemy: GameObject
+    public class NonAttackEnemy: GameObject
     {
         #region Data members
 
@@ -36,14 +36,17 @@ namespace Galaga.Model
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Enemy"/> class.
+        /// Initializes a new instance of the <see cref="NonAttackEnemy"/> class.
         /// </summary>
-        public Enemy()
-        { 
-            Sprite = new EnemyL1Sprite();
+        public NonAttackEnemy(BaseSprite enemy, int score)
+        {
+            Sprite = enemy;
             this.moveEnemy();
+            this.ScoreValue = score;
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }
+
+       
 
         #endregion
 

@@ -10,7 +10,7 @@ namespace Galaga.Model
     /// <summary>
     ///  class for enemy level three
     /// </summary>
-    public class EnemyLevelThree : Enemy
+    public class AttackEnemy : NonAttackEnemy
     {
         #region Data members
 
@@ -51,17 +51,19 @@ namespace Galaga.Model
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnemyLevelThree"/> class.
+        /// Initializes a new instance of the <see cref="AttackEnemy"/> class.
         /// </summary>
-        public EnemyLevelThree(Canvas canvas, Player player)
+        public AttackEnemy(BaseSprite enemy, int score, Canvas canvas, Player player) : base(enemy, score)
         {
+            Sprite = enemy;
+            this.ScoreValue = score;
             this.canvas = canvas;
             this.player = player;
-            Sprite = new EnemyL3Sprite();
-            this.ScoreValue = 30;
             SetSpeed(SpeedXDirection, SpeedYDirection);
             this.shootAtPlayer();
         }
+
+
 
         #endregion
 

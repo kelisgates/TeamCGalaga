@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Galaga.View.Sprites;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 
 namespace Galaga.Model
@@ -22,7 +23,7 @@ namespace Galaga.Model
         
         private BulletManager manager;
         private Player player;
-        private List<GameObject> enemies;
+        private EnemyManager enemyManager;
         private DispatcherTimer timer;
 
         #endregion
@@ -79,61 +80,27 @@ namespace Galaga.Model
         {
             this.ScoreManager = new ScoreManager();
             this.createAndPlacePlayer();
-            this.enemies = new List<GameObject>();
-            this.createAndPlaceEnemies();
+            this.placeEnemies();
+
+            
 
         }
 
-        
-
-        private void createAndPlaceEnemies()
+        private void placeEnemies()
         {
-            var numOfLevelOne = 2;
-            var numOfLevelTwo = 3;
-            var numOfLevelThree = 4;
+            this.enemyManager = new EnemyManager(this.canvas);
+
             var canvasMiddle = this.canvasWidth / 2.0;
-            var startX = canvasMiddle - (numOfLevelOne * 100) / 2.0;
-            var startX2 = canvasMiddle - (numOfLevelTwo * 100) / 2.0;
-            var startX3 = canvasMiddle - (numOfLevelThree * 100) / 2.0;
 
-            for (int i = 0; i < 2; i++)
+            this.enemyManager.placeNonAttackEnemy(EnemyType.Level1, 10, canvasMiddle, 150, 2);
+            this.enemyManager.placeNonAttackEnemy(EnemyType.Level2, 20, canvasMiddle, 70, 3);
+            this.enemyManager.placeAttackEnemy(EnemyType.Level3, 30, canvasMiddle, 5, 4, this.player);
+
+            foreach (var enemy in this.enemyManager.enemies)
             {
-
-                var enemy = new EnemyLevelOne
-                {
-                    X = startX + (i * 100),
-                    Y = 150
-                };
                 this.canvas.Children.Add(enemy.Sprite);
-                this.enemies.Add(enemy);
             }
-
-
-            for (int i = 0; i < 3; i++)
-            {
-                var enemy = new EnemyLevelTwo
-                {
-                    X = startX2 + (i * 100),
-                    Y = 70
-                };
-                this.canvas.Children.Add(enemy.Sprite);
-                this.enemies.Add(enemy);
-            }
-
-
-            for (int i = 0; i < 4; i++)
-            {
-                var enemy = new EnemyLevelThree(this.canvas, this.player)
-                {
-                    X = startX3 + (i * 100),
-                    Y = 5
-                };
-                this.canvas.Children.Add(enemy.Sprite);
-                this.enemies.Add(enemy);
-            }
-
         }
-
 
 
         private void createAndPlacePlayer()
@@ -189,14 +156,14 @@ namespace Galaga.Model
         {
             bullet.UpdateBoundingBox();
             
-            foreach (var enemy in this.enemies)
+            foreach (var enemy in this.enemyManager.enemies)
             {
-                if (enemy is GameObject enemySprite)
+                if (enemy is NonAttackEnemy enemySprite)
                 {
                     enemy.UpdateBoundingBox();
                     if (this.isCollision(bullet.BoundingBox, enemy.BoundingBox))
                     {
-                        if (enemy is EnemyLevelThree enemyLevelThree)
+                        if (enemy is AttackEnemy enemyLevelThree)
                         {
                             enemyLevelThree.IsShooting = false;
                             enemyLevelThree.Timer.Stop();
@@ -206,11 +173,11 @@ namespace Galaga.Model
                         this.WasCollision = true;
                         this.canvas.Children.Remove(bullet.Sprite);
                         this.canvas.Children.Remove(enemySprite.Sprite);
-                        this.enemies.Remove(enemySprite);
-                        var amount = enemy is EnemyLevelOne ? 10 : enemy is EnemyLevelTwo ? 20 : 30;
+                        this.enemyManager.enemies.Remove(enemySprite);
+                        var amount = enemy.ScoreValue;
                         this.ScoreManager.Score += amount;
 
-                        if (this.enemies.Count == 0)
+                        if (this.enemyManager.enemies.Count == 0)
                         {
                             this.displayGameWon();
                         }

@@ -8,12 +8,12 @@ namespace Galaga.View.Sprites
     /// the enemy level two sprite.
     /// </summary>
     /// <seealso cref="Windows.UI.Xaml.Controls.UserControl" />
-    public sealed partial class EnemyL2
+    public sealed partial class EnemyL2Sprite
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnemyL2"/> class.
+        /// Initializes a new instance of the <see cref="EnemyL2Sprite"/> class.
         /// </summary>
-        public EnemyL2()
+        public EnemyL2Sprite()
         {
             this.InitializeComponent();
         }

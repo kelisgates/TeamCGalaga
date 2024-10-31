@@ -122,10 +122,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\BulletManager.cs" />
-    <Compile Include="Model\Enemy.cs" />
-    <Compile Include="Model\EnemyLevelOne.cs" />
-    <Compile Include="Model\EnemyLevelThree.cs" />
-    <Compile Include="Model\EnemyLevelTwo.cs" />
+    <Compile Include="Model\EnemyManager.cs" />
+    <Compile Include="Model\NonAttackEnemy.cs" />
+    <Compile Include="Model\AttackEnemy.cs" />
     <Compile Include="Model\GameManager.cs" />
     <Compile Include="Model\GameObject.cs" />
     <Compile Include="Model\Player.cs" />
