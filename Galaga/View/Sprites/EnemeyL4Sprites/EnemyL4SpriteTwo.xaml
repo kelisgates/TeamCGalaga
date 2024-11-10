@@ -1,0 +1,19 @@
+﻿<local:EnemyL4Sprite
+    x:Class="Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Galaga.View.Sprites.EnemeyL4Sprites"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="55"
+    d:DesignWidth="60"
+    Height="55"
+    Width="60">
+
+    <Canvas>
+        <local:EnemyL4Sprite/>
+        <Line X1="20" Y1="25" X2="28" Y2="30" StrokeThickness="1" Stroke="Yellow"/>
+        <Line X1="40" Y1="25" X2="32" Y2="30" StrokeThickness="1" Stroke="Yellow"/>
+    </Canvas>
+</local:EnemyL4Sprite>

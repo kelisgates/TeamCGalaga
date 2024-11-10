@@ -1,4 +1,5 @@
-﻿using Galaga.View.Sprites;
+﻿using Windows.UI.Xaml.Controls;
+using Galaga.View.Sprites;
 
 namespace Galaga.Model
 {
@@ -12,7 +13,7 @@ namespace Galaga.Model
         private const int SpeedXDirection = 3;
         private const int SpeedYDirection = 0;
 
-
+        
 
         #endregion
 
@@ -33,6 +34,13 @@ namespace Galaga.Model
         /// The lives.
         /// </value>
         public int Lives { get; set; }
+        /// <summary>
+        /// Gets or sets the bullets shot.
+        /// </summary>
+        /// <value>
+        /// The bullets shot.
+        /// </value>
+        public int BulletsShot { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is shooting.
@@ -56,6 +64,9 @@ namespace Galaga.Model
         /// </value>
         public bool IsMovingRight { get; set; }
 
+        
+        
+
         #endregion
 
         #region Constructors
@@ -67,7 +78,7 @@ namespace Galaga.Model
         {
             Sprite = new PlayerSprite();
             SetSpeed(SpeedXDirection, SpeedYDirection);
-
+            
             this.Score = 0;
             this.Lives = 3;
         }
@@ -75,7 +86,10 @@ namespace Galaga.Model
         #endregion
 
 
-
+        public Bullet shoot()
+        {
+            return new Bullet { X = this.X, Y = this.Y - 10 };
+        }
 
         
 

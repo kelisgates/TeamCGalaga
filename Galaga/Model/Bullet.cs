@@ -1,4 +1,7 @@
-﻿using Galaga.View.Sprites;
+﻿using System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Galaga.View.Sprites;
 
 namespace Galaga.Model
 {
@@ -6,12 +9,15 @@ namespace Galaga.Model
     /// manages the bullets in the game
     /// </summary>
     /// <seealso cref="Galaga.Model.GameObject" />
-    public class BulletManager : GameObject
+    public class Bullet : GameObject
     {
         #region Data members
 
         private const int SpeedXDirection = 0;
         private const int SpeedYDirection = 5;
+
+        
+        private Canvas canvas;
 
         #endregion
 
@@ -23,21 +29,20 @@ namespace Galaga.Model
         /// <value>
         ///   <c>true</c> if this instance is shooting; otherwise, <c>false</c>.
         /// </value>
-        public bool IsShooting { get; set; }
+        public bool IsShooting { get;  set; } 
 
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BulletManager"/> class.
+        /// Initializes a new instance of the <see cref="Bullet"/> class.
         /// </summary>
-        public BulletManager()
+        public Bullet()
         {
-            Sprite = new Bullet();
-
+            Sprite = new View.Sprites.Bullet();
             SetSpeed(SpeedXDirection, SpeedYDirection);
+            
         }
 
-        
-        
+       
     }
 }

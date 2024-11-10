@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
+using Galaga.View.Sprites;
+using Windows.ApplicationModel.Wallet;
 
 namespace Galaga.Model
 {
@@ -18,8 +21,8 @@ namespace Galaga.Model
         private readonly double canvasHeight;
         private readonly double canvasWidth;
 
-        
-        private BulletManager manager;
+        private List<Bullet> bullets;
+        private Bullet manager;
         private EnemyManager enemyManager;
         private DispatcherTimer timer;
 
@@ -82,8 +85,7 @@ namespace Galaga.Model
             this.ScoreManager = new ScoreManager();
             this.createAndPlacePlayer();
             this.placeEnemies();
-
-            
+            this.bullets = new List<Bullet>();
 
         }
 
@@ -101,7 +103,16 @@ namespace Galaga.Model
 
             foreach (var enemy in this.enemyManager.Enemies)
             {
-                this.canvas.Children.Add(enemy.Sprite);
+                if (enemy.Sprite.Parent != null)
+                {
+                    ((Panel)enemy.Sprite.Parent).Children.Remove(enemy.Sprite);
+                }
+
+                foreach (var currSprite in enemy.sprites)
+                {
+                    this.canvas.Children.Add(currSprite);
+                }
+                
             }
         }
 
@@ -121,12 +132,13 @@ namespace Galaga.Model
             this.Player.Y = this.canvasHeight - this.Player.Height - PlayerOffsetFromBottom;
         }
 
+        
 
-        private void startBulletMovement(BulletManager bullet)
+        private void startBulletMovement(Bullet bullet)
         {
             this.timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(50)
+                Interval = TimeSpan.FromMilliseconds(5)
             };
             this.timer.Tick += (s, e) =>
             {
@@ -149,6 +161,7 @@ namespace Galaga.Model
                 else
                 {
                     this.canvas.Children.Remove(bullet.Sprite);
+                    this.Player.BulletsShot--;
                     this.timer.Stop();
                     this.IsPlayerBulletActive = false;
                 }
@@ -158,7 +171,7 @@ namespace Galaga.Model
 
         
 
-        private void checkCollision(BulletManager bullet)
+        private void checkCollision(Bullet bullet)
         {
             bullet.UpdateBoundingBox();
             
@@ -233,7 +246,7 @@ namespace Galaga.Model
         }
         #endregion
 
-        #region Public Methods
+       
         /// <summary>
         /// Moves the Player left.
         /// </summary>
@@ -269,7 +282,7 @@ namespace Galaga.Model
             }
 
             var movementPerStep = 20;
-            this.manager = new BulletManager
+            this.manager = new Bullet
             {
                 IsShooting = true,
                 X = this.Player.X + movementPerStep,
@@ -281,15 +294,17 @@ namespace Galaga.Model
             this.IsPlayerBulletActive = true;
             this.startBulletMovement(this.manager);
 
-            
+
+
+
         }
     }
+
+       
+}
         
         
     
 
 
-    #endregion
-
-}
-
+   

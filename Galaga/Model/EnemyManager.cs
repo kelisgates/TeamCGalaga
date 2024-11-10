@@ -1,6 +1,12 @@
 ﻿using Galaga.View.Sprites;
 using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Galaga.View.Sprites.EnemeyL4Sprites;
+using Galaga.View.Sprites.EnemyL1Sprites;
+using Galaga.View.Sprites.EnemyL2Sprites;
+using Galaga.View.Sprites.EnemyL3Sprites;
+using System;
 
 namespace Galaga.Model
 {
@@ -32,11 +38,18 @@ namespace Galaga.Model
     /// </summary>
     public class EnemyManager
     {
+        #region Data Members
+
         /// <summary>
         /// list of enemies in game
         /// </summary>
         public readonly List<NonAttackEnemy> Enemies;
         private Canvas canvas;
+        private DispatcherTimer animationTimer;
+
+        #endregion
+
+        #region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyManager"/> class.
@@ -46,8 +59,29 @@ namespace Galaga.Model
         {
             this.Enemies = new List<NonAttackEnemy>();
             this.canvas = canvas;
+            this.intializeAnimationTimer();
         }
 
+        private void intializeAnimationTimer()
+        {
+            this.animationTimer = new DispatcherTimer();
+            this.animationTimer.Interval = TimeSpan.FromMilliseconds(20); 
+            this.animationTimer.Tick += this.OnAnimationTick;
+            this.animationTimer.Start();
+        }
+
+        private void OnAnimationTick(object sender, object e)
+        {
+            foreach (var enemy in this.Enemies)
+            {
+                
+                enemy.UpdateImage();
+            }
+        }
+
+        #endregion
+
+        #region Methods
         /// <summary>
         /// Places the non attack enemy.
         /// </summary>
@@ -62,27 +96,39 @@ namespace Galaga.Model
             for (int i = 0; i < numOfEnemies; i++)
             {
                 var widthDistance = 100;
+                
                 if (level == EnemyType.Level1)
                 {
-                    var enemySprite = new NonAttackEnemy(new EnemyL1Sprite(), score)
+                    NonAttackEnemy enemySprite = null;
+                    List<BaseSprite> sprites = new List<BaseSprite>();
+
+                    sprites.Add(new EnemyL1Sprite());
+                    sprites.Add(new EnemyL1SpriteTwo());
+                    enemySprite = new NonAttackEnemy(sprites, score)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
-
                     this.Enemies.Add(enemySprite);
+                    
                 }
                 else if (level == EnemyType.Level2)
                 {
-                    var enemySprite = new NonAttackEnemy(new EnemyL2Sprite(), score)
+                    NonAttackEnemy enemySprite = null;
+                    List<BaseSprite> sprites = new List<BaseSprite>();
+                    sprites.Add(new EnemyL2Sprite());
+                    sprites.Add(new EnemyL2SpriteTwo());
+                    enemySprite = new NonAttackEnemy(sprites, score)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
-
                     this.Enemies.Add(enemySprite);
+                    
+                    
                 }
-               
+
+                
             }
         }
 
@@ -100,30 +146,44 @@ namespace Galaga.Model
             for (int i = 0; i < numOfEnemies; i++)
             {
                 var widthDistance = 100;
-
+                
                 if (level == EnemyType.Level3)
                 {
-                    var enemySprite = new AttackEnemy(new EnemyL3Sprite(), score, this.canvas, player)
+                    AttackEnemy enemySprite = null;
+                    List<BaseSprite> sprites = new List<BaseSprite>();
+                    sprites.Add(new EnemyL3Sprite());
+                    sprites.Add(new EnemyL3SpriteTwo());
+                    enemySprite = new AttackEnemy(sprites, score, this.canvas, player)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
-
                     this.Enemies.Add(enemySprite);
+                    
+                    
                 } else if (level == EnemyType.Level4)
                 {
-                    var enemySprite = new AttackEnemy(new EnemyL4Sprite(), score, this.canvas, player)
+                    AttackEnemy enemySprite = null;
+                    List<BaseSprite> sprites = new List<BaseSprite>();
+                    sprites.Add(new EnemyL4Sprite());
+                    sprites.Add(new EnemyL4SpriteTwo());
+                    enemySprite = new AttackEnemy(sprites, score, this.canvas, player)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
-
                     this.Enemies.Add(enemySprite);
+                    
+                    
                 }
 
+               
             }
         }
 
+        #endregion
+
+        #region Private Methods
 
         private double getStartPoint(double numOfEnemies, double canvasMiddle)
         {
@@ -132,5 +192,8 @@ namespace Galaga.Model
             return canvasMiddle - (numOfEnemies * widthDistance) / half;
 
         }
+
+        #endregion
     }
+
 }

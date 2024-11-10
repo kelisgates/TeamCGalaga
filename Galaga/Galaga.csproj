@@ -121,7 +121,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\BulletManager.cs" />
+    <Compile Include="Model\Bullet.cs" />
     <Compile Include="Model\EnemyManager.cs" />
     <Compile Include="Model\NonAttackEnemy.cs" />
     <Compile Include="Model\AttackEnemy.cs" />
@@ -139,17 +139,29 @@
     <Compile Include="View\Sprites\Bullet.xaml.cs">
       <DependentUpon>Bullet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sprites\EnemyL2Sprite.xaml.cs">
+    <Compile Include="View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xaml.cs">
+      <DependentUpon>EnemyL4SpriteTwo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xaml.cs">
+      <DependentUpon>EnemyL1SpriteTwo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xaml.cs">
       <DependentUpon>EnemyL2Sprite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sprites\EnemyL3Sprite.xaml.cs">
+    <Compile Include="View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xaml.cs">
+      <DependentUpon>EnemyL2SpriteTwo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xaml.cs">
       <DependentUpon>EnemyL3Sprite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sprites\EnemyL1Sprite.xaml.cs">
+    <Compile Include="View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xaml.cs">
       <DependentUpon>EnemyL1Sprite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sprites\EnemyL4Sprite.xaml.cs">
+    <Compile Include="View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xaml.cs">
       <DependentUpon>EnemyL4Sprite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xaml.cs">
+      <DependentUpon>EnemyL3SpriteTwo.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sprites\ISpriteRenderer.cs" />
     <Compile Include="View\Sprites\PlayerSprite.xaml.cs">
@@ -188,19 +200,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Sprites\EnemyL2Sprite.xaml">
+    <Page Include="View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Sprites\EnemyL3Sprite.xaml">
+    <Page Include="View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Sprites\EnemyL1Sprite.xaml">
+    <Page Include="View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Sprites\EnemyL4Sprite.xaml">
+    <Page Include="View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

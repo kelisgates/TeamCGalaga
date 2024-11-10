@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI.Xaml;
 using Galaga.View.Sprites;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 using Point = Windows.Foundation.Point;

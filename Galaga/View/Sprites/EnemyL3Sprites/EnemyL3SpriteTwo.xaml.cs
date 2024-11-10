@@ -2,20 +2,20 @@
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Galaga.View.Sprites
+namespace Galaga.View.Sprites.EnemyL3Sprites
 {
     /// <summary>
-    /// enemy level 4 sprite.
+    /// enemy level 3 sprite second image
     /// </summary>
-    /// <seealso cref="Galaga.View.Sprites.BaseSprite" />
+    /// <seealso cref="Windows.UI.Xaml.Controls.UserControl" />
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
-    public sealed partial class EnemyL4Sprite
+    public sealed partial class EnemyL3SpriteTwo 
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnemyL4Sprite"/> class.
+        /// Initializes a new instance of the <see cref="EnemyL3SpriteTwo"/> class.
         /// </summary>
-        public EnemyL4Sprite()
+        public EnemyL3SpriteTwo()
         {
             this.InitializeComponent();
         }
