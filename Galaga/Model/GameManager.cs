@@ -26,6 +26,11 @@ namespace Galaga.Model
         private EnemyManager enemyManager;
         private DispatcherTimer timer;
 
+        public event EventHandler EnemyKilled;
+        public event EventHandler GameWon;
+        public event EventHandler GameOver;
+        public event EventHandler PlayerHit;
+
         #endregion
 
         #region Properties
@@ -33,13 +38,6 @@ namespace Galaga.Model
         /// player object
         /// </summary>
         public Player Player { get; private set; }
-        /// <summary>
-        /// Gets the score manager.
-        /// </summary>
-        /// <value>
-        /// The score manager.
-        /// </value>
-        public ScoreManager ScoreManager { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether this instance is Player bullet active.
         /// </summary>
@@ -82,7 +80,7 @@ namespace Galaga.Model
 
         private void initializeGame()
         {
-            this.ScoreManager = new ScoreManager();
+            
             this.createAndPlacePlayer();
             this.placeEnemies();
             this.bullets = new List<Bullet>();
@@ -91,7 +89,7 @@ namespace Galaga.Model
 
         private void placeEnemies()
         {
-            this.enemyManager = new EnemyManager(this.canvas);
+            this.enemyManager = new EnemyManager(this.canvas, this);
 
             var half = 2.0;
             var canvasMiddle = this.canvasWidth / half;
@@ -225,11 +223,13 @@ namespace Galaga.Model
             this.canvas.Children.Remove(enemy.Sprite);
             this.enemyManager.Enemies.Remove(enemy);
             var amount = enemy.ScoreValue;
-            this.ScoreManager.Score += amount;
+            this.Player.Score += amount;
+            this.EnemyKilled?.Invoke(this, EventArgs.Empty);
 
             if (this.enemyManager.Enemies.Count == 0)
             {
                 this.displayGameWon();
+                this.GameWon?.Invoke(this, EventArgs.Empty);
             }
 
 
@@ -298,6 +298,28 @@ namespace Galaga.Model
 
 
         }
+
+        public void OnEnemyKilled()
+        {
+            this.EnemyKilled?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void OnGameWon()
+        {
+            this.GameWon?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void OnGameOver()
+        {
+            this.GameOver?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void OnPlayerHit()
+        {
+            this.PlayerHit?.Invoke(this, EventArgs.Empty);
+        }
+
+
     }
 
        

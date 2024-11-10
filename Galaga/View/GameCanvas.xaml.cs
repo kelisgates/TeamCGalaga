@@ -5,6 +5,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using CompositionTarget = Windows.UI.Xaml.Media.CompositionTarget;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -17,7 +18,9 @@ namespace Galaga.View
     public sealed partial class GameCanvas 
     {
         private readonly GameManager gameManager;
-        
+        public readonly AttackEnemy AttackEnemy;
+
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameCanvas"/> class.
@@ -38,9 +41,44 @@ namespace Galaga.View
             CompositionTarget.Rendering += this.gameMovementLoop;
             
             this.gameManager = new GameManager(this.canvas);
-            DataContext = this.gameManager.ScoreManager;
+            this.AttackEnemy = new AttackEnemy();
+            this.gameManager.EnemyKilled += this.onEnemyKilled;
+            this.gameManager.PlayerHit += this.onPlayerHit;
+            this.gameManager.GameOver += this.onGameOver;
+            this.gameManager.GameWon += this.onGameWon;
         }
 
+        private void onPlayerHit(object sender, EventArgs e)
+        {
+            this.gameManager.Player.Lives--;
+            if (this.gameManager.Player.Lives <= 0)
+            {
+                this.livesTextBlock.Text = $"Lives: {this.gameManager.Player.Lives}";
+                this.gameOverTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+               
+                this.livesTextBlock.Text = $"Lives: {this.gameManager.Player.Lives}";
+            }
+        }
+
+        private void onGameWon(object sender, EventArgs e)
+        {
+            
+            this.gameWonTextBlock.Visibility = Visibility.Visible;
+        }
+
+        private void onGameOver(object sender, EventArgs e)
+        {
+            
+            this.gameOverTextBlock.Visibility = Visibility.Visible;
+        }
+
+        private void onEnemyKilled(object sender, EventArgs e)
+        {
+            this.scoreTextBlock.Text = $"Score: {this.gameManager.Player.Score}";
+        }
 
         private void setWindowTitle(string title)
         {

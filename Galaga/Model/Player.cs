@@ -1,5 +1,7 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Galaga.View.Sprites;
+using Windows.UI.Xaml;
+using System;
 
 namespace Galaga.Model
 {
@@ -63,9 +65,15 @@ namespace Galaga.Model
         ///   <c>true</c> if this instance is moving right; otherwise, <c>false</c>.
         /// </value>
         public bool IsMovingRight { get; set; }
+        /// <summary>
+        /// Gets a value indicating whether this instance is invincible.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is invincible; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsInvincible { get; private set; }
+        private DispatcherTimer invincibilityTimer;
 
-        
-        
 
         #endregion
 
@@ -91,7 +99,21 @@ namespace Galaga.Model
             return new Bullet { X = this.X, Y = this.Y - 10 };
         }
 
-        
+        public void StartInvincibility(int durationInSeconds)
+        {
+            this.IsInvincible = true;
+            this.invincibilityTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(durationInSeconds)
+            };
+            this.invincibilityTimer.Tick += (s, e) =>
+            {
+                this.IsInvincible = false;
+                this.invincibilityTimer.Stop();
+            };
+            this.invincibilityTimer.Start();
+        }
+
 
     }
 }

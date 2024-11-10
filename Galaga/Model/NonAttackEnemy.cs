@@ -38,9 +38,17 @@ namespace Galaga.Model
         public int ScoreValue { get; set; }
 
         #endregion
-        
+
 
         #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NonAttackEnemy"/> class.
+        /// </summary>
+        public NonAttackEnemy()
+        {
+            
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NonAttackEnemy"/> class.

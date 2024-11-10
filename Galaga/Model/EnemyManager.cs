@@ -46,8 +46,11 @@ namespace Galaga.Model
         public readonly List<NonAttackEnemy> Enemies;
         private Canvas canvas;
         private DispatcherTimer animationTimer;
+        private GameManager manager;
 
         #endregion
+
+        
 
         #region Constructor
 
@@ -55,9 +58,10 @@ namespace Galaga.Model
         /// Initializes a new instance of the <see cref="EnemyManager"/> class.
         /// </summary>
         /// <param name="canvas">The canvas.</param>
-        public EnemyManager(Canvas canvas)
+        public EnemyManager(Canvas canvas, GameManager manager)
         {
             this.Enemies = new List<NonAttackEnemy>();
+            this.manager = manager;
             this.canvas = canvas;
             this.intializeAnimationTimer();
         }
@@ -153,7 +157,7 @@ namespace Galaga.Model
                     List<BaseSprite> sprites = new List<BaseSprite>();
                     sprites.Add(new EnemyL3Sprite());
                     sprites.Add(new EnemyL3SpriteTwo());
-                    enemySprite = new AttackEnemy(sprites, score, this.canvas, player)
+                    enemySprite = new AttackEnemy(this.manager,sprites, score, this.canvas, player)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
@@ -167,7 +171,7 @@ namespace Galaga.Model
                     List<BaseSprite> sprites = new List<BaseSprite>();
                     sprites.Add(new EnemyL4Sprite());
                     sprites.Add(new EnemyL4SpriteTwo());
-                    enemySprite = new AttackEnemy(sprites, score, this.canvas, player)
+                    enemySprite = new AttackEnemy(this.manager, sprites, score, this.canvas, player)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y

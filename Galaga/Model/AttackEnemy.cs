@@ -23,7 +23,10 @@ namespace Galaga.Model
 
         private Bullet bullet;
         private readonly Player player;
+        private readonly GameManager gameManager;
 
+        public event EventHandler GameOver;
+        public event EventHandler PlayerHit;
 
         #endregion
 
@@ -52,7 +55,15 @@ namespace Galaga.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AttackEnemy"/> class.
         /// </summary>
-        public AttackEnemy(List<BaseSprite> sprites, int score, Canvas canvas, Player player) : base(sprites, score)
+        public AttackEnemy()
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AttackEnemy"/> class.
+        /// </summary>
+        public AttackEnemy(GameManager gameManager,List<BaseSprite> sprites, int score, Canvas canvas, Player player) : base(sprites, score)
         {
             
             ScoreValue = score;
@@ -60,7 +71,9 @@ namespace Galaga.Model
             this.player = player;
             SetSpeed(SpeedXDirection, SpeedYDirection);
             this.shootAtPlayer();
+            this.gameManager = gameManager;
         }
+
 
 
 
@@ -78,13 +91,9 @@ namespace Galaga.Model
         private void shootAtPlayer()
         {
             this.random = new Random();
+            this.restartShootingTimer();
 
-            this.Timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000))
-            };
-            this.Timer.Tick += this.shootingTimer_Tick;
-            this.Timer.Start();
+            
         }
 
         
@@ -130,6 +139,7 @@ namespace Galaga.Model
                     bulletParam.Y += movementPerStep;
                     bulletParam.UpdateBoundingBox();
                     this.checkCollision(bulletParam);
+                    
                 }
                 else
                 {
@@ -139,6 +149,7 @@ namespace Galaga.Model
                 }
             };
             timer.Start();
+            
         }
 
         private void checkCollision(Bullet bullet)
@@ -150,8 +161,36 @@ namespace Galaga.Model
             {
                 this.canvas.Children.Remove(bullet.Sprite);
                 this.Timer.Stop();
-                this.canvas.Children.Clear();
-                this.displayGameOver();
+                this.IsShooting = false;
+               
+                this.gameManager.OnPlayerHit();
+                
+                if (this.player.Lives == 0)
+                {
+                    this.canvas.Children.Clear();
+                    this.Timer.Stop();
+                    this.gameManager.OnGameOver();
+                }
+                else
+                {
+                    this.canvas.Children.Remove(this.player.Sprite);
+                    this.player.StartInvincibility(2);
+                    var playerReturnTimer = new DispatcherTimer
+                    {
+                        Interval = TimeSpan.FromSeconds(1)
+                    };
+                    playerReturnTimer.Tick += (s, e) =>
+                    {
+                        this.canvas.Children.Add(this.player.Sprite);
+                        playerReturnTimer.Stop();
+                        this.restartShootingTimer();
+                    };
+                    playerReturnTimer.Start();
+
+                }
+                    
+
+                
             }
         }
 
@@ -163,21 +202,14 @@ namespace Galaga.Model
                      boundingBox1.Top + boundingBox1.Height < boundingBox2.Top);
         }
 
-        private void displayGameOver()
+        private void restartShootingTimer()
         {
-            var gameWonTextBlock = new TextBlock
+            this.Timer = new DispatcherTimer
             {
-                Text = "Game Over!",
-                Foreground = new SolidColorBrush(Windows.UI.Colors.Red),
-                FontSize = 48,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000))
             };
-
-            Canvas.SetLeft(gameWonTextBlock, (this.canvas.Width - gameWonTextBlock.ActualWidth) / 2);
-            Canvas.SetTop(gameWonTextBlock, (this.canvas.Height - gameWonTextBlock.ActualHeight) / 2);
-
-            this.canvas.Children.Add(gameWonTextBlock);
+            this.Timer.Tick += this.shootingTimer_Tick;
+            this.Timer.Start();
         }
 
         #endregion
