@@ -40,7 +40,7 @@ namespace Galaga.Model
 
 
         /// <summary>
-        /// timer for shooting at player
+        /// timer for shooting at Player
         /// </summary>
         public DispatcherTimer Timer;
         #endregion
@@ -56,7 +56,7 @@ namespace Galaga.Model
         public AttackEnemy(BaseSprite enemy, int score, Canvas canvas, Player player) : base(enemy, score)
         {
             Sprite = enemy;
-            this.ScoreValue = score;
+            ScoreValue = score;
             this.canvas = canvas;
             this.player = player;
             SetSpeed(SpeedXDirection, SpeedYDirection);
@@ -71,7 +71,7 @@ namespace Galaga.Model
 
 
         /// <summary>
-        /// Shoots at player.
+        /// Shoots at Player.
         /// </summary>
         private void shootAtPlayer()
         {
@@ -102,7 +102,7 @@ namespace Galaga.Model
             }
             this.bullet = new BulletManager
             {
-                X = this.X ,
+                X = X ,
                 Y = this.Y 
             };
             this.canvas.Children.Add(this.bullet.Sprite);

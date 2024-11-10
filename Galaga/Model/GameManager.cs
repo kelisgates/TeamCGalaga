@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Galaga.View.Sprites;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 
 namespace Galaga.Model
@@ -22,13 +20,16 @@ namespace Galaga.Model
 
         
         private BulletManager manager;
-        private Player player;
         private EnemyManager enemyManager;
         private DispatcherTimer timer;
 
         #endregion
 
         #region Properties
+        /// <summary>
+        /// player object
+        /// </summary>
+        public Player Player { get; private set; }
         /// <summary>
         /// Gets the score manager.
         /// </summary>
@@ -37,10 +38,10 @@ namespace Galaga.Model
         /// </value>
         public ScoreManager ScoreManager { get; set; }
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is player bullet active.
+        /// Gets or sets a value indicating whether this instance is Player bullet active.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is player bullet active; otherwise, <c>false</c>.
+        ///   <c>true</c> if this instance is Player bullet active; otherwise, <c>false</c>.
         /// </value>
         public bool IsPlayerBulletActive { get; set; }
 
@@ -92,11 +93,11 @@ namespace Galaga.Model
 
             var canvasMiddle = this.canvasWidth / 2.0;
 
-            this.enemyManager.placeNonAttackEnemy(EnemyType.Level1, 10, canvasMiddle, 150, 2);
-            this.enemyManager.placeNonAttackEnemy(EnemyType.Level2, 20, canvasMiddle, 70, 3);
-            this.enemyManager.placeAttackEnemy(EnemyType.Level3, 30, canvasMiddle, 5, 4, this.player);
+            this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level1, 10, canvasMiddle, 150, 2);
+            this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level2, 20, canvasMiddle, 70, 3);
+            this.enemyManager.PlaceAttackEnemy(EnemyType.Level3, 30, canvasMiddle, 5, 4, this.Player);
 
-            foreach (var enemy in this.enemyManager.enemies)
+            foreach (var enemy in this.enemyManager.Enemies)
             {
                 this.canvas.Children.Add(enemy.Sprite);
             }
@@ -105,16 +106,16 @@ namespace Galaga.Model
 
         private void createAndPlacePlayer()
         {
-            this.player = new Player();
-            this.canvas.Children.Add(this.player.Sprite);
+            this.Player = new Player();
+            this.canvas.Children.Add(this.Player.Sprite);
 
             this.placePlayerNearBottomOfBackgroundCentered();
         }
 
         private void placePlayerNearBottomOfBackgroundCentered()
         {
-            this.player.X = this.canvasWidth / 2 - this.player.Width / 2.0;
-            this.player.Y = this.canvasHeight - this.player.Height - PlayerOffsetFromBottom;
+            this.Player.X = this.canvasWidth / 2 - this.Player.Width / 2.0;
+            this.Player.Y = this.canvasHeight - this.Player.Height - PlayerOffsetFromBottom;
         }
 
 
@@ -156,7 +157,7 @@ namespace Galaga.Model
         {
             bullet.UpdateBoundingBox();
             
-            foreach (var enemy in this.enemyManager.enemies)
+            foreach (var enemy in this.enemyManager.Enemies)
             {
                 if (enemy is NonAttackEnemy enemySprite)
                 {
@@ -173,11 +174,11 @@ namespace Galaga.Model
                         this.WasCollision = true;
                         this.canvas.Children.Remove(bullet.Sprite);
                         this.canvas.Children.Remove(enemySprite.Sprite);
-                        this.enemyManager.enemies.Remove(enemySprite);
+                        this.enemyManager.Enemies.Remove(enemySprite);
                         var amount = enemy.ScoreValue;
                         this.ScoreManager.Score += amount;
 
-                        if (this.enemyManager.enemies.Count == 0)
+                        if (this.enemyManager.Enemies.Count == 0)
                         {
                             this.displayGameWon();
                         }
@@ -220,25 +221,25 @@ namespace Galaga.Model
 
         #region Public Methods
         /// <summary>
-        /// Moves the player left.
+        /// Moves the Player left.
         /// </summary>
         public void MovePlayerLeft()
         {
-            if (this.player.X - this.player.SpeedX >= 0)
+            if (this.Player.X - this.Player.SpeedX >= 0)
             {
-                this.player.MoveLeft();
+                this.Player.MoveLeft();
             }
             
         }
 
         /// <summary>
-        /// Moves the player right.
+        /// Moves the Player right.
         /// </summary>
         public void MovePlayerRight()
         {
-            if (this.player.X + this.player.SpeedX + this.player.Width <= this.canvasWidth)
+            if (this.Player.X + this.Player.SpeedX + this.Player.Width <= this.canvasWidth)
             {
-                this.player.MoveRight();
+                this.Player.MoveRight();
             }
             
         }
@@ -255,8 +256,8 @@ namespace Galaga.Model
             this.manager = new BulletManager
             {
                 IsShooting = true,
-                X = this.player.X + 20,
-                Y = this.player.Y,
+                X = this.Player.X + 20,
+                Y = this.Player.Y,
 
             };
 

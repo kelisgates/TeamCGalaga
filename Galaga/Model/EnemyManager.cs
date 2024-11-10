@@ -1,41 +1,62 @@
 ﻿using Galaga.View.Sprites;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Galaga.Model;
 
 namespace Galaga.Model
 {
-
+    /// <summary>
+    /// enemy type levels
+    /// </summary>
     public enum EnemyType
     {
+        /// <summary>
+        /// the level1 enemy
+        /// </summary>
         Level1,
+        /// <summary>
+        /// The level2 enemy
+        /// </summary>
         Level2,
+        /// <summary>
+        /// The level3 enemy
+        /// </summary>
         Level3
     }
 
 
-    
 
 
 
+    /// <summary>
+    /// manages enemies in the game
+    /// </summary>
     public class EnemyManager
     {
-        public readonly List<NonAttackEnemy> enemies;
+        /// <summary>
+        /// list of enemies in game
+        /// </summary>
+        public readonly List<NonAttackEnemy> Enemies;
         private Canvas canvas;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnemyManager"/> class.
+        /// </summary>
+        /// <param name="canvas">The canvas.</param>
         public EnemyManager(Canvas canvas)
         {
-            this.enemies = new List<NonAttackEnemy>();
+            this.Enemies = new List<NonAttackEnemy>();
             this.canvas = canvas;
         }
 
-
-        public void placeNonAttackEnemy(EnemyType level,int score, double canvasMiddle, double y, int numOfEnemies)
+        /// <summary>
+        /// Places the non attack enemy.
+        /// </summary>
+        /// <param name="level">The level.</param>
+        /// <param name="score">The score.</param>
+        /// <param name="canvasMiddle">The canvas middle.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="numOfEnemies">The number of enemies.</param>
+        public void PlaceNonAttackEnemy(EnemyType level,int score, double canvasMiddle, double y, int numOfEnemies)
         {
             
             for (int i = 0; i < numOfEnemies; i++)
@@ -45,27 +66,36 @@ namespace Galaga.Model
                 {
                     var enemySprite = new NonAttackEnemy(new EnemyL1Sprite(), score)
                     {
-                        X = this.getStartPoint((double)numOfEnemies, canvasMiddle) + (i * widthDistance),
+                        X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
 
-                    this.enemies.Add(enemySprite);
+                    this.Enemies.Add(enemySprite);
                 }
                 else if (level == EnemyType.Level2)
                 {
                     var enemySprite = new NonAttackEnemy(new EnemyL2Sprite(), score)
                     {
-                        X = this.getStartPoint((double)numOfEnemies, canvasMiddle) + (i * widthDistance),
+                        X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
 
-                    this.enemies.Add(enemySprite);
+                    this.Enemies.Add(enemySprite);
                 }
                
             }
         }
 
-        public void placeAttackEnemy(EnemyType level, int score, double canvasMiddle, double y, int numOfEnemies, Player player)
+        /// <summary>
+        /// Places the attack enemy.
+        /// </summary>
+        /// <param name="level">The level.</param>
+        /// <param name="score">The score.</param>
+        /// <param name="canvasMiddle">The canvas middle.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="numOfEnemies">The number of enemies.</param>
+        /// <param name="player">The player.</param>
+        public void PlaceAttackEnemy(EnemyType level, int score, double canvasMiddle, double y, int numOfEnemies, Player player)
         {
             for (int i = 0; i < numOfEnemies; i++)
             {
@@ -75,11 +105,11 @@ namespace Galaga.Model
                 {
                     var enemySprite = new AttackEnemy(new EnemyL3Sprite(), score, this.canvas, player)
                     {
-                        X = this.getStartPoint((double)numOfEnemies, canvasMiddle) + (i * widthDistance),
+                        X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
 
-                    this.enemies.Add(enemySprite);
+                    this.Enemies.Add(enemySprite);
                 }
 
             }

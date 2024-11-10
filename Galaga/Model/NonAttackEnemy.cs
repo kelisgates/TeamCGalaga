@@ -63,7 +63,7 @@ namespace Galaga.Model
             {
                 if (this.movingRight)
                 {
-                    this.X += 10;
+                    X += 10;
                     this.steps++;
                     if (this.steps == 10)
                     {
@@ -73,7 +73,7 @@ namespace Galaga.Model
                 }
                 else
                 {
-                    this.X -= 10;
+                    X -= 10;
                     this.steps++;
                     if (this.steps == 10)
                     {
