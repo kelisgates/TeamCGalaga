@@ -119,7 +119,8 @@ namespace Galaga.Model
         private double getStartPoint(double numOfEnemies, double canvasMiddle)
         {
             var widthDistance = 100;
-            return canvasMiddle - (numOfEnemies * widthDistance) / 2.0;
+            var half = 2.0;
+            return canvasMiddle - (numOfEnemies * widthDistance) / half;
 
         }
     }

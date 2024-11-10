@@ -13,6 +13,7 @@ namespace Galaga.Model
 
         private const int SpeedXDirection = 3;
         private const int SpeedYDirection = 0;
+        private const int MovementPerStep = 10;
 
         private DispatcherTimer timer;
         private int steps;
@@ -53,32 +54,34 @@ namespace Galaga.Model
         #region Methods
         private void moveEnemy()
         {
-            this.steps = 0;
+            var resetSteps = 0;
+            this.steps = resetSteps;
             this.movingRight = true;
+            var seconds = 100;
             this.timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(100)
+                Interval = TimeSpan.FromMilliseconds(seconds)
             };
             this.timer.Tick += (s, e) =>
             {
                 if (this.movingRight)
                 {
-                    X += 10;
+                    X += MovementPerStep;
                     this.steps++;
-                    if (this.steps == 10)
+                    if (this.steps == MovementPerStep)
                     {
                         this.movingRight = false;
-                        this.steps = 0;
+                        this.steps = resetSteps;
                     }
                 }
                 else
                 {
-                    X -= 10;
+                    X -= MovementPerStep;
                     this.steps++;
-                    if (this.steps == 10)
+                    if (this.steps == MovementPerStep)
                     {
                         this.movingRight = true;
-                        this.steps = 0;
+                        this.steps = resetSteps;
                     }
                 }
             };

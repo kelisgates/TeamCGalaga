@@ -10,7 +10,7 @@
     
     
 
-    <Canvas x:Name="canvas" Width="640" Height="480" Background ="Black">
+    <Canvas x:Name="canvas" Width="720" Height="600" Background ="Black">
         <TextBlock Canvas.Left="445" TextWrapping="Wrap" Text="{Binding Score}" Canvas.Top="240" Foreground="White" FontSize="24"/>
         
 

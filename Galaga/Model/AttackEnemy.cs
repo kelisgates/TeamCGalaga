@@ -16,7 +16,7 @@ namespace Galaga.Model
 
         private const int SpeedXDirection = 3;
         private const int SpeedYDirection = 0;
-
+        private const int TimerInterval = 1000;
         
         private Random random;
         private readonly Canvas canvas;
@@ -79,7 +79,7 @@ namespace Galaga.Model
 
             this.Timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000))
+                Interval = TimeSpan.FromMilliseconds(this.random.Next(TimerInterval, TimerInterval))
             };
             this.Timer.Tick += this.shootingTimer_Tick;
             this.Timer.Start();
@@ -91,7 +91,7 @@ namespace Galaga.Model
         private void shootingTimer_Tick(object sender, object e)
         {
             this.shoot();
-            this.Timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
+            this.Timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(TimerInterval, TimerInterval));
         }
 
         private void shoot()
@@ -103,7 +103,7 @@ namespace Galaga.Model
             this.bullet = new BulletManager
             {
                 X = X ,
-                Y = this.Y 
+                Y = Y 
             };
             this.canvas.Children.Add(this.bullet.Sprite);
             this.IsShooting = true;
@@ -113,16 +113,19 @@ namespace Galaga.Model
 
         private void startMovement(BulletManager bulletParam)
         {
+            var seconds = 50;
             var timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(50)
+                Interval = TimeSpan.FromMilliseconds(seconds)
             };
             timer.Tick += (s, e) =>
             {
                 var position = bulletParam.Y;
-                if (position < 480)
+                var canvasBarrier = 480;
+                if (position < canvasBarrier)
                 {
-                    bulletParam.Y += 10;
+                    var movementPerStep = 10;
+                    bulletParam.Y += movementPerStep;
                     bulletParam.UpdateBoundingBox();
                     this.checkCollision(bulletParam);
                 }
@@ -140,6 +143,7 @@ namespace Galaga.Model
         {
             this.bullet.UpdateBoundingBox();
             this.player.UpdateBoundingBox();
+
             if (this.isCollision(this.bullet.BoundingBox, this.player.BoundingBox))
             {
                 this.canvas.Children.Remove(bulletManager.Sprite);

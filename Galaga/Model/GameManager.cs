@@ -91,7 +91,8 @@ namespace Galaga.Model
         {
             this.enemyManager = new EnemyManager(this.canvas);
 
-            var canvasMiddle = this.canvasWidth / 2.0;
+            var half = 2.0;
+            var canvasMiddle = this.canvasWidth / half;
 
             this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level1, 10, canvasMiddle, 150, 2);
             this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level2, 20, canvasMiddle, 70, 3);
@@ -114,7 +115,8 @@ namespace Galaga.Model
 
         private void placePlayerNearBottomOfBackgroundCentered()
         {
-            this.Player.X = this.canvasWidth / 2 - this.Player.Width / 2.0;
+            var half = 2;
+            this.Player.X = this.canvasWidth / half - this.Player.Width / half;
             this.Player.Y = this.canvasHeight - this.Player.Height - PlayerOffsetFromBottom;
         }
 
@@ -128,9 +130,11 @@ namespace Galaga.Model
             this.timer.Tick += (s, e) =>
             {
                 var position = this.manager.Y;
-                if (position > 0)
+                var canvasBarrier = 0;
+                if (position > canvasBarrier)
                 {
-                    bullet.Y -= 10;
+                    var movementPerStep = 10;
+                    bullet.Y -= movementPerStep;
                     bullet.UpdateBoundingBox();
                     this.checkCollision(bullet);
                     if (this.WasCollision)
@@ -159,33 +163,16 @@ namespace Galaga.Model
             
             foreach (var enemy in this.enemyManager.Enemies)
             {
-                if (enemy is NonAttackEnemy enemySprite)
+                if (enemy != null)
                 {
                     enemy.UpdateBoundingBox();
+                    
                     if (this.isCollision(bullet.BoundingBox, enemy.BoundingBox))
                     {
-                        if (enemy is AttackEnemy enemyLevelThree)
-                        {
-                            enemyLevelThree.IsShooting = false;
-                            enemyLevelThree.Timer.Stop();
-                        }
-
-
-                        this.WasCollision = true;
-                        this.canvas.Children.Remove(bullet.Sprite);
-                        this.canvas.Children.Remove(enemySprite.Sprite);
-                        this.enemyManager.Enemies.Remove(enemySprite);
-                        var amount = enemy.ScoreValue;
-                        this.ScoreManager.Score += amount;
-
-                        if (this.enemyManager.Enemies.Count == 0)
-                        {
-                            this.displayGameWon();
-                        }
+                        this.checkIfEnemyIsAttackingEnemy(enemy);
+                        this.removeEnemyAndUpdateScore(enemy);
 
                         break;
-                        
-                        
                     }
                 }
             }
@@ -216,7 +203,33 @@ namespace Galaga.Model
             this.canvas.Children.Add(gameWonTextBlock);
         }
 
+        private void removeEnemyAndUpdateScore(NonAttackEnemy enemy)
+        {
+            
+            this.WasCollision = true;
+            this.canvas.Children.Remove(this.manager.Sprite);
+            this.canvas.Children.Remove(enemy.Sprite);
+            this.enemyManager.Enemies.Remove(enemy);
+            var amount = enemy.ScoreValue;
+            this.ScoreManager.Score += amount;
 
+            if (this.enemyManager.Enemies.Count == 0)
+            {
+                this.displayGameWon();
+            }
+
+
+            
+        }
+
+        private void checkIfEnemyIsAttackingEnemy(NonAttackEnemy enemy)
+        {
+            if (enemy is AttackEnemy enemyLevelThree)
+            {
+                enemyLevelThree.IsShooting = false;
+                enemyLevelThree.Timer.Stop();
+            }
+        }
         #endregion
 
         #region Public Methods
@@ -225,11 +238,11 @@ namespace Galaga.Model
         /// </summary>
         public void MovePlayerLeft()
         {
-            if (this.Player.X - this.Player.SpeedX >= 0)
+            var leftCanvasBarrier = 0;
+            if (this.Player.X - this.Player.SpeedX >= leftCanvasBarrier)
             {
                 this.Player.MoveLeft();
             }
-            
         }
 
         /// <summary>
@@ -253,10 +266,12 @@ namespace Galaga.Model
             {
                 return;
             }
+
+            var movementPerStep = 20;
             this.manager = new BulletManager
             {
                 IsShooting = true,
-                X = this.Player.X + 20,
+                X = this.Player.X + movementPerStep,
                 Y = this.Player.Y,
 
             };
