@@ -20,12 +20,12 @@ namespace Galaga.Model
         /// <summary>
         /// The level3 enemy
         /// </summary>
-        Level3
+        Level3,
+        /// <summary>
+        /// The level4 enemy
+        /// </summary>
+        Level4
     }
-
-
-
-
 
     /// <summary>
     /// manages enemies in the game
@@ -104,6 +104,15 @@ namespace Galaga.Model
                 if (level == EnemyType.Level3)
                 {
                     var enemySprite = new AttackEnemy(new EnemyL3Sprite(), score, this.canvas, player)
+                    {
+                        X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
+                        Y = y
+                    };
+
+                    this.Enemies.Add(enemySprite);
+                } else if (level == EnemyType.Level4)
+                {
+                    var enemySprite = new AttackEnemy(new EnemyL4Sprite(), score, this.canvas, player)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y

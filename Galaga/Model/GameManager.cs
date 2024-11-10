@@ -94,9 +94,10 @@ namespace Galaga.Model
             var half = 2.0;
             var canvasMiddle = this.canvasWidth / half;
 
-            this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level1, 10, canvasMiddle, 150, 2);
-            this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level2, 20, canvasMiddle, 70, 3);
-            this.enemyManager.PlaceAttackEnemy(EnemyType.Level3, 30, canvasMiddle, 5, 4, this.Player);
+            this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level1, 10, canvasMiddle, 250, 3);
+            this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level2, 20, canvasMiddle, 170, 4);
+            this.enemyManager.PlaceAttackEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, this.Player);
+            this.enemyManager.PlaceAttackEnemy(EnemyType.Level4, 40, canvasMiddle, 20, 5, this.Player);
 
             foreach (var enemy in this.enemyManager.Enemies)
             {
