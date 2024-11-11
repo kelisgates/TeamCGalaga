@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Galaga.View.Sprites;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
+using System.Diagnostics;
+using Galaga.View.Sprites;
 
 namespace Galaga.Model
 {
@@ -20,10 +21,9 @@ namespace Galaga.Model
         private Random random;
         private readonly Canvas canvas;
 
-        private Bullet bullet;
+        
         private readonly Player player;
         private readonly GameManager gameManager;
-
 
         #endregion
 
@@ -60,119 +60,194 @@ namespace Galaga.Model
             this.gameManager = gameManager;
         }
 
-
-
-
         #endregion
 
         #region private methods
 
         private void shootAtPlayer()
         {
-            this.random = new Random();
-            this.restartShootingTimer();
+            try
+            {
+                this.random = new Random();
+                this.restartShootingTimer();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in shootAtPlayer: {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
+            }
         }
 
         private void shootingTimer_Tick(object sender, object e)
         {
-            this.shoot();
-            this.Timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
+            try
+            {
+                this.shoot();
+                this.Timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in shootingTimer_Tick: {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
+            }
         }
 
         private void shoot()
         {
-            if (this.IsShooting)
-            {
-                return;
-            }
-            this.bullet = new Bullet
-            {
-                X = X ,
-                Y = Y 
-            };
 
-            this.canvas.Children.Add(this.bullet.Sprite);
-            this.IsShooting = true;
-            this.startMovement(this.bullet);
+            try
+            {
+                if (this.IsShooting)
+                {
+                    return;
+                }
+                var enemyBullet = new Bullet
+                {
+                    X = X,
+                    Y = Y
+                };
+
+                this.canvas.Children.Add(enemyBullet.Sprite);
+                this.IsShooting = true;
+                this.startMovement(enemyBullet);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in shoot: {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
+            }
         }
 
         private void startMovement(Bullet bulletParam)
         {
-            var seconds = 50;
-
-            var timer = new DispatcherTimer
+            try
             {
-                Interval = TimeSpan.FromMilliseconds(seconds)
-            };
+                var seconds = 50;
 
-            timer.Tick += (s, e) =>
+                var timer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromMilliseconds(seconds)
+                };
+
+                timer.Tick += (s, e) =>
+                {
+                    try
+                    {
+                        var position = bulletParam.Y;
+                        var canvasHeight = this.canvas.ActualHeight;
+                        var canvasBarrier = Math.Min(600, canvasHeight);
+
+                        Debug.WriteLine($"Bullet Position: {position}, Canvas Barrier: {canvasBarrier}");
+
+                        if (position < canvasBarrier)
+                        {
+                            var movementPerStep = 10;
+                            bulletParam.Y += movementPerStep;
+                            bulletParam.UpdateBoundingBox();
+                            this.checkCollision(bulletParam);
+                        }
+                        else
+                        {
+                            this.canvas.Children.Remove(bulletParam.Sprite);
+                            timer.Stop();
+                            this.IsShooting = false;
+                            Debug.WriteLine("Bullet removed from canvas.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Exception in timer.Tick: {ex.Message}");
+                        Debug.WriteLine(ex.StackTrace);
+                    }
+                };
+
+                timer.Start();
+            }
+            catch (Exception ex)
             {
-                var position = bulletParam.Y;
-                var canvasBarrier = 480;
-                if (position < canvasBarrier)
-                {
-                    var movementPerStep = 10;
-                    bulletParam.Y += movementPerStep;
-                    bulletParam.UpdateBoundingBox();
-                    this.checkCollision(bulletParam);
-                }
-                else
-                {
-                    this.canvas.Children.Remove(bulletParam.Sprite);
-                    timer.Stop();
-                    this.IsShooting = false;
-                }
-            };
-
-            timer.Start();
+                Debug.WriteLine($"Exception in startMovement: {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
+            }
         }
 
         private void checkCollision(Bullet enemyBullet)
         {
-            this.bullet.UpdateBoundingBox();
-            this.player.UpdateBoundingBox();
-
-            if (this.isCollision(this.bullet.BoundingBox, this.player.BoundingBox))
+            
+            try
             {
-                this.canvas.Children.Remove(enemyBullet.Sprite);
-                this.Timer.Stop();
+                enemyBullet.UpdateBoundingBox();
+                this.player.UpdateBoundingBox();
 
-                this.IsShooting = false;
+                Debug.WriteLine($"Bullet BoundingBox: {enemyBullet.BoundingBox}");
+                Debug.WriteLine($"Player BoundingBox: {this.player.BoundingBox}");
 
-                this.gameManager.OnPlayerHit();
+                if (this.isCollision(enemyBullet.BoundingBox, this.player.BoundingBox))
+                {
+                    this.gameManager.OnPlayerHit(); //TODO: fix how many lives player is losing
+                    this.canvas.Children.Remove(enemyBullet.Sprite);
+                    this.Timer.Stop();
 
-                this.checkPlayerStatus();
+                    this.IsShooting = false;
+                    this.checkPlayerStatus();
+                    
+                    
+                    
+
+                    Debug.WriteLine("Collision detected between bullet and player.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in checkCollision: {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
             }
         }
 
         private void checkPlayerStatus()
         {
-            if (this.gameManager.Player.Lives == 0)
+            try
             {
-                this.Timer.Stop();
-                this.gameManager.OnGameOver();
-            }
-            else
-            {
-                
-                this.canvas.Children.Remove(this.player.Sprite);
-                this.player.StartInvincibility(2);
-
-                var playerReturnTimer = new DispatcherTimer
+                if (this.gameManager.Player.Lives == 0)
                 {
-                    Interval = TimeSpan.FromSeconds(1)
-                };
-                this.playerReturnTimer(playerReturnTimer);
+                    this.Timer.Stop();
+                    this.gameManager.OnGameOver();
+                    Debug.WriteLine("Game Over: Player has no lives left.");
+                }
+                else
+                {
+                    this.canvas.Children.Remove(this.player.Sprite);
+                    this.player.StartInvincibility(2);
+
+                    var playerReturnTimer = new DispatcherTimer
+                    {
+                        Interval = TimeSpan.FromSeconds(1)
+                    };
+                    this.playerReturnTimer(playerReturnTimer);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in checkPlayerStatus: {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
             }
         }
 
         private void playerReturnTimer(DispatcherTimer playerReturnTimer)
         {
+
             playerReturnTimer.Tick += (s, e) =>
             {
-                this.canvas.Children.Add(this.player.Sprite);
-                playerReturnTimer.Stop();
-                this.restartShootingTimer();
+                try
+                {
+                    this.canvas.Children.Add(this.player.Sprite);
+                    playerReturnTimer.Stop();
+                    this.restartShootingTimer();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Exception in playerReturnTimer: {ex.Message}");
+                    Debug.WriteLine(ex.StackTrace);
+                }
             };
             playerReturnTimer.Start();
         }
@@ -187,12 +262,20 @@ namespace Galaga.Model
 
         private void restartShootingTimer()
         {
-            this.Timer = new DispatcherTimer
+            try
             {
-                Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000))
-            };
-            this.Timer.Tick += this.shootingTimer_Tick;
-            this.Timer.Start();
+                this.Timer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000))
+                };
+                this.Timer.Tick += this.shootingTimer_Tick;
+                this.Timer.Start();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in restartShootingTimer: {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
+            }
         }
 
         #endregion

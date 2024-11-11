@@ -1,7 +1,8 @@
 ﻿using System;
 using Windows.UI.Xaml;
-using Galaga.View.Sprites;
 using System.Collections.Generic;
+using Windows.UI.Xaml.Controls;
+using Galaga.View.Sprites;
 
 namespace Galaga.Model
 {
@@ -51,6 +52,7 @@ namespace Galaga.Model
             
             this.Sprites = sprites;
             Sprite = sprites[0];
+            
             this.moveEnemy();
             this.ScoreValue = score;
             SetSpeed(SpeedXDirection, SpeedYDirection);
@@ -102,7 +104,7 @@ namespace Galaga.Model
             var resetSteps = 0;
             this.steps = resetSteps;
             this.movingRight = true;
-            var seconds = 100;
+            var seconds = 1000;
 
             this.timer = new DispatcherTimer
             {
@@ -116,26 +118,37 @@ namespace Galaga.Model
 
         private void checkMovingRightOrLeft(int resetSteps)
         {
+
             if (this.movingRight)
             {
                 X += MovementPerStep;
-                this.steps++;
-                if (this.steps == MovementPerStep)
-                {
-                    this.movingRight = false;
-                    this.steps = resetSteps;
-                }
             }
             else
             {
                 X -= MovementPerStep;
-                this.steps++;
-                if (this.steps == MovementPerStep)
-                {
-                    this.movingRight = true;
-                    this.steps = resetSteps;
-                }
             }
+
+            this.checkWhichSpriteIsVisible();
+
+            this.steps++;
+            if (this.steps == MovementPerStep)
+            {
+                this.movingRight = !this.movingRight;
+                this.steps = resetSteps;
+            }
+
+        }
+
+        private void checkWhichSpriteIsVisible()
+        {
+            BaseSprite visibleSprite = this.isFirstSpriteVisible ? this.Sprites[0] : this.Sprites[1];
+            BaseSprite hiddenSprite = this.isFirstSpriteVisible ? this.Sprites[1] : this.Sprites[0];
+
+            Canvas.SetLeft(visibleSprite, X);
+            Canvas.SetTop(visibleSprite, Y);
+
+            Canvas.SetLeft(hiddenSprite, X);
+            Canvas.SetTop(hiddenSprite, Y);
         }
 
         #endregion

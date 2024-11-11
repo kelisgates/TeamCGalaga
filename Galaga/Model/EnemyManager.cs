@@ -72,110 +72,80 @@ namespace Galaga.Model
         #region Methods
 
         /// <summary>
-        /// Places the non-attack enemy.
+        /// Places the enemy.
         /// </summary>
         /// <param name="level">The level.</param>
         /// <param name="score">The score.</param>
         /// <param name="canvasMiddle">The canvas middle.</param>
         /// <param name="y">The y.</param>
         /// <param name="numOfEnemies">The number of enemies.</param>
-        public void PlaceNonAttackEnemy(EnemyType level,int score, double canvasMiddle, double y, int numOfEnemies)
-        {
-            
-            for (int i = 0; i < numOfEnemies; i++)
-            {
-                var widthDistance = 100;
-                
-                if (level == EnemyType.Level1)
-                {
-                    List<BaseSprite> sprites = new List<BaseSprite>
-                    {
-                        new EnemyL1Sprite(),
-                        new EnemyL1SpriteTwo()
-                    };
-
-                    var enemySprite = new NonAttackEnemy(sprites, score)
-                    {
-                        X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
-                        Y = y
-                    };
-
-                    this.Enemies.Add(enemySprite);
-                    
-                }
-                else if (level == EnemyType.Level2)
-                {
-                    List<BaseSprite> sprites = new List<BaseSprite>
-                    {
-                        new EnemyL2Sprite(),
-                        new EnemyL2SpriteTwo()
-                    };
-
-                    var enemySprite = new NonAttackEnemy(sprites, score)
-                    {
-                        X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
-                        Y = y
-                    };
-
-                    this.Enemies.Add(enemySprite);
-                    
-                }
-            }
-        }
-
-        /// <summary>
-        /// Places the attack enemy.
-        /// </summary>
-        /// <param name="level">The level.</param>
-        /// <param name="score">The score.</param>
-        /// <param name="canvasMiddle">The canvas middle.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="numOfEnemies">The number of enemies.</param>
+        /// <param name="isAttackEnemy">if set to <c>true</c> [is attack enemy].</param>
         /// <param name="player">The player.</param>
-        public void PlaceAttackEnemy(EnemyType level, int score, double canvasMiddle, double y, int numOfEnemies, Player player)
+        public void PlaceEnemy(EnemyType level, int score, double canvasMiddle, double y, int numOfEnemies,
+            bool isAttackEnemy, Player player = null)
         {
             for (int i = 0; i < numOfEnemies; i++)
             {
                 var widthDistance = 100;
-                
-                if (level == EnemyType.Level3)
-                {
-                    List<BaseSprite> sprites = new List<BaseSprite>
-                    {
-                        new EnemyL3Sprite(),
-                        new EnemyL3SpriteTwo()
-                    };
+                List<BaseSprite> sprites = new List<BaseSprite>();
 
-                    var enemySprite = new AttackEnemy(this.manager,sprites, score, this.canvas, player)
-                    {
-                        X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
-                        Y = y
-                    };
+                this.findAndCreateEnemy(level, sprites);
 
-                    this.Enemies.Add(enemySprite);
-                    
-                } else if (level == EnemyType.Level4)
-                {
-                    List<BaseSprite> sprites = new List<BaseSprite>
-                    {
-                        new EnemyL4Sprite(),
-                        new EnemyL4SpriteTwo()
-                    };
+                var xPosition = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance);
 
-                    var enemySprite = new AttackEnemy(this.manager, sprites, score, this.canvas, player)
-                    {
-                        X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
-                        Y = y
-                    };
-
-                    this.Enemies.Add(enemySprite);
-                }
+                this.checkIfAttackOrNonAttackEnemy(score, y, isAttackEnemy, player, sprites, xPosition);
             }
         }
 
         #endregion
 
         #region Private Methods
+
+        private void findAndCreateEnemy(EnemyType level, List<BaseSprite> sprites)
+        {
+            switch (level)
+            {
+                case EnemyType.Level1:
+                    sprites.Add(new EnemyL1Sprite());
+                    sprites.Add(new EnemyL1SpriteTwo());
+                    break;
+                case EnemyType.Level2:
+                    sprites.Add(new EnemyL2Sprite());
+                    sprites.Add(new EnemyL2SpriteTwo());
+                    break;
+                case EnemyType.Level3:
+                    sprites.Add(new EnemyL3Sprite());
+                    sprites.Add(new EnemyL3SpriteTwo());
+                    break;
+                case EnemyType.Level4:
+                    sprites.Add(new EnemyL4Sprite());
+                    sprites.Add(new EnemyL4SpriteTwo());
+                    break;
+            }
+        }
+
+        private void checkIfAttackOrNonAttackEnemy(int score, double y, bool isAttackEnemy, Player player, List<BaseSprite> sprites,
+            double xPosition)
+        {
+            if (isAttackEnemy)
+            {
+                var attackEnemy = new AttackEnemy(this.manager, sprites, score, this.canvas, player)
+                {
+                    X = xPosition,
+                    Y = y
+                };
+                this.Enemies.Add(attackEnemy);
+            }
+            else
+            {
+                var nonAttackEnemy = new NonAttackEnemy(sprites, score)
+                {
+                    X = xPosition,
+                    Y = y
+                };
+                this.Enemies.Add(nonAttackEnemy);
+            }
+        }
 
         private void initializeAnimationTimer()
         {
@@ -192,7 +162,6 @@ namespace Galaga.Model
         {
             foreach (var enemy in this.Enemies)
             {
-
                 enemy.UpdateImage();
             }
         }

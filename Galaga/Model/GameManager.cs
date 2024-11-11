@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -111,10 +112,10 @@ namespace Galaga.Model
             var half = 2.0;
             var canvasMiddle = this.canvasWidth / half;
 
-            this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level1, 10, canvasMiddle, 250, 3);
-            this.enemyManager.PlaceNonAttackEnemy(EnemyType.Level2, 20, canvasMiddle, 170, 4);
-            this.enemyManager.PlaceAttackEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, this.Player);
-            this.enemyManager.PlaceAttackEnemy(EnemyType.Level4, 40, canvasMiddle, 20, 5, this.Player);
+            this.enemyManager.PlaceEnemy(EnemyType.Level1, 10, canvasMiddle, 250, 3, false);
+            this.enemyManager.PlaceEnemy(EnemyType.Level2, 20, canvasMiddle, 170, 4, false);
+            this.enemyManager.PlaceEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, true, this.Player);
+            this.enemyManager.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 20, 5, true, this.Player);
 
             this.addEnemiesToCanvas();
         }
@@ -130,6 +131,8 @@ namespace Galaga.Model
 
                 foreach (var currSprite in enemy.Sprites)
                 {
+                    Canvas.SetLeft(currSprite, enemy.X);
+                    Canvas.SetTop(currSprite, enemy.Y);
                     this.canvas.Children.Add(currSprite);
                 }
                 
@@ -309,7 +312,7 @@ namespace Galaga.Model
             this.activeBullets.Add(bullet);
             this.startBulletMovement(bullet);
 
-            await Task.Delay(500);
+            await Task.Delay(100);
             this.canShoot = true;
 
         }
@@ -335,6 +338,7 @@ namespace Galaga.Model
         /// </summary>
         public void OnGameOver()
         {
+            Debug.WriteLine("game manager onGame invoked");
             this.GameOver?.Invoke(this, EventArgs.Empty);
         }
 

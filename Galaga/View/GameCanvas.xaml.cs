@@ -50,7 +50,7 @@ namespace Galaga.View
 
         private void onPlayerHit(object sender, EventArgs e)
         {
-            this.gameManager.Player.Lives--;
+            this.gameManager.Player.Lives++;
             if (this.gameManager.Player.Lives <= 0)
             {
                 this.livesTextBlock.Text = $"Lives: {this.gameManager.Player.Lives}";
