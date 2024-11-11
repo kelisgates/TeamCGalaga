@@ -2,7 +2,6 @@
 using Windows.UI.Xaml;
 using Galaga.View.Sprites;
 using System.Collections.Generic;
-using Windows.UI.Xaml.Controls;
 
 namespace Galaga.Model
 {
@@ -20,9 +19,11 @@ namespace Galaga.Model
         private DispatcherTimer timer;
         private int steps;
         private bool movingRight;
-        private Canvas canvas;
 
-        public readonly List<BaseSprite> sprites;
+        /// <summary>
+        /// The sprites used for animation.
+        /// </summary>
+        public readonly List<BaseSprite> Sprites;
         private bool isFirstSpriteVisible = true;
 
         #endregion
@@ -38,7 +39,6 @@ namespace Galaga.Model
         public int ScoreValue { get; set; }
 
         #endregion
-
 
         #region Constructors
 
@@ -56,49 +56,54 @@ namespace Galaga.Model
         public NonAttackEnemy(List<BaseSprite> sprites, int score)
         {
             
-            this.sprites = sprites;
+            this.Sprites = sprites;
             Sprite = sprites[0];
             this.moveEnemy();
             this.ScoreValue = score;
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }
 
-       
+
 
         #endregion
 
         #region Methods
 
-        
-
+        /// <summary>
+        /// Updates the image of the sprites to simulate animation.
+        /// </summary>
+        /// <exception cref="System.InvalidOperationException">There must be at least two sprites to toggle between.</exception>
         public void UpdateImage()
         {
 
-            if (this.sprites.Count < 2)
+            if (this.Sprites.Count < 2)
             {
                 throw new InvalidOperationException("There must be at least two sprites to toggle between.");
             }
 
-            this.sprites[0].Visibility = Visibility.Collapsed;
-            this.sprites[1].Visibility = Visibility.Collapsed;
+            this.Sprites[0].Visibility = Visibility.Collapsed;
+            this.Sprites[1].Visibility = Visibility.Collapsed;
             
+            this.chooseWhichSpriteToDisplay();
+
+        }
+
+        private void chooseWhichSpriteToDisplay()
+        {
             if (this.isFirstSpriteVisible)
             {
-                this.sprites[0].Visibility = Visibility.Visible;
-                Sprite = this.sprites[0];
+                this.Sprites[0].Visibility = Visibility.Visible;
+                Sprite = this.Sprites[0];
                 this.isFirstSpriteVisible = false;
 
             }
             else
             {
-                this.sprites[1].Visibility = Visibility.Visible;
-                Sprite = this.sprites[1];
+                this.Sprites[1].Visibility = Visibility.Visible;
+                Sprite = this.Sprites[1];
                 this.isFirstSpriteVisible = true;
             }
-
-            
         }
-
 
         private void moveEnemy()
         {
@@ -106,42 +111,42 @@ namespace Galaga.Model
             this.steps = resetSteps;
             this.movingRight = true;
             var seconds = 100;
+
             this.timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(seconds)
             };
-            this.timer.Tick += (s, e) =>
-            {
-                if (this.movingRight)
-                {
-                    X += MovementPerStep;
-                    this.steps++;
-                    if (this.steps == MovementPerStep)
-                    {
-                        this.movingRight = false;
-                        this.steps = resetSteps;
-                    }
-                }
-                else
-                {
-                    X -= MovementPerStep;
-                    this.steps++;
-                    if (this.steps == MovementPerStep)
-                    {
-                        this.movingRight = true;
-                        this.steps = resetSteps;
-                    }
-                }
-            };
+
+            this.timer.Tick += (s, e) => { this.checkMovingRightOrLeft(resetSteps); };
+
             this.timer.Start();
         }
 
+        private void checkMovingRightOrLeft(int resetSteps)
+        {
+            if (this.movingRight)
+            {
+                X += MovementPerStep;
+                this.steps++;
+                if (this.steps == MovementPerStep)
+                {
+                    this.movingRight = false;
+                    this.steps = resetSteps;
+                }
+            }
+            else
+            {
+                X -= MovementPerStep;
+                this.steps++;
+                if (this.steps == MovementPerStep)
+                {
+                    this.movingRight = true;
+                    this.steps = resetSteps;
+                }
+            }
+        }
+
         #endregion
-
-        
-
-        
-
 
     }
 }

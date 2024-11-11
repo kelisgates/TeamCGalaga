@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
-using Galaga.View.Sprites;
-using Windows.ApplicationModel.Wallet;
 
 namespace Galaga.Model
 {
@@ -21,23 +19,42 @@ namespace Galaga.Model
         private readonly double canvasHeight;
         private readonly double canvasWidth;
 
-        private List<Bullet> bullets;
-        private Bullet manager;
+        private List<Bullet> activeBullets;
         private EnemyManager enemyManager;
-        private DispatcherTimer timer;
 
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when [enemy killed].
+        /// </summary>
         public event EventHandler EnemyKilled;
+
+        /// <summary>
+        /// Occurs when [game won].
+        /// </summary>
         public event EventHandler GameWon;
+
+        /// <summary>
+        /// Occurs when [game over].
+        /// </summary>
         public event EventHandler GameOver;
+
+        /// <summary>
+        /// Occurs when [player hit].
+        /// </summary>
         public event EventHandler PlayerHit;
 
         #endregion
 
         #region Properties
+
         /// <summary>
         /// player object
         /// </summary>
         public Player Player { get; private set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is Player bullet active.
         /// </summary>
@@ -76,15 +93,13 @@ namespace Galaga.Model
 
         #region Private Methods
 
-        
-
         private void initializeGame()
         {
             
             this.createAndPlacePlayer();
             this.placeEnemies();
-            this.bullets = new List<Bullet>();
 
+            this.activeBullets = new List<Bullet>();
         }
 
         private void placeEnemies()
@@ -99,6 +114,11 @@ namespace Galaga.Model
             this.enemyManager.PlaceAttackEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, this.Player);
             this.enemyManager.PlaceAttackEnemy(EnemyType.Level4, 40, canvasMiddle, 20, 5, this.Player);
 
+            this.addEnemiesToCanvas();
+        }
+
+        private void addEnemiesToCanvas()
+        {
             foreach (var enemy in this.enemyManager.Enemies)
             {
                 if (enemy.Sprite.Parent != null)
@@ -106,14 +126,13 @@ namespace Galaga.Model
                     ((Panel)enemy.Sprite.Parent).Children.Remove(enemy.Sprite);
                 }
 
-                foreach (var currSprite in enemy.sprites)
+                foreach (var currSprite in enemy.Sprites)
                 {
                     this.canvas.Children.Add(currSprite);
                 }
                 
             }
         }
-
 
         private void createAndPlacePlayer()
         {
@@ -130,44 +149,52 @@ namespace Galaga.Model
             this.Player.Y = this.canvasHeight - this.Player.Height - PlayerOffsetFromBottom;
         }
 
-        
-
         private void startBulletMovement(Bullet bullet)
         {
-            this.timer = new DispatcherTimer
+            var timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(5)
             };
-            this.timer.Tick += (s, e) =>
+
+            timer.Tick += (s, e) =>
             {
-                var position = this.manager.Y;
+                var position = bullet.Y;
                 var canvasBarrier = 0;
+
                 if (position > canvasBarrier)
                 {
                     var movementPerStep = 10;
                     bullet.Y -= movementPerStep;
                     bullet.UpdateBoundingBox();
                     this.checkCollision(bullet);
-                    if (this.WasCollision)
-                    {
-                        this.WasCollision = false;
-                        this.canvas.Children.Remove(bullet.Sprite);
-                        this.timer.Stop();
-                        this.IsPlayerBulletActive = false;
-                    }
+                    this.updatePlayerBullet(bullet, timer);
                 }
                 else
                 {
-                    this.canvas.Children.Remove(bullet.Sprite);
-                    this.Player.BulletsShot--;
-                    this.timer.Stop();
-                    this.IsPlayerBulletActive = false;
+                    this.removePlayerBullet(bullet, timer);
                 }
             };
-            this.timer.Start();
+            timer.Start();
         }
 
-        
+        private void removePlayerBullet(Bullet bullet, DispatcherTimer dispatcherTimer)
+        {
+            this.canvas.Children.Remove(bullet.Sprite);
+            this.Player.BulletsShot--;
+            dispatcherTimer.Stop();
+            this.activeBullets.Remove(bullet);
+        }
+
+        private void updatePlayerBullet(Bullet bullet, DispatcherTimer dispatcherTimer)
+        {
+            if (this.WasCollision)
+            {
+                this.WasCollision = false;
+                this.canvas.Children.Remove(bullet.Sprite);
+                dispatcherTimer.Stop();
+                this.activeBullets.Remove(bullet);
+            }
+        }
 
         private void checkCollision(Bullet bullet)
         {
@@ -198,42 +225,24 @@ namespace Galaga.Model
                      boundingBox1.Top + boundingBox1.Height < boundingBox2.Top);
         }
 
-        private void displayGameWon()
-        {
-            var gameWonTextBlock = new TextBlock
-            {
-                Text = "Game Won!",
-                Foreground = new SolidColorBrush(Windows.UI.Colors.Green),
-                FontSize = 48,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            Canvas.SetLeft(gameWonTextBlock, (this.canvasWidth - gameWonTextBlock.ActualWidth) / 2);
-            Canvas.SetTop(gameWonTextBlock, (this.canvasHeight - gameWonTextBlock.ActualHeight) / 2);
-
-            this.canvas.Children.Add(gameWonTextBlock);
-        }
-
         private void removeEnemyAndUpdateScore(NonAttackEnemy enemy)
         {
             
             this.WasCollision = true;
-            this.canvas.Children.Remove(this.manager.Sprite);
+
             this.canvas.Children.Remove(enemy.Sprite);
             this.enemyManager.Enemies.Remove(enemy);
+
             var amount = enemy.ScoreValue;
             this.Player.Score += amount;
+
             this.EnemyKilled?.Invoke(this, EventArgs.Empty);
 
             if (this.enemyManager.Enemies.Count == 0)
             {
-                this.displayGameWon();
+                
                 this.GameWon?.Invoke(this, EventArgs.Empty);
             }
-
-
-            
         }
 
         private void checkIfEnemyIsAttackingEnemy(NonAttackEnemy enemy)
@@ -244,9 +253,11 @@ namespace Galaga.Model
                 enemyLevelThree.Timer.Stop();
             }
         }
+
         #endregion
 
-       
+        #region Public Methods
+
         /// <summary>
         /// Moves the Player left.
         /// </summary>
@@ -274,51 +285,63 @@ namespace Galaga.Model
         /// <summary>
         /// Player shoot a bullet.
         /// </summary>
-        public void PlayerShoot()
+        public async void PlayerShoot()
         {
-            if (this.IsPlayerBulletActive)
+            if (this.activeBullets.Count >= 3)
             {
                 return;
             }
 
             var movementPerStep = 20;
-            this.manager = new Bullet
+
+            var bullet = new Bullet
             {
                 IsShooting = true,
                 X = this.Player.X + movementPerStep,
                 Y = this.Player.Y,
-
             };
 
-            this.canvas.Children.Add(this.manager.Sprite);
-            this.IsPlayerBulletActive = true;
-            this.startBulletMovement(this.manager);
+            this.canvas.Children.Add(bullet.Sprite);
+            this.activeBullets.Add(bullet);
+            this.startBulletMovement(bullet);
 
-
-
+            await Task.Delay(500);
 
         }
 
+        /// <summary>
+        /// Called when [enemy killed].
+        /// </summary>
         public void OnEnemyKilled()
         {
             this.EnemyKilled?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Called when [game won].
+        /// </summary>
         public void OnGameWon()
         {
             this.GameWon?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Called when [game over].
+        /// </summary>
         public void OnGameOver()
         {
             this.GameOver?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Called when [player hit].
+        /// </summary>
         public void OnPlayerHit()
         {
             this.PlayerHit?.Invoke(this, EventArgs.Empty);
         }
 
+        #endregion
 
     }
 

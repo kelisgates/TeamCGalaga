@@ -44,13 +44,12 @@ namespace Galaga.Model
         /// list of enemies in game
         /// </summary>
         public readonly List<NonAttackEnemy> Enemies;
-        private Canvas canvas;
+
+        private readonly Canvas canvas;
         private DispatcherTimer animationTimer;
-        private GameManager manager;
+        private readonly GameManager manager;
 
         #endregion
-
-        
 
         #region Constructor
 
@@ -58,36 +57,22 @@ namespace Galaga.Model
         /// Initializes a new instance of the <see cref="EnemyManager"/> class.
         /// </summary>
         /// <param name="canvas">The canvas.</param>
+        /// <param name="manager">The game manager object</param>
         public EnemyManager(Canvas canvas, GameManager manager)
         {
             this.Enemies = new List<NonAttackEnemy>();
             this.manager = manager;
             this.canvas = canvas;
-            this.intializeAnimationTimer();
-        }
 
-        private void intializeAnimationTimer()
-        {
-            this.animationTimer = new DispatcherTimer();
-            this.animationTimer.Interval = TimeSpan.FromMilliseconds(20); 
-            this.animationTimer.Tick += this.OnAnimationTick;
-            this.animationTimer.Start();
-        }
-
-        private void OnAnimationTick(object sender, object e)
-        {
-            foreach (var enemy in this.Enemies)
-            {
-                
-                enemy.UpdateImage();
-            }
+            this.initializeAnimationTimer();
         }
 
         #endregion
 
         #region Methods
+
         /// <summary>
-        /// Places the non attack enemy.
+        /// Places the non-attack enemy.
         /// </summary>
         /// <param name="level">The level.</param>
         /// <param name="score">The score.</param>
@@ -103,36 +88,38 @@ namespace Galaga.Model
                 
                 if (level == EnemyType.Level1)
                 {
-                    NonAttackEnemy enemySprite = null;
-                    List<BaseSprite> sprites = new List<BaseSprite>();
+                    List<BaseSprite> sprites = new List<BaseSprite>
+                    {
+                        new EnemyL1Sprite(),
+                        new EnemyL1SpriteTwo()
+                    };
 
-                    sprites.Add(new EnemyL1Sprite());
-                    sprites.Add(new EnemyL1SpriteTwo());
-                    enemySprite = new NonAttackEnemy(sprites, score)
+                    var enemySprite = new NonAttackEnemy(sprites, score)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
+
                     this.Enemies.Add(enemySprite);
                     
                 }
                 else if (level == EnemyType.Level2)
                 {
-                    NonAttackEnemy enemySprite = null;
-                    List<BaseSprite> sprites = new List<BaseSprite>();
-                    sprites.Add(new EnemyL2Sprite());
-                    sprites.Add(new EnemyL2SpriteTwo());
-                    enemySprite = new NonAttackEnemy(sprites, score)
+                    List<BaseSprite> sprites = new List<BaseSprite>
+                    {
+                        new EnemyL2Sprite(),
+                        new EnemyL2SpriteTwo()
+                    };
+
+                    var enemySprite = new NonAttackEnemy(sprites, score)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
+
                     this.Enemies.Add(enemySprite);
                     
-                    
                 }
-
-                
             }
         }
 
@@ -153,41 +140,62 @@ namespace Galaga.Model
                 
                 if (level == EnemyType.Level3)
                 {
-                    AttackEnemy enemySprite = null;
-                    List<BaseSprite> sprites = new List<BaseSprite>();
-                    sprites.Add(new EnemyL3Sprite());
-                    sprites.Add(new EnemyL3SpriteTwo());
-                    enemySprite = new AttackEnemy(this.manager,sprites, score, this.canvas, player)
+                    List<BaseSprite> sprites = new List<BaseSprite>
+                    {
+                        new EnemyL3Sprite(),
+                        new EnemyL3SpriteTwo()
+                    };
+
+                    var enemySprite = new AttackEnemy(this.manager,sprites, score, this.canvas, player)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
+
                     this.Enemies.Add(enemySprite);
-                    
                     
                 } else if (level == EnemyType.Level4)
                 {
-                    AttackEnemy enemySprite = null;
-                    List<BaseSprite> sprites = new List<BaseSprite>();
-                    sprites.Add(new EnemyL4Sprite());
-                    sprites.Add(new EnemyL4SpriteTwo());
-                    enemySprite = new AttackEnemy(this.manager, sprites, score, this.canvas, player)
+                    List<BaseSprite> sprites = new List<BaseSprite>
+                    {
+                        new EnemyL4Sprite(),
+                        new EnemyL4SpriteTwo()
+                    };
+
+                    var enemySprite = new AttackEnemy(this.manager, sprites, score, this.canvas, player)
                     {
                         X = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance),
                         Y = y
                     };
-                    this.Enemies.Add(enemySprite);
-                    
-                    
-                }
 
-               
+                    this.Enemies.Add(enemySprite);
+                }
             }
         }
 
         #endregion
 
         #region Private Methods
+
+        private void initializeAnimationTimer()
+        {
+            var seconds = 20;
+            this.animationTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(seconds)
+            };
+            this.animationTimer.Tick += this.OnAnimationTick;
+            this.animationTimer.Start();
+        }
+
+        private void OnAnimationTick(object sender, object e)
+        {
+            foreach (var enemy in this.Enemies)
+            {
+
+                enemy.UpdateImage();
+            }
+        }
 
         private double getStartPoint(double numOfEnemies, double canvasMiddle)
         {

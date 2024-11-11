@@ -1,5 +1,4 @@
-﻿using Windows.UI.Xaml.Controls;
-using Galaga.View.Sprites;
+﻿using Galaga.View.Sprites;
 using Windows.UI.Xaml;
 using System;
 
@@ -15,7 +14,7 @@ namespace Galaga.Model
         private const int SpeedXDirection = 3;
         private const int SpeedYDirection = 0;
 
-        
+        private DispatcherTimer invincibilityTimer;
 
         #endregion
 
@@ -36,6 +35,7 @@ namespace Galaga.Model
         /// The lives.
         /// </value>
         public int Lives { get; set; }
+
         /// <summary>
         /// Gets or sets the bullets shot.
         /// </summary>
@@ -51,6 +51,7 @@ namespace Galaga.Model
         ///   <c>true</c> if this instance is shooting; otherwise, <c>false</c>.
         /// </value>
         public bool IsShooting { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is moving left.
         /// </summary>
@@ -58,6 +59,7 @@ namespace Galaga.Model
         ///   <c>true</c> if this instance is moving left; otherwise, <c>false</c>.
         /// </value>
         public bool IsMovingLeft { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is moving right.
         /// </summary>
@@ -65,6 +67,7 @@ namespace Galaga.Model
         ///   <c>true</c> if this instance is moving right; otherwise, <c>false</c>.
         /// </value>
         public bool IsMovingRight { get; set; }
+
         /// <summary>
         /// Gets a value indicating whether this instance is invincible.
         /// </summary>
@@ -72,8 +75,6 @@ namespace Galaga.Model
         ///   <c>true</c> if this instance is invincible; otherwise, <c>false</c>.
         /// </value>
         public bool IsInvincible { get; private set; }
-        private DispatcherTimer invincibilityTimer;
-
 
         #endregion
 
@@ -93,12 +94,12 @@ namespace Galaga.Model
 
         #endregion
 
+        #region Methods
 
-        public Bullet shoot()
-        {
-            return new Bullet { X = this.X, Y = this.Y - 10 };
-        }
-
+        /// <summary>
+        /// Starts the invincibility.
+        /// </summary>
+        /// <param name="durationInSeconds">The duration in seconds.</param>
         public void StartInvincibility(int durationInSeconds)
         {
             this.IsInvincible = true;
@@ -114,6 +115,7 @@ namespace Galaga.Model
             this.invincibilityTimer.Start();
         }
 
+        #endregion
 
     }
 }

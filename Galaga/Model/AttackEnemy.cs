@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Galaga.View.Sprites;
-using Windows.UI.Xaml.Media;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 
 namespace Galaga.Model
@@ -25,8 +24,6 @@ namespace Galaga.Model
         private readonly Player player;
         private readonly GameManager gameManager;
 
-        public event EventHandler GameOver;
-        public event EventHandler PlayerHit;
 
         #endregion
 
@@ -40,25 +37,14 @@ namespace Galaga.Model
         /// </value>
         public bool IsShooting { get; set; }
 
-
         /// <summary>
         /// timer for shooting at Player
         /// </summary>
         public DispatcherTimer Timer;
+
         #endregion
 
-
-
-
         #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AttackEnemy"/> class.
-        /// </summary>
-        public AttackEnemy()
-        {
-
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AttackEnemy"/> class.
@@ -79,15 +65,8 @@ namespace Galaga.Model
 
         #endregion
 
-
-       
-
         #region private methods
 
-
-        /// <summary>
-        /// Shoots at Player.
-        /// </summary>
         private void shootAtPlayer()
         {
             this.random = new Random();
@@ -95,9 +74,6 @@ namespace Galaga.Model
 
             
         }
-
-        
-        
 
         private void shootingTimer_Tick(object sender, object e)
         {
@@ -116,19 +92,21 @@ namespace Galaga.Model
                 X = X ,
                 Y = Y 
             };
+
             this.canvas.Children.Add(this.bullet.Sprite);
             this.IsShooting = true;
             this.startMovement(this.bullet);
-
         }
 
         private void startMovement(Bullet bulletParam)
         {
             var seconds = 50;
+
             var timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(seconds)
             };
+
             timer.Tick += (s, e) =>
             {
                 var position = bulletParam.Y;
@@ -139,7 +117,6 @@ namespace Galaga.Model
                     bulletParam.Y += movementPerStep;
                     bulletParam.UpdateBoundingBox();
                     this.checkCollision(bulletParam);
-                    
                 }
                 else
                 {
@@ -148,50 +125,57 @@ namespace Galaga.Model
                     this.IsShooting = false;
                 }
             };
+
             timer.Start();
-            
         }
 
-        private void checkCollision(Bullet bullet)
+        private void checkCollision(Bullet enemyBullet)
         {
             this.bullet.UpdateBoundingBox();
             this.player.UpdateBoundingBox();
 
             if (this.isCollision(this.bullet.BoundingBox, this.player.BoundingBox))
             {
-                this.canvas.Children.Remove(bullet.Sprite);
+                this.canvas.Children.Remove(enemyBullet.Sprite);
                 this.Timer.Stop();
+
                 this.IsShooting = false;
-               
+
                 this.gameManager.OnPlayerHit();
-                
-                if (this.player.Lives == 0)
-                {
-                    this.canvas.Children.Clear();
-                    this.Timer.Stop();
-                    this.gameManager.OnGameOver();
-                }
-                else
-                {
-                    this.canvas.Children.Remove(this.player.Sprite);
-                    this.player.StartInvincibility(2);
-                    var playerReturnTimer = new DispatcherTimer
-                    {
-                        Interval = TimeSpan.FromSeconds(1)
-                    };
-                    playerReturnTimer.Tick += (s, e) =>
-                    {
-                        this.canvas.Children.Add(this.player.Sprite);
-                        playerReturnTimer.Stop();
-                        this.restartShootingTimer();
-                    };
-                    playerReturnTimer.Start();
-
-                }
-                    
-
-                
+                this.checkPlayerStatus();
             }
+        }
+
+        private void checkPlayerStatus()
+        {
+            if (this.player.Lives == 0)
+            {
+                this.canvas.Children.Clear();
+                this.Timer.Stop();
+                this.gameManager.OnGameOver();
+            }
+            else
+            {
+                this.canvas.Children.Remove(this.player.Sprite);
+                this.player.StartInvincibility(2);
+
+                var playerReturnTimer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromSeconds(1)
+                };
+                this.playerReturnTimer(playerReturnTimer);
+            }
+        }
+
+        private void playerReturnTimer(DispatcherTimer playerReturnTimer)
+        {
+            playerReturnTimer.Tick += (s, e) =>
+            {
+                this.canvas.Children.Add(this.player.Sprite);
+                playerReturnTimer.Stop();
+                this.restartShootingTimer();
+            };
+            playerReturnTimer.Start();
         }
 
         private bool isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)

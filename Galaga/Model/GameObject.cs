@@ -1,5 +1,4 @@
 ﻿using System;
-using Windows.UI.Xaml;
 using Galaga.View.Sprites;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 using Point = Windows.Foundation.Point;
@@ -172,7 +171,6 @@ namespace Galaga.Model
             this.SpeedX = speedX;
             this.SpeedY = speedY;
         }
-
 
         /// <summary>
         /// Updates the bounding box.
