@@ -71,8 +71,6 @@ namespace Galaga.Model
         {
             this.random = new Random();
             this.restartShootingTimer();
-
-            
         }
 
         private void shootingTimer_Tick(object sender, object e)
@@ -142,20 +140,21 @@ namespace Galaga.Model
                 this.IsShooting = false;
 
                 this.gameManager.OnPlayerHit();
+
                 this.checkPlayerStatus();
             }
         }
 
         private void checkPlayerStatus()
         {
-            if (this.player.Lives == 0)
+            if (this.gameManager.Player.Lives == 0)
             {
-                this.canvas.Children.Clear();
                 this.Timer.Stop();
                 this.gameManager.OnGameOver();
             }
             else
             {
+                
                 this.canvas.Children.Remove(this.player.Sprite);
                 this.player.StartInvincibility(2);
 

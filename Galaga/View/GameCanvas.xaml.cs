@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Galaga.Model;
 using Windows.Foundation;
 using Windows.System;
@@ -53,6 +54,9 @@ namespace Galaga.View
             if (this.gameManager.Player.Lives <= 0)
             {
                 this.livesTextBlock.Text = $"Lives: {this.gameManager.Player.Lives}";
+                this.canvas.Children.Clear();
+                this.canvas.Children.Add(this.gameOverTextBlock);
+                this.canvas.Children.Add(this.scoreTextBlock);
                 this.gameOverTextBlock.Visibility = Visibility.Visible;
             }
             else
@@ -84,7 +88,7 @@ namespace Galaga.View
         {
             Window.Current.CoreWindow.KeyDown += this.coreWindowOnKeyDown;
             Window.Current.CoreWindow.KeyUp += this.coreWindowOnKeyUp;
-            CompositionTarget.Rendering += this.gameMovementLoop;
+            CompositionTarget.Rendering += async (s, e) => await this.gameMovementLoop();
 
 
             this.gameManager.EnemyKilled += this.onEnemyKilled;
@@ -132,7 +136,7 @@ namespace Galaga.View
             }
         }
 
-        private void gameMovementLoop(object sender, object e)
+        private async Task gameMovementLoop()
         {
             if (this.gameManager.Player.IsMovingLeft)
             {
@@ -146,7 +150,7 @@ namespace Galaga.View
 
             if (this.gameManager.Player.IsShooting)
             {
-                this.gameManager.PlayerShoot();
+                await this.gameManager.PlayerShoot();
             }
         }
 

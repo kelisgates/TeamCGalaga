@@ -16,6 +16,7 @@ namespace Galaga.Model
         private const int SpeedYDirection = 0;
         private const int MovementPerStep = 10;
 
+        
         private DispatcherTimer timer;
         private int steps;
         private bool movingRight;
@@ -45,14 +46,6 @@ namespace Galaga.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NonAttackEnemy"/> class.
         /// </summary>
-        public NonAttackEnemy()
-        {
-            
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NonAttackEnemy"/> class.
-        /// </summary>
         public NonAttackEnemy(List<BaseSprite> sprites, int score)
         {
             
@@ -62,8 +55,6 @@ namespace Galaga.Model
             this.ScoreValue = score;
             SetSpeed(SpeedXDirection, SpeedYDirection);
         }
-
-
 
         #endregion
 
@@ -83,7 +74,7 @@ namespace Galaga.Model
 
             this.Sprites[0].Visibility = Visibility.Collapsed;
             this.Sprites[1].Visibility = Visibility.Collapsed;
-            
+
             this.chooseWhichSpriteToDisplay();
 
         }
@@ -103,6 +94,7 @@ namespace Galaga.Model
                 Sprite = this.Sprites[1];
                 this.isFirstSpriteVisible = true;
             }
+
         }
 
         private void moveEnemy()

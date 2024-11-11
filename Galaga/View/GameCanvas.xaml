@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:model="using:Galaga.Model" d:DataContext="{d:DesignInstance Type=model:ScoreManager}"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -14,7 +14,7 @@
         <TextBlock x:Name="livesTextBlock" Canvas.Left="0" TextWrapping="Wrap" Text="Lives: 3" Canvas.Top="15" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
         <TextBlock x:Name="scoreTextBlock" Canvas.Left="55" TextWrapping="Wrap" Text="Score:" Canvas.Top="256" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
         <TextBlock x:Name="gameOverTextBlock" Canvas.Left="201" TextWrapping="Wrap" Text="Game Over!" Canvas.Top="235" Foreground="#FFF9F8F8" FontSize="72" Visibility="Collapsed"/>
-        <TextBlock x:Name="gameWonTextBlock" Canvas.Left="201" TextWrapping="Wrap" Text="" Canvas.Top="235" Foreground="#FFF9F8F8" FontSize="72" Visibility="Collapsed"/>
+        <TextBlock x:Name="gameWonTextBlock" Canvas.Left="201" TextWrapping="Wrap" Text="Game Won!" Canvas.Top="235" Foreground="#FFF9F8F8" FontSize="72" Visibility="Collapsed"/>
 
     </Canvas>
 </Page>

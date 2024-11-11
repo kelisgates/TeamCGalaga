@@ -19,6 +19,8 @@ namespace Galaga.Model
         private readonly double canvasHeight;
         private readonly double canvasWidth;
 
+        private bool canShoot = true;
+
         private List<Bullet> activeBullets;
         private EnemyManager enemyManager;
 
@@ -209,6 +211,7 @@ namespace Galaga.Model
                     if (this.isCollision(bullet.BoundingBox, enemy.BoundingBox))
                     {
                         this.checkIfEnemyIsAttackingEnemy(enemy);
+                        this.canvas.Children.Remove(bullet.Sprite);
                         this.removeEnemyAndUpdateScore(enemy);
 
                         break;
@@ -229,7 +232,6 @@ namespace Galaga.Model
         {
             
             this.WasCollision = true;
-
             this.canvas.Children.Remove(enemy.Sprite);
             this.enemyManager.Enemies.Remove(enemy);
 
@@ -240,7 +242,6 @@ namespace Galaga.Model
 
             if (this.enemyManager.Enemies.Count == 0)
             {
-                
                 this.GameWon?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -285,12 +286,15 @@ namespace Galaga.Model
         /// <summary>
         /// Player shoot a bullet.
         /// </summary>
-        public async void PlayerShoot()
+        public async Task PlayerShoot()
         {
-            if (this.activeBullets.Count >= 3)
+            
+            if (!this.canShoot || this.activeBullets.Count >= 3)
             {
                 return;
             }
+
+            this.canShoot = false;
 
             var movementPerStep = 20;
 
@@ -306,6 +310,7 @@ namespace Galaga.Model
             this.startBulletMovement(bullet);
 
             await Task.Delay(500);
+            this.canShoot = true;
 
         }
 

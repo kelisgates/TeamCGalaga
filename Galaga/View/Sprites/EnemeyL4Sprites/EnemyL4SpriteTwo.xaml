@@ -13,7 +13,6 @@
 
     <Canvas>
         <local:EnemyL4Sprite/>
-        <Line X1="20" Y1="25" X2="28" Y2="30" StrokeThickness="1" Stroke="Yellow"/>
-        <Line X1="40" Y1="25" X2="32" Y2="30" StrokeThickness="1" Stroke="Yellow"/>
+        <Ellipse Height="10" Width="30" Canvas.Top="35" Canvas.Left="15" Stroke="Violet" Fill="MediumVioletRed"/>
     </Canvas>
 </local:EnemyL4Sprite>
