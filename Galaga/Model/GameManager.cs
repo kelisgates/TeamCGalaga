@@ -342,7 +342,6 @@ namespace Galaga.Model
         /// </summary>
         public void OnGameOver()
         {
-            Debug.WriteLine("game manager onGame invoked");
             this.GameOver?.Invoke(this, EventArgs.Empty);
         }
 
