@@ -21,6 +21,7 @@
         /// <value>
         ///   <c>true</c> if this instance is shooting; otherwise, <c>false</c>.
         /// </value>
+        /// <returns>bool value is bullet is being shot</returns>
         public bool IsShooting { get;  set; }
 
         #endregion

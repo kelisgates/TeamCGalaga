@@ -56,6 +56,7 @@ namespace Galaga.Model
         /// <summary>
         /// player object
         /// </summary>
+        /// <returns>Player object</returns>
         public Player Player { get; private set; }
 
         /// <summary>
@@ -64,6 +65,7 @@ namespace Galaga.Model
         /// <value>
         ///   <c>true</c> if this instance is Player bullet active; otherwise, <c>false</c>.
         /// </value>
+        /// <returns>bool value if player bullet is active</returns>
         public bool IsPlayerBulletActive { get; set; }
 
         /// <summary>
@@ -72,6 +74,7 @@ namespace Galaga.Model
         /// <value>
         ///   <c>true</c> if [was collision]; otherwise, <c>false</c>.
         /// </value>
+        /// <returns>bool value if collision occurred</returns>
         public bool WasCollision { get; set; }
 
         #endregion
@@ -289,6 +292,7 @@ namespace Galaga.Model
         /// <summary>
         /// Player shoot a bullet.
         /// </summary>
+        /// <returns>Task waiting to see if player can shoot again</returns>
         public async Task PlayerShoot()
         {
             

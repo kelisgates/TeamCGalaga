@@ -25,6 +25,8 @@ namespace Galaga.Model
         private readonly Player player;
         private readonly GameManager gameManager;
 
+        private bool isCollisionProcessed;
+
         #endregion
 
         #region Properties
@@ -35,6 +37,7 @@ namespace Galaga.Model
         /// <value>
         ///   <c>true</c> if this instance is shooting; otherwise, <c>false</c>.
         /// </value>
+        /// <returns>bool value if enemy is already shooting</returns>
         public bool IsShooting { get; set; }
 
         /// <summary>
@@ -58,6 +61,7 @@ namespace Galaga.Model
             SetSpeed(SpeedXDirection, SpeedYDirection);
             this.shootAtPlayer();
             this.gameManager = gameManager;
+            this.isCollisionProcessed = false;
         }
 
         #endregion
@@ -172,28 +176,20 @@ namespace Galaga.Model
 
         private void checkCollision(Bullet enemyBullet)
         {
-            
             try
             {
+                if (this.isCollisionProcessed)
+                {
+                    return;
+                }
+
                 enemyBullet.UpdateBoundingBox();
                 this.player.UpdateBoundingBox();
 
-                Debug.WriteLine($"Bullet BoundingBox: {enemyBullet.BoundingBox}");
-                Debug.WriteLine($"Player BoundingBox: {this.player.BoundingBox}");
-
                 if (this.isCollision(enemyBullet.BoundingBox, this.player.BoundingBox))
                 {
-                    this.gameManager.OnPlayerHit(); //TODO: fix how many lives player is losing
-                    this.canvas.Children.Remove(enemyBullet.Sprite);
-                    this.Timer.Stop();
-
-                    this.IsShooting = false;
+                    this.updateGameState(enemyBullet);
                     this.checkPlayerStatus();
-                    
-                    
-                    
-
-                    Debug.WriteLine("Collision detected between bullet and player.");
                 }
             }
             catch (Exception ex)
@@ -201,6 +197,19 @@ namespace Galaga.Model
                 Debug.WriteLine($"Exception in checkCollision: {ex.Message}");
                 Debug.WriteLine(ex.StackTrace);
             }
+        }
+
+        private void updateGameState(Bullet enemyBullet)
+        {
+            this.isCollisionProcessed = true;
+
+            this.gameManager.Player.Lives--;
+            this.gameManager.OnPlayerHit(); 
+
+            this.canvas.Children.Remove(enemyBullet.Sprite);
+
+            this.Timer.Stop();
+            this.IsShooting = false;
         }
 
         private void checkPlayerStatus()
@@ -211,7 +220,6 @@ namespace Galaga.Model
                 {
                     this.Timer.Stop();
                     this.gameManager.OnGameOver();
-                    Debug.WriteLine("Game Over: Player has no lives left.");
                 }
                 else
                 {
@@ -241,6 +249,7 @@ namespace Galaga.Model
                 {
                     this.canvas.Children.Add(this.player.Sprite);
                     playerReturnTimer.Stop();
+                    this.isCollisionProcessed = false;
                     this.restartShootingTimer();
                 }
                 catch (Exception ex)

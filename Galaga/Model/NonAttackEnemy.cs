@@ -38,6 +38,7 @@ namespace Galaga.Model
         /// <value>
         /// The score value.
         /// </value>
+        /// <returns>int the score value</returns>
         public int ScoreValue { get; set; }
 
         #endregion
@@ -49,7 +50,6 @@ namespace Galaga.Model
         /// </summary>
         public NonAttackEnemy(List<BaseSprite> sprites, int score)
         {
-            
             this.Sprites = sprites;
             Sprite = sprites[0];
             
@@ -68,7 +68,6 @@ namespace Galaga.Model
         /// <exception cref="System.InvalidOperationException">There must be at least two sprites to toggle between.</exception>
         public void UpdateImage()
         {
-
             if (this.Sprites.Count < 2)
             {
                 throw new InvalidOperationException("There must be at least two sprites to toggle between.");
@@ -78,7 +77,6 @@ namespace Galaga.Model
             this.Sprites[1].Visibility = Visibility.Collapsed;
 
             this.chooseWhichSpriteToDisplay();
-
         }
 
         private void chooseWhichSpriteToDisplay()
@@ -88,7 +86,6 @@ namespace Galaga.Model
                 this.Sprites[0].Visibility = Visibility.Visible;
                 Sprite = this.Sprites[0];
                 this.isFirstSpriteVisible = false;
-
             }
             else
             {
