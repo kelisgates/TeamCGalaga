@@ -6,6 +6,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using CompositionTarget = Windows.UI.Xaml.Media.CompositionTarget;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -66,14 +67,32 @@ namespace Galaga.View
             }
         }
 
-        private void onGameWon(object sender, EventArgs e)
+        private async void onGameWon(object sender, EventArgs e)
         {
             this.gameWonTextBlock.Visibility = Visibility.Visible;
+            var dialog = new ContentDialog()
+            {
+                Title = "You Won!",
+                Content = "Congratulations, you have killed all the enemies!",
+                CloseButtonText = "Exit"
+            };
+
+            dialog.CloseButtonClick += (_, _) => { Application.Current.Exit(); };
+
+            _ = await dialog.ShowAsync();
         }
 
-        private void onGameOver(object sender, EventArgs e)
+        private async void onGameOver(object sender, EventArgs e)
         {
             this.gameOverTextBlock.Visibility = Visibility.Visible;
+            var dialog = new ContentDialog()
+            {
+                Title = "Game Over!",
+                Content = "You have been killed by the enemy.",
+                CloseButtonText = "Exit"
+            };
+            dialog.CloseButtonClick += (_, _) => { Application.Current.Exit(); };
+            _ = await dialog.ShowAsync();
         }
 
         private void onEnemyKilled(object sender, EventArgs e)
@@ -89,7 +108,7 @@ namespace Galaga.View
         {
             Window.Current.CoreWindow.KeyDown += this.coreWindowOnKeyDown;
             Window.Current.CoreWindow.KeyUp += this.coreWindowOnKeyUp;
-            CompositionTarget.Rendering += async (s, e) => await this.gameMovementLoop();
+            CompositionTarget.Rendering += async (_, _) => await this.gameMovementLoop();
 
 
             this.gameManager.EnemyKilled += this.onEnemyKilled;

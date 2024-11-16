@@ -107,8 +107,8 @@ namespace Galaga.Model
                 }
                 var enemyBullet = new Bullet
                 {
-                    X = X,
-                    Y = Y
+                    X = X + Width / 2,
+                    Y = Y + Height
                 };
 
                 this.canvas.Children.Add(enemyBullet.Sprite);
@@ -147,7 +147,6 @@ namespace Galaga.Model
                         {
                             var movementPerStep = 10;
                             bulletParam.Y += movementPerStep;
-                            bulletParam.UpdateBoundingBox();
                             this.checkCollision(bulletParam);
                         }
                         else
@@ -183,10 +182,7 @@ namespace Galaga.Model
                     return;
                 }
 
-                enemyBullet.UpdateBoundingBox();
-                this.player.UpdateBoundingBox();
-
-                if (this.isCollision(enemyBullet.BoundingBox, this.player.BoundingBox))
+                if (enemyBullet.IntersectsWith(this.player))
                 {
                     this.updateGameState(enemyBullet);
                     this.checkPlayerStatus();
@@ -211,7 +207,9 @@ namespace Galaga.Model
             this.Timer.Stop();
             this.IsShooting = false;
         }
-
+        /// <summary>
+        /// move to player
+        /// </summary>
         private void checkPlayerStatus()
         {
             try
@@ -239,7 +237,10 @@ namespace Galaga.Model
                 Debug.WriteLine(ex.StackTrace);
             }
         }
-
+        /// <summary>
+        /// move to player
+        /// </summary>
+        /// <param name="playerReturnTimer"></param>
         private void playerReturnTimer(DispatcherTimer playerReturnTimer)
         {
 
@@ -259,14 +260,6 @@ namespace Galaga.Model
                 }
             };
             playerReturnTimer.Start();
-        }
-
-        private bool isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
-        {
-            return !(boundingBox1.Left > boundingBox2.Left + boundingBox2.Width ||
-                     boundingBox1.Left + boundingBox1.Width < boundingBox2.Left ||
-                     boundingBox1.Top > boundingBox2.Top + boundingBox2.Height ||
-                     boundingBox1.Top + boundingBox1.Height < boundingBox2.Top);
         }
 
         private void restartShootingTimer()

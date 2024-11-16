@@ -1,4 +1,6 @@
 ﻿using System;
+using Windows.Foundation;
+using Windows.UI.Xaml.Controls;
 using Galaga.View.Sprites;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 using Point = Windows.Foundation.Point;
@@ -17,14 +19,6 @@ namespace Galaga.Model
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the bounding box.
-        /// </summary>
-        /// <value>
-        /// The bounding box.
-        /// </value>
-        public BoundingBox BoundingBox { get; set; }
 
         /// <summary>
         ///     Gets or sets the x location of the game object.
@@ -97,6 +91,8 @@ namespace Galaga.Model
         ///     The sprite.
         /// </value>
         public BaseSprite Sprite { get; protected set; }
+
+        private Rect BoundingBox => new(this.X, this.Y, this.Width, this.Height);
 
         #endregion
 
@@ -173,20 +169,21 @@ namespace Galaga.Model
         }
 
         /// <summary>
-        /// Updates the bounding box.
+        /// Checks if the game object intersects with another game object.
+        ///
+        /// <param name="other">the game object to check for intersection with.</param>
+        /// <returns>true if the game objects intersect
+        ///         false if the game objects don't intersect</returns>
         /// </summary>
-        public void UpdateBoundingBox()
+        public bool IntersectsWith(GameObject other)
         {
-            this.BoundingBox = new BoundingBox
-            {
-                Left = (float)this.X,
-                Top = (float)this.Y,
-                Width = (float)this.Width,
-                Height = (float)this.Height
-            };
+            return this.BoundingBox.X < other.BoundingBox.X + other.BoundingBox.Width &&
+                   this.BoundingBox.X + this.BoundingBox.Width > other.BoundingBox.X &&
+                   this.BoundingBox.Y < other.BoundingBox.Y + other.BoundingBox.Height &&
+                   this.BoundingBox.Y + this.BoundingBox.Height > other.BoundingBox.Y;
+
+            #endregion
+
         }
-
-        #endregion
-
     }
 }

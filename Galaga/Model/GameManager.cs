@@ -164,7 +164,7 @@ namespace Galaga.Model
                 Interval = TimeSpan.FromMilliseconds(5)
             };
 
-            timer.Tick += (s, e) =>
+            timer.Tick += (_, _) =>
             {
                 var position = bullet.Y;
                 var canvasBarrier = 0;
@@ -173,7 +173,6 @@ namespace Galaga.Model
                 {
                     var movementPerStep = 10;
                     bullet.Y -= movementPerStep;
-                    bullet.UpdateBoundingBox();
                     this.checkCollision(bullet);
                     this.updatePlayerBullet(bullet, timer);
                 }
@@ -206,15 +205,11 @@ namespace Galaga.Model
 
         private void checkCollision(Bullet bullet)
         {
-            bullet.UpdateBoundingBox();
-            
             foreach (var enemy in this.enemyManager.Enemies)
             {
                 if (enemy != null)
                 {
-                    enemy.UpdateBoundingBox();
-                    
-                    if (this.isCollision(bullet.BoundingBox, enemy.BoundingBox))
+                    if (bullet.IntersectsWith(enemy))
                     {
                         this.checkIfEnemyIsAttackingEnemy(enemy);
                         this.canvas.Children.Remove(bullet.Sprite);
@@ -226,20 +221,13 @@ namespace Galaga.Model
             }
         }
 
-        private bool isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
-        {
-            return !(boundingBox1.Left > boundingBox2.Left + boundingBox2.Width ||
-                     boundingBox1.Left + boundingBox1.Width < boundingBox2.Left ||
-                     boundingBox1.Top > boundingBox2.Top + boundingBox2.Height ||
-                     boundingBox1.Top + boundingBox1.Height < boundingBox2.Top);
-        }
-
         private void removeEnemyAndUpdateScore(NonAttackEnemy enemy)
         {
             
             this.WasCollision = true;
             this.canvas.Children.Remove(enemy.Sprite);
             this.enemyManager.Enemies.Remove(enemy);
+            
 
             var amount = enemy.ScoreValue;
             this.Player.Score += amount;
