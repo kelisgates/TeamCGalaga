@@ -122,12 +122,15 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Bullet.cs" />
+    <Compile Include="Model\CollisionManager.cs" />
+    <Compile Include="Model\Enemy.cs" />
     <Compile Include="Model\EnemyManager.cs" />
     <Compile Include="Model\NonAttackEnemy.cs" />
     <Compile Include="Model\AttackEnemy.cs" />
     <Compile Include="Model\GameManager.cs" />
     <Compile Include="Model\GameObject.cs" />
     <Compile Include="Model\Player.cs" />
+    <Compile Include="Model\PlayerManager.cs" />
     <Compile Include="View\GameCanvas.xaml.cs">
       <DependentUpon>GameCanvas.xaml</DependentUpon>
     </Compile>
