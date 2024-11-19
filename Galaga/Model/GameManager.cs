@@ -9,7 +9,7 @@ using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 namespace Galaga.Model
 {
     /// <summary>
-    /// Manages the Galaga game play.
+    /// Manages the Galaga game play
     /// </summary>
     public class GameManager
     {
