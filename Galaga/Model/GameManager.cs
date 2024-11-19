@@ -22,8 +22,10 @@ namespace Galaga.Model
 
         private bool canShoot = true;
 
-        private List<Bullet> activeBullets;
-        private EnemyManager enemyManager;
+        public List<Bullet> activeBullets;
+        public EnemyManager enemyManager;
+        public PlayerManager playerManager;
+        private CollisionManager collisionManager;
 
         #endregion
 
@@ -77,6 +79,9 @@ namespace Galaga.Model
         /// <returns>bool value if collision occurred</returns>
         public bool WasCollision { get; set; }
 
+        public EnemyManager EnemyManager => this.enemyManager;
+        public Canvas Canvas => this.canvas;
+
         #endregion
 
         #region Constructors
@@ -103,6 +108,7 @@ namespace Galaga.Model
         {
             
             this.createAndPlacePlayer();
+            this.collisionManager = new CollisionManager(this, this.Player, this.activeBullets);
             this.placeEnemies();
 
             this.activeBullets = new List<Bullet>();
@@ -110,155 +116,15 @@ namespace Galaga.Model
 
         private void placeEnemies()
         {
-            this.enemyManager = new EnemyManager(this.canvas, this);
-
-            var half = 2.0;
-            var canvasMiddle = this.canvasWidth / half;
-
-            this.enemyManager.PlaceEnemy(EnemyType.Level1, 10, canvasMiddle, 250, 3, false);
-            this.enemyManager.PlaceEnemy(EnemyType.Level2, 20, canvasMiddle, 170, 4, false);
-            this.enemyManager.PlaceEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, true, this.Player);
-            this.enemyManager.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 20, 5, true, this.Player);
-
-            this.addEnemiesToCanvas();
-        }
-
-        private void addEnemiesToCanvas()
-        {
-            foreach (var enemy in this.enemyManager.Enemies)
-            {
-                if (enemy.Sprite.Parent != null)
-                {
-                    ((Panel)enemy.Sprite.Parent).Children.Remove(enemy.Sprite);
-                }
-
-                foreach (var currSprite in enemy.Sprites)
-                {
-                    Canvas.SetLeft(currSprite, enemy.X);
-                    Canvas.SetTop(currSprite, enemy.Y);
-                    this.canvas.Children.Add(currSprite);
-                }
-                
-            }
+            this.enemyManager = new EnemyManager(this.canvas, this, this.collisionManager);
+            this.enemyManager.PlaceEnemies();
         }
 
         private void createAndPlacePlayer()
         {
-            this.Player = new Player();
-            this.canvas.Children.Add(this.Player.Sprite);
-
-            this.placePlayerNearBottomOfBackgroundCentered();
-        }
-
-        private void placePlayerNearBottomOfBackgroundCentered()
-        {
-            var half = 2;
-            this.Player.X = this.canvasWidth / half - this.Player.Width / half;
-            this.Player.Y = this.canvasHeight - this.Player.Height - PlayerOffsetFromBottom;
-        }
-
-        private void startBulletMovement(Bullet bullet)
-        {
-            var timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(5)
-            };
-
-            timer.Tick += (s, e) =>
-            {
-                var position = bullet.Y;
-                var canvasBarrier = 0;
-
-                if (position > canvasBarrier)
-                {
-                    var movementPerStep = 10;
-                    bullet.Y -= movementPerStep;
-                    bullet.UpdateBoundingBox();
-                    this.checkCollision(bullet);
-                    this.updatePlayerBullet(bullet, timer);
-                }
-                else
-                {
-                    this.removePlayerBullet(bullet, timer);
-                }
-            };
-            timer.Start();
-        }
-
-        private void removePlayerBullet(Bullet bullet, DispatcherTimer dispatcherTimer)
-        {
-            this.canvas.Children.Remove(bullet.Sprite);
-            this.Player.BulletsShot--;
-            dispatcherTimer.Stop();
-            this.activeBullets.Remove(bullet);
-        }
-
-        private void updatePlayerBullet(Bullet bullet, DispatcherTimer dispatcherTimer)
-        {
-            if (this.WasCollision)
-            {
-                this.WasCollision = false;
-                this.canvas.Children.Remove(bullet.Sprite);
-                dispatcherTimer.Stop();
-                this.activeBullets.Remove(bullet);
-            }
-        }
-
-        private void checkCollision(Bullet bullet)
-        {
-            bullet.UpdateBoundingBox();
-            
-            foreach (var enemy in this.enemyManager.Enemies)
-            {
-                if (enemy != null)
-                {
-                    enemy.UpdateBoundingBox();
-                    
-                    if (this.isCollision(bullet.BoundingBox, enemy.BoundingBox))
-                    {
-                        this.checkIfEnemyIsAttackingEnemy(enemy);
-                        this.canvas.Children.Remove(bullet.Sprite);
-                        this.removeEnemyAndUpdateScore(enemy);
-
-                        break;
-                    }
-                }
-            }
-        }
-
-        private bool isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
-        {
-            return !(boundingBox1.Left > boundingBox2.Left + boundingBox2.Width ||
-                     boundingBox1.Left + boundingBox1.Width < boundingBox2.Left ||
-                     boundingBox1.Top > boundingBox2.Top + boundingBox2.Height ||
-                     boundingBox1.Top + boundingBox1.Height < boundingBox2.Top);
-        }
-
-        private void removeEnemyAndUpdateScore(NonAttackEnemy enemy)
-        {
-            
-            this.WasCollision = true;
-            this.canvas.Children.Remove(enemy.Sprite);
-            this.enemyManager.Enemies.Remove(enemy);
-
-            var amount = enemy.ScoreValue;
-            this.Player.Score += amount;
-
-            this.EnemyKilled?.Invoke(this, EventArgs.Empty);
-
-            if (this.enemyManager.Enemies.Count == 0)
-            {
-                this.GameWon?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        private void checkIfEnemyIsAttackingEnemy(NonAttackEnemy enemy)
-        {
-            if (enemy is AttackEnemy enemyLevelThree)
-            {
-                enemyLevelThree.IsShooting = false;
-                enemyLevelThree.Timer.Stop();
-            }
+            this.playerManager = new PlayerManager(this.canvas);
+            this.playerManager.CreateAndPlacePlayer();
+            this.Player = this.playerManager.player;
         }
 
         #endregion
@@ -266,36 +132,11 @@ namespace Galaga.Model
         #region Public Methods
 
         /// <summary>
-        /// Moves the Player left.
-        /// </summary>
-        public void MovePlayerLeft()
-        {
-            var leftCanvasBarrier = 0;
-            if (this.Player.X - this.Player.SpeedX >= leftCanvasBarrier)
-            {
-                this.Player.MoveLeft();
-            }
-        }
-
-        /// <summary>
-        /// Moves the Player right.
-        /// </summary>
-        public void MovePlayerRight()
-        {
-            if (this.Player.X + this.Player.SpeedX + this.Player.Width <= this.canvasWidth)
-            {
-                this.Player.MoveRight();
-            }
-            
-        }
-
-        /// <summary>
         /// Player shoot a bullet.
         /// </summary>
         /// <returns>Task waiting to see if player can shoot again</returns>
         public async Task PlayerShoot()
         {
-            
             if (!this.canShoot || this.activeBullets.Count >= 3)
             {
                 return;
@@ -314,7 +155,7 @@ namespace Galaga.Model
 
             this.canvas.Children.Add(bullet.Sprite);
             this.activeBullets.Add(bullet);
-            this.startBulletMovement(bullet);
+            this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
 
             await Task.Delay(100);
             this.canShoot = true;

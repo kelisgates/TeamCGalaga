@@ -73,6 +73,9 @@ namespace Galaga.View
 
         private void onGameOver(object sender, EventArgs e)
         {
+            this.canvas.Children.Clear();
+            this.canvas.Children.Add(this.gameOverTextBlock);
+            this.canvas.Children.Add(this.scoreTextBlock);
             this.gameOverTextBlock.Visibility = Visibility.Visible;
         }
 
@@ -141,12 +144,12 @@ namespace Galaga.View
         {
             if (this.gameManager.Player.IsMovingLeft)
             {
-                this.gameManager.MovePlayerLeft();
+                this.gameManager.playerManager.MovePlayerLeft();
             }
 
             if (this.gameManager.Player.IsMovingRight)
             {
-                this.gameManager.MovePlayerRight();
+                this.gameManager.playerManager.MovePlayerRight();
             }
 
             if (this.gameManager.Player.IsShooting)

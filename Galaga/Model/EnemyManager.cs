@@ -43,11 +43,12 @@ namespace Galaga.Model
         /// <summary>
         /// list of enemies in game
         /// </summary>
-        public readonly List<NonAttackEnemy> Enemies;
+        public readonly IList<Enemy> Enemies;
 
         private readonly Canvas canvas;
         private DispatcherTimer animationTimer;
         private readonly GameManager manager;
+        private readonly CollisionManager collisionManager;
 
         #endregion
 
@@ -58,18 +59,55 @@ namespace Galaga.Model
         /// </summary>
         /// <param name="canvas">The canvas.</param>
         /// <param name="manager">The game manager object</param>
-        public EnemyManager(Canvas canvas, GameManager manager)
+        /// <param name="collisionManager"></param>
+        public EnemyManager(Canvas canvas, GameManager manager, CollisionManager collisionManager)
         {
-            this.Enemies = new List<NonAttackEnemy>();
+            this.Enemies = new List<Enemy>();
             this.manager = manager;
             this.canvas = canvas;
-
+            this.collisionManager = collisionManager;
             this.initializeAnimationTimer();
         }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Places the enemies.
+        /// </summary>
+        public void PlaceEnemies()
+        {
+            var half = 2.0;
+            var canvasWidth = this.canvas.Width;
+            var canvasMiddle = canvasWidth / half;
+
+            this.PlaceEnemy(EnemyType.Level1, 10, canvasMiddle, 250, 3, false);
+            this.PlaceEnemy(EnemyType.Level2, 20, canvasMiddle, 170, 4, false);
+            this.PlaceEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, true);
+            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 20, 5, true);
+
+            this.addEnemiesToCanvas();
+        }
+
+        private void addEnemiesToCanvas()
+        {
+            foreach (var enemy in this.Enemies)
+            {
+                if (enemy.Sprite.Parent != null)
+                {
+                    ((Panel)enemy.Sprite.Parent).Children.Remove(enemy.Sprite);
+                }
+
+                foreach (var currSprite in enemy.Sprites)
+                {
+                    Canvas.SetLeft(currSprite, enemy.X);
+                    Canvas.SetTop(currSprite, enemy.Y);
+                    this.canvas.Children.Add(currSprite);
+                }
+
+            }
+        }
 
         /// <summary>
         /// Places the enemy.
@@ -80,20 +118,19 @@ namespace Galaga.Model
         /// <param name="y">The y.</param>
         /// <param name="numOfEnemies">The number of enemies.</param>
         /// <param name="isAttackEnemy">if set to <c>true</c> [is attack enemy].</param>
-        /// <param name="player">The player.</param>
         public void PlaceEnemy(EnemyType level, int score, double canvasMiddle, double y, int numOfEnemies,
-            bool isAttackEnemy, Player player = null)
+            bool isAttackEnemy)
         {
             for (int i = 0; i < numOfEnemies; i++)
             {
                 var widthDistance = 100;
-                List<BaseSprite> sprites = new List<BaseSprite>();
+                ICollection<BaseSprite> sprites = new List<BaseSprite>();
 
                 this.findAndCreateEnemy(level, sprites);
 
                 var xPosition = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance);
 
-                this.checkIfAttackOrNonAttackEnemy(score, y, isAttackEnemy, player, sprites, xPosition);
+                this.checkIfAttackOrNonAttackEnemy(score, y, isAttackEnemy, sprites, xPosition);
             }
         }
 
@@ -101,7 +138,7 @@ namespace Galaga.Model
 
         #region Private Methods
 
-        private void findAndCreateEnemy(EnemyType level, List<BaseSprite> sprites)
+        private void findAndCreateEnemy(EnemyType level, ICollection<BaseSprite> sprites)
         {
             switch (level)
             {
@@ -124,12 +161,12 @@ namespace Galaga.Model
             }
         }
 
-        private void checkIfAttackOrNonAttackEnemy(int score, double y, bool isAttackEnemy, Player player, List<BaseSprite> sprites,
+        private void checkIfAttackOrNonAttackEnemy(int score, double y, bool isAttackEnemy, ICollection<BaseSprite> sprites,
             double xPosition)
         {
             if (isAttackEnemy)
             {
-                var attackEnemy = new AttackEnemy(this.manager, sprites, score, this.canvas, player)
+                var attackEnemy = new AttackEnemy(sprites, score, this.canvas, this.collisionManager)
                 {
                     X = xPosition,
                     Y = y
