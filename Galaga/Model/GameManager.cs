@@ -121,105 +121,12 @@ namespace Galaga.Model
 
         private void createAndPlacePlayer()
         {
-            this.Player = new Player();
+            
             this.playerManager = new PlayerManager(this.canvas);
             this.playerManager.CreateAndPlacePlayer();
+            this.Player = this.playerManager.player;
             
         }
-
-        
-
-        //private void startBulletMovement(Bullet bullet)
-        //{
-        //    var timer = new DispatcherTimer
-        //    {
-        //        Interval = TimeSpan.FromMilliseconds(5)
-        //    };
-
-        //    timer.Tick += (_, _) =>
-        //    {
-        //        var position = bullet.Y;
-        //        var canvasBarrier = 0;
-
-        //        if (position > canvasBarrier)
-        //        {
-        //            var movementPerStep = 10;
-        //            bullet.Y -= movementPerStep;
-        //            this.checkCollision(bullet);
-        //            this.updatePlayerBullet(bullet, timer);
-        //        }
-        //        else
-        //        {
-        //            this.removePlayerBullet(bullet, timer);
-        //        }
-        //    };
-        //    timer.Start();
-        //}
-
-        //private void removePlayerBullet(Bullet bullet, DispatcherTimer dispatcherTimer)
-        //{
-        //    this.canvas.Children.Remove(bullet.Sprite);
-        //    this.Player.BulletsShot--;
-        //    dispatcherTimer.Stop();
-        //    this.activeBullets.Remove(bullet);
-        //}
-
-        //private void updatePlayerBullet(Bullet bullet, DispatcherTimer dispatcherTimer)
-        //{
-        //    if (this.WasCollision)
-        //    {
-        //        this.WasCollision = false;
-        //        this.canvas.Children.Remove(bullet.Sprite);
-        //        dispatcherTimer.Stop();
-        //        this.activeBullets.Remove(bullet);
-        //    }
-        //}
-
-        //private void checkCollision(Bullet bullet)
-        //{
-        //    foreach (var enemy in this.enemyManager.Enemies)
-        //    {
-        //        if (enemy != null)
-        //        {
-        //            if (bullet.IntersectsWith(enemy))
-        //            {
-        //                this.checkIfEnemyIsAttackingEnemy(enemy);
-        //                this.canvas.Children.Remove(bullet.Sprite);
-        //                this.removeEnemyAndUpdateScore(enemy);
-
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private void removeEnemyAndUpdateScore(NonAttackEnemy enemy)
-        //{
-            
-        //    this.WasCollision = true;
-        //    this.canvas.Children.Remove(enemy.Sprite);
-        //    this.enemyManager.Enemies.Remove(enemy);
-            
-
-        //    var amount = enemy.ScoreValue;
-        //    this.Player.Score += amount;
-
-        //    this.EnemyKilled?.Invoke(this, EventArgs.Empty);
-
-        //    if (this.enemyManager.Enemies.Count == 0)
-        //    {
-        //        this.GameWon?.Invoke(this, EventArgs.Empty);
-        //    }
-        //}
-
-        //private void checkIfEnemyIsAttackingEnemy(NonAttackEnemy enemy)
-        //{
-        //    if (enemy is AttackEnemy enemyLevelThree)
-        //    {
-        //        enemyLevelThree.IsShooting = false;
-        //        enemyLevelThree.Timer.Stop();
-        //    }
-        //}
 
         #endregion
 
@@ -249,7 +156,6 @@ namespace Galaga.Model
 
             this.canvas.Children.Add(bullet.Sprite);
             this.activeBullets.Add(bullet);
-            //this.startBulletMovement(bullet);
             this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
             await Task.Delay(100);
             this.canShoot = true;
