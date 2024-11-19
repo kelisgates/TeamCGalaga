@@ -107,11 +107,7 @@ namespace Galaga.Model
         private void initializeGame()
         {
             
-            //this.createAndPlacePlayer();
-            //this.collisionManager = new CollisionManager(this, this.Player, this.activeBullets);
-            //this.placeEnemies();
-
-            //this.activeBullets = new List<Bullet>();
+            
         }
 
         private void placeEnemies()
