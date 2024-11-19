@@ -106,7 +106,10 @@ namespace Galaga.Model
 
         private void initializeGame()
         {
-            
+            this.createAndPlacePlayer();
+            this.collisionManager = new CollisionManager(this, this.Player, this.activeBullets);
+            this.activeBullets = new List<Bullet>();
+            this.placeEnemies();
             
         }
 
@@ -119,17 +122,12 @@ namespace Galaga.Model
         private void createAndPlacePlayer()
         {
             this.Player = new Player();
-            this.canvas.Children.Add(this.Player.Sprite);
-
-            //this.placePlayerNearBottomOfBackgroundCentered();
+            this.playerManager = new PlayerManager(this.canvas);
+            this.playerManager.CreateAndPlacePlayer();
+            
         }
 
-        //private void placePlayerNearBottomOfBackgroundCentered()
-        //{
-        //    var half = 2;
-        //    this.Player.X = this.canvasWidth / half - this.Player.Width / half;
-        //    this.Player.Y = this.canvasHeight - this.Player.Height - PlayerOffsetFromBottom;
-        //}
+        
 
         //private void startBulletMovement(Bullet bullet)
         //{
@@ -252,7 +250,7 @@ namespace Galaga.Model
             this.canvas.Children.Add(bullet.Sprite);
             this.activeBullets.Add(bullet);
             //this.startBulletMovement(bullet);
-
+            this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
             await Task.Delay(100);
             this.canShoot = true;
 

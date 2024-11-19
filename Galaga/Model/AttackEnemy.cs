@@ -76,7 +76,7 @@ namespace Galaga.Model
                 };
 
                 this.canvas.Children.Add(enemyBullet.Sprite);
-                this.IsShooting = true;
+                this.collisionManager.StartEnemyBulletMovement(enemyBullet, this.canvas);
                 //this.startMovement(enemyBullet);
             }
             catch (Exception ex)

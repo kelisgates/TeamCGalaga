@@ -43,6 +43,21 @@
             InitializeComponent()
             </summary>
         </member>
+        <member name="M:Galaga.App.GetXamlType(System.Type)">
+            <summary>
+            GetXamlType(Type)
+            </summary>
+        </member>
+        <member name="M:Galaga.App.GetXamlType(System.String)">
+            <summary>
+            GetXamlType(String)
+            </summary>
+        </member>
+        <member name="M:Galaga.App.GetXmlnsDefinitions">
+            <summary>
+            GetXmlnsDefinitions()
+            </summary>
+        </member>
         <member name="T:Galaga.Model.Bullet">
             <summary>
             manages the bullets in the game
@@ -250,7 +265,7 @@
         </member>
         <member name="T:Galaga.Model.GameManager">
             <summary>
-            Manages the Galaga game play.
+            Manages the Galaga game play
             </summary>
         </member>
         <member name="E:Galaga.Model.GameManager.EnemyKilled">
@@ -552,6 +567,16 @@
             InitializeComponent()
             </summary>
         </member>
+        <member name="M:Galaga.View.GameCanvas.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.GameCanvas.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
         <member name="T:Galaga.View.Sprites.BaseSprite">
             <summary>
             Defines BaseSprite from which all sprites inherit.
@@ -579,6 +604,16 @@
             InitializeComponent()
             </summary>
         </member>
+        <member name="M:Galaga.View.Sprites.BaseSprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.BaseSprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
         <member name="T:Galaga.View.Sprites.Bullet">
             <summary>
             main class for bullet
@@ -593,6 +628,16 @@
         <member name="M:Galaga.View.Sprites.Bullet.InitializeComponent">
             <summary>
             InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.Bullet.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.Bullet.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
             </summary>
         </member>
         <member name="T:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo">
@@ -613,6 +658,16 @@
             InitializeComponent()
             </summary>
         </member>
+        <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
         <member name="T:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite">
             <summary>
             enemy level 4 sprite.
@@ -629,6 +684,16 @@
         <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite.InitializeComponent">
             <summary>
             InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
             </summary>
         </member>
         <member name="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo">
@@ -649,6 +714,16 @@
             InitializeComponent()
             </summary>
         </member>
+        <member name="M:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
         <member name="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite">
             <summary>
             the enemy sprite.
@@ -665,6 +740,16 @@
             InitializeComponent()
             </summary>
         </member>
+        <member name="M:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
         <member name="T:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite">
             <summary>
             the enemy level two sprite.
@@ -679,6 +764,16 @@
         <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite.InitializeComponent">
             <summary>
             InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
             </summary>
         </member>
         <member name="T:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2SpriteTwo">
@@ -699,6 +794,16 @@
             InitializeComponent()
             </summary>
         </member>
+        <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2SpriteTwo.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2SpriteTwo.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
         <member name="T:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite">
             <summary>
             the enemy level 3 sprite.
@@ -713,6 +818,16 @@
         <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite.InitializeComponent">
             <summary>
             InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
             </summary>
         </member>
         <member name="T:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo">
@@ -731,6 +846,16 @@
         <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo.InitializeComponent">
             <summary>
             InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
             </summary>
         </member>
         <member name="T:Galaga.View.Sprites.ISpriteRenderer">
@@ -766,9 +891,39 @@
             InitializeComponent()
             </summary>
         </member>
+        <member name="M:Galaga.View.Sprites.PlayerSprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.PlayerSprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
         <member name="T:Galaga.Program">
             <summary>
             Program class
+            </summary>
+        </member>
+        <member name="T:Galaga.Galaga_XamlTypeInfo.XamlMetaDataProvider">
+            <summary>
+            Main class for providing metadata for the app or library
+            </summary>
+        </member>
+        <member name="M:Galaga.Galaga_XamlTypeInfo.XamlMetaDataProvider.GetXamlType(System.Type)">
+            <summary>
+            GetXamlType(Type)
+            </summary>
+        </member>
+        <member name="M:Galaga.Galaga_XamlTypeInfo.XamlMetaDataProvider.GetXamlType(System.String)">
+            <summary>
+            GetXamlType(String)
+            </summary>
+        </member>
+        <member name="M:Galaga.Galaga_XamlTypeInfo.XamlMetaDataProvider.GetXmlnsDefinitions">
+            <summary>
+            GetXmlnsDefinitions()
             </summary>
         </member>
     </members>
