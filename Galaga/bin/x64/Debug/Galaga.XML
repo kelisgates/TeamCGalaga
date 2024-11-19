@@ -1,0 +1,775 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Galaga</name>
+    </assembly>
+    <members>
+        <member name="T:Galaga.App">
+            <summary>
+            Provides application-specific behavior to supplement the default Application class.
+            </summary>
+        </member>
+        <member name="M:Galaga.App.#ctor">
+            <summary>
+            Initializes the singleton application object.  This is the first line of authored code
+            executed, and as such is the logical equivalent of main() or WinMain().
+            </summary>
+        </member>
+        <member name="M:Galaga.App.OnLaunched(Windows.ApplicationModel.Activation.LaunchActivatedEventArgs)">
+            <summary>
+            Invoked when the application is launched normally by the end user.  Other entry points
+            will be used such as when the application is launched to open a specific file.
+            </summary>
+            <param name="e">Details about the launch request and process.</param>
+        </member>
+        <member name="M:Galaga.App.OnNavigationFailed(System.Object,Windows.UI.Xaml.Navigation.NavigationFailedEventArgs)">
+            <summary>
+            Invoked when Navigation to a certain page fails
+            </summary>
+            <param name="sender">The Frame which failed navigation</param>
+            <param name="e">Details about the navigation failure</param>
+        </member>
+        <member name="M:Galaga.App.OnSuspending(System.Object,Windows.ApplicationModel.SuspendingEventArgs)">
+            <summary>
+            Invoked when application execution is being suspended.  Application state is saved
+            without knowing whether the application will be terminated or resumed with the contents
+            of memory still intact.
+            </summary>
+            <param name="sender">The source of the suspend request.</param>
+            <param name="e">Details about the suspend request.</param>
+        </member>
+        <member name="M:Galaga.App.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.Model.Bullet">
+            <summary>
+            manages the bullets in the game
+            </summary>
+            <seealso cref="T:Galaga.Model.GameObject" />
+        </member>
+        <member name="P:Galaga.Model.Bullet.IsShooting">
+            <summary>
+            Gets or sets a value indicating whether this instance is shooting.
+            </summary>
+            <value>
+              <c>true</c> if this instance is shooting; otherwise, <c>false</c>.
+            </value>
+            <returns>bool value is bullet is being shot</returns>
+        </member>
+        <member name="M:Galaga.Model.Bullet.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.Bullet"/> class.
+            </summary>
+        </member>
+        <member name="T:Galaga.Model.CollisionManager">
+            <summary>
+            Manages collision detection and bullet movement.
+            </summary>
+        </member>
+        <member name="P:Galaga.Model.CollisionManager.IsCollisionProcessed">
+            <summary>
+            Gets or sets a value indicating whether this instance is collision processed.
+            </summary>
+            <value>
+              <c>true</c> if this instance is collision processed; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Galaga.Model.CollisionManager.#ctor(Galaga.Model.GameManager,Galaga.Model.Player,System.Collections.Generic.List{Galaga.Model.Bullet})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.CollisionManager"/> class.
+            </summary>
+            <param name="gameManager">The game manager.</param>
+            <param name="player">The player.</param>
+            <param name="activeBullets">The list of active bullets.</param>
+        </member>
+        <member name="M:Galaga.Model.CollisionManager.StartPlayerBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+            Starts the bullet movement.
+            </summary>
+            <param name="bullet">The bullet.</param>
+            <param name="canvasParam">The canvasParam.</param>
+        </member>
+        <member name="M:Galaga.Model.CollisionManager.StartEnemyBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+            Starts the enemy bullet movement.
+            </summary>
+            <param name="bullet">The bullet.</param>
+            <param name="canvasParam">The canvasParam.</param>
+        </member>
+        <member name="T:Galaga.Model.Enemy">
+            <summary>
+            abstract class for enemy
+            </summary>
+            <seealso cref="T:Galaga.Model.GameObject" />
+        </member>
+        <member name="F:Galaga.Model.Enemy.SpeedXDirection">
+            <summary>
+            The speed x direction
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.SpeedYDirection">
+            <summary>
+            The speed y direction
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.MovementPerStep">
+            <summary>
+            The movement per step
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.Timer">
+            <summary>
+            The timer
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.Steps">
+            <summary>
+            The steps
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.MovingRight">
+            <summary>
+            The moving right
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.Sprites">
+            <summary>
+            The sprites used for animation.
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.IsFirstSpriteVisible">
+            <summary>
+            The is first sprite visible
+            </summary>
+        </member>
+        <member name="P:Galaga.Model.Enemy.ScoreValue">
+            <summary>
+            Gets or sets the score value.
+            </summary>
+            <value>
+            The score value.
+            </value>
+            <returns>int the score value</returns>
+        </member>
+        <member name="M:Galaga.Model.Enemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.Enemy"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.Enemy.UpdateImage">
+            <summary>
+            Updates the image of the sprites to simulate animation.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">There must be at least two sprites to toggle between.</exception>
+        </member>
+        <member name="M:Galaga.Model.Enemy.MoveEnemy">
+            <summary>
+            Moves the enemy.
+            </summary>
+        </member>
+        <member name="T:Galaga.Model.EnemyType">
+            <summary>
+            enemy type levels
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Level1">
+            <summary>
+            the level1 enemy
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Level2">
+            <summary>
+            The level2 enemy
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Level3">
+            <summary>
+            The level3 enemy
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Level4">
+            <summary>
+            The level4 enemy
+            </summary>
+        </member>
+        <member name="T:Galaga.Model.EnemyManager">
+            <summary>
+            manages enemies in the game
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyManager.Enemies">
+            <summary>
+            list of enemies in game
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.EnemyManager.#ctor(Windows.UI.Xaml.Controls.Canvas,Galaga.Model.GameManager,Galaga.Model.CollisionManager)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.EnemyManager"/> class.
+            </summary>
+            <param name="canvas">The canvas.</param>
+            <param name="manager">The game manager object</param>
+            <param name="collisionManager"></param>
+        </member>
+        <member name="M:Galaga.Model.EnemyManager.PlaceEnemies">
+            <summary>
+            Places the enemies.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.EnemyManager.PlaceEnemy(Galaga.Model.EnemyType,System.Int32,System.Double,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            Places the enemy.
+            </summary>
+            <param name="level">The level.</param>
+            <param name="score">The score.</param>
+            <param name="canvasMiddle">The canvas middle.</param>
+            <param name="y">The y.</param>
+            <param name="numOfEnemies">The number of enemies.</param>
+            <param name="isAttackEnemy">if set to <c>true</c> [is attack enemy].</param>
+        </member>
+        <member name="T:Galaga.Model.NonAttackEnemy">
+            <summary>
+            Represents an enemy in the game.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.NonAttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.NonAttackEnemy"/> class.
+            </summary>
+        </member>
+        <member name="T:Galaga.Model.AttackEnemy">
+            <summary>
+             class for attack enemy 
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.AttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32,Windows.UI.Xaml.Controls.Canvas,Galaga.Model.CollisionManager)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.AttackEnemy"/> class.
+            </summary>
+        </member>
+        <member name="T:Galaga.Model.GameManager">
+            <summary>
+            Manages the Galaga game play.
+            </summary>
+        </member>
+        <member name="E:Galaga.Model.GameManager.EnemyKilled">
+            <summary>
+            Occurs when [enemy killed].
+            </summary>
+        </member>
+        <member name="E:Galaga.Model.GameManager.GameWon">
+            <summary>
+            Occurs when [game won].
+            </summary>
+        </member>
+        <member name="E:Galaga.Model.GameManager.GameOver">
+            <summary>
+            Occurs when [game over].
+            </summary>
+        </member>
+        <member name="E:Galaga.Model.GameManager.PlayerHit">
+            <summary>
+            Occurs when [player hit].
+            </summary>
+        </member>
+        <member name="P:Galaga.Model.GameManager.Player">
+            <summary>
+            player object
+            </summary>
+            <returns>Player object</returns>
+        </member>
+        <member name="P:Galaga.Model.GameManager.IsPlayerBulletActive">
+            <summary>
+            Gets or sets a value indicating whether this instance is Player bullet active.
+            </summary>
+            <value>
+              <c>true</c> if this instance is Player bullet active; otherwise, <c>false</c>.
+            </value>
+            <returns>bool value if player bullet is active</returns>
+        </member>
+        <member name="P:Galaga.Model.GameManager.WasCollision">
+            <summary>
+            Gets or sets a value indicating whether [was collision].
+            </summary>
+            <value>
+              <c>true</c> if [was collision]; otherwise, <c>false</c>.
+            </value>
+            <returns>bool value if collision occurred</returns>
+        </member>
+        <member name="M:Galaga.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.GameManager"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameManager.PlayerShoot">
+            <summary>
+            Player shoot a bullet.
+            </summary>
+            <returns>Task waiting to see if player can shoot again</returns>
+        </member>
+        <member name="M:Galaga.Model.GameManager.OnEnemyKilled">
+            <summary>
+            Called when [enemy killed].
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameManager.OnGameWon">
+            <summary>
+            Called when [game won].
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameManager.OnGameOver">
+            <summary>
+            Called when [game over].
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameManager.OnPlayerHit">
+            <summary>
+            Called when [player hit].
+            </summary>
+        </member>
+        <member name="T:Galaga.Model.GameObject">
+            <summary>
+            Represents a game object in the Galaga game.
+            </summary>
+        </member>
+        <member name="P:Galaga.Model.GameObject.BoundingBox">
+            <summary>
+            Gets or sets the bounding box.
+            </summary>
+            <value>
+            The bounding box.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.GameObject.X">
+            <summary>
+                Gets or sets the x location of the game object.
+            </summary>
+            <value>
+                The x.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.GameObject.Y">
+            <summary>
+                Gets or sets the y location of the game object.
+            </summary>
+            <value>
+                The y.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.GameObject.SpeedX">
+            <summary>
+                Gets the x speed of the game object.
+            </summary>
+            <value>
+                The speed x.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.GameObject.SpeedY">
+            <summary>
+                Gets the y speed of the game object.
+            </summary>
+            <value>
+                The speed y.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.GameObject.Width">
+            <summary>
+                Gets the width of the game object.
+            </summary>
+            <value>
+                The width.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.GameObject.Height">
+            <summary>
+                Gets the height of the game object.
+            </summary>
+            <value>
+                The height.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.GameObject.Sprite">
+            <summary>
+                Gets or sets the sprite associated with the game object.
+            </summary>
+            <value>
+                The sprite.
+            </value>
+        </member>
+        <member name="M:Galaga.Model.GameObject.MoveRight">
+            <summary>
+                Moves the game object right.
+                Precondition: None
+                Postcondition: X == X@prev + SpeedX
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameObject.MoveLeft">
+            <summary>
+                Moves the game object left.
+                Precondition: None
+                Postcondition: X == X@prev + SpeedX
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameObject.MoveUp">
+            <summary>
+                Moves the game object up.
+                Precondition: None
+                Postcondition: Y == Y@prev - SpeedY
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameObject.MoveDown">
+            <summary>
+                Moves the game object down.
+                Precondition: None
+                Postcondition: Y == Y@prev + SpeedY
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameObject.SetSpeed(System.Int32,System.Int32)">
+            <summary>
+                Sets the speed of the game object.
+                Precondition: speedX >= 0 AND speedY >=0
+                Postcondition: SpeedX == speedX AND SpeedY == speedY
+            </summary>
+            <param name="speedX">The speed x.</param>
+            <param name="speedY">The speed y.</param>
+        </member>
+        <member name="M:Galaga.Model.GameObject.UpdateBoundingBox">
+            <summary>
+            Updates the bounding box.
+            </summary>
+        </member>
+        <member name="T:Galaga.Model.Player">
+            <summary>
+            Represents a Player in the game.
+            </summary>
+        </member>
+        <member name="P:Galaga.Model.Player.Score">
+            <summary>
+            Gets or sets the score.
+            </summary>
+            <value>
+            The score.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.Player.Lives">
+            <summary>
+            Gets or sets the lives.
+            </summary>
+            <value>
+            The lives.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.Player.BulletsShot">
+            <summary>
+            Gets or sets the bullets shot.
+            </summary>
+            <value>
+            The bullets shot.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.Player.IsShooting">
+            <summary>
+            Gets or sets a value indicating whether this instance is shooting.
+            </summary>
+            <value>
+              <c>true</c> if this instance is shooting; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.Player.IsMovingLeft">
+            <summary>
+            Gets or sets a value indicating whether this instance is moving left.
+            </summary>
+            <value>
+              <c>true</c> if this instance is moving left; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.Player.IsMovingRight">
+            <summary>
+            Gets or sets a value indicating whether this instance is moving right.
+            </summary>
+            <value>
+              <c>true</c> if this instance is moving right; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.Player.IsInvincible">
+            <summary>
+            Gets a value indicating whether this instance is invincible.
+            </summary>
+            <value>
+              <c>true</c> if this instance is invincible; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Galaga.Model.Player.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.Player"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.Player.StartInvincibility(System.Int32)">
+            <summary>
+            Starts the invincibility.
+            </summary>
+            <param name="durationInSeconds">The duration in seconds.</param>
+        </member>
+        <member name="T:Galaga.Model.PlayerManager">
+            <summary>
+            player manager
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.PlayerManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.PlayerManager"/> class.
+            </summary>
+            <param name="canvas">The canvas.</param>
+        </member>
+        <member name="M:Galaga.Model.PlayerManager.MovePlayerLeft">
+            <summary>
+            Moves the Player left.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.PlayerManager.MovePlayerRight">
+            <summary>
+            Moves the Player right.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.PlayerManager.CreateAndPlacePlayer">
+            <summary>
+            Creates and place player.
+            </summary>
+        </member>
+        <member name="T:Galaga.View.GameCanvas">
+            <summary>
+            An empty page that can be used on its own or navigated to within a Frame.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.GameCanvas.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.GameCanvas"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.GameCanvas.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.BaseSprite">
+            <summary>
+            Defines BaseSprite from which all sprites inherit.
+            </summary>
+            <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+            <seealso cref="T:Galaga.View.Sprites.ISpriteRenderer" />
+        </member>
+        <member name="M:Galaga.View.Sprites.BaseSprite.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.BaseSprite"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.BaseSprite.RenderAt(System.Double,System.Double)">
+            <summary>
+            Renders sprite at the specified (x,y) location in relation
+            to the top, left part of the canvas.
+            </summary>
+            <param name="x">x location</param>
+            <param name="y">y location</param>
+        </member>
+        <member name="M:Galaga.View.Sprites.BaseSprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.Bullet">
+            <summary>
+            main class for bullet
+            </summary>
+            <seealso cref="T:Galaga.View.Sprites.BaseSprite" />
+        </member>
+        <member name="M:Galaga.View.Sprites.Bullet.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.Bullet"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.Bullet.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo">
+            <summary>
+            enemy level 4 sprite second image
+            </summary>
+            <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite">
+            <summary>
+            enemy level 4 sprite.
+            </summary>
+            <seealso cref="T:Galaga.View.Sprites.BaseSprite" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo">
+            <summary>
+            enemy level 1 sprite second image
+            </summary>
+            <seealso cref="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite">
+            <summary>
+            the enemy sprite.
+            </summary>
+            <seealso cref="T:Galaga.View.Sprites.BaseSprite" />
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite">
+            <summary>
+            the enemy level two sprite.
+            </summary>
+            <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2SpriteTwo">
+            <summary>
+            enemy level 2 sprite second image
+            </summary>
+            <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2SpriteTwo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2SpriteTwo"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2SpriteTwo.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite">
+            <summary>
+            the enemy level 3 sprite.
+            </summary>
+            <seealso cref="T:Galaga.View.Sprites.BaseSprite" />
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo">
+            <summary>
+            enemy level 3 sprite second image
+            </summary>
+            <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.ISpriteRenderer">
+            <summary>
+                Interface to render a sprite. This interface is needed within every sprite
+                that is associated with a game object.
+                The interface is to be implemented in the sprite class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.ISpriteRenderer.RenderAt(System.Double,System.Double)">
+            <summary>
+            Renders sprite at the specified (x,y) location in relation
+            to the top, left part of the canvas.
+            </summary>
+            <param name="x">x location</param>
+            <param name="y">y location</param>
+        </member>
+        <member name="T:Galaga.View.Sprites.PlayerSprite">
+            <summary>
+            The Player sprite.
+            </summary>
+            <seealso cref="T:Galaga.View.Sprites.BaseSprite" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:Galaga.View.Sprites.PlayerSprite.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.PlayerSprite"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.View.Sprites.PlayerSprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Galaga.Program">
+            <summary>
+            Program class
+            </summary>
+        </member>
+    </members>
+</doc>
