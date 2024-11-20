@@ -271,3 +271,8 @@ E:\Fall 2024\Program Construction\Assignment\assignment5-starter\Galaga\obj\x64\
 E:\Fall 2024\Program Construction\Assignment\assignment5-starter\Galaga\obj\x64\Debug\resources.en.resfiles.intermediate
 E:\Fall 2024\Program Construction\Assignment\assignment5-starter\Galaga\obj\x64\Debug\ProjectArchitectures.txt
 E:\Fall 2024\Program Construction\Assignment\assignment5-starter\Galaga\obj\x64\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_637424959200000000.json
+C:\Users\kg00281\Desktop\GalagaStarter\Galaga\bin\x64\Debug\View\HighScoreDialog.xbf
+C:\Users\kg00281\Desktop\GalagaStarter\Galaga\obj\x64\Debug\View\HighScoreDialog.g.i.cs
+C:\Users\kg00281\Desktop\GalagaStarter\Galaga\obj\x64\Debug\View\HighScoreDialog.g.cs
+C:\Users\kg00281\Desktop\GalagaStarter\Galaga\obj\x64\Debug\View\HighScoreDialog.xaml
+C:\Users\kg00281\Desktop\GalagaStarter\Galaga\obj\x64\Debug\View\HighScoreDialog.xbf

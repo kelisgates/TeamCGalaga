@@ -19,6 +19,7 @@ namespace Galaga.Model
         private readonly Canvas canvas;
         private Random random;
 
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is collision processed.
         /// </summary>
@@ -27,7 +28,7 @@ namespace Galaga.Model
         /// </value>
         public bool IsCollisionProcessed { get; set; }
 
-        public DispatcherTimer EnemyTimer { get; set; }
+        public IList<DispatcherTimer> Timers { get; set; }
 
         #endregion
 
@@ -45,6 +46,7 @@ namespace Galaga.Model
             this.player = player;
             this.activeBullets = activeBullets ?? new List<Bullet>();
             this.canvas = gameManager.Canvas;
+            this.Timers = new List<DispatcherTimer>();
         }
 
         #endregion
@@ -62,7 +64,7 @@ namespace Galaga.Model
             {
                 Interval = TimeSpan.FromMilliseconds(5)
             };
-
+            this.Timers.Add(timer);
             timer.Tick += (s, e) =>
             {
                 var position = bullet.Y;
@@ -160,7 +162,7 @@ namespace Galaga.Model
             {
                 Interval = TimeSpan.FromMilliseconds(5)
             };
-
+            this.Timers.Add(timer);
             timer.Tick += (s, e) =>
             {
                 var position = bullet.Y;
@@ -184,6 +186,11 @@ namespace Galaga.Model
 
         private void checkCollisionWithPlayer(Bullet enemyBullet, Canvas canvasParam, DispatcherTimer timer)
         {
+            if (this.IsCollisionProcessed)
+            {
+                return;
+            }
+
             if (enemyBullet.Intersects(this.player))
             {
                 this.updateGameState(enemyBullet, canvasParam, timer);
@@ -226,14 +233,27 @@ namespace Galaga.Model
         {
             playerReturnTimer.Tick += (s, e) =>
             {
+                if (this.player.Sprite.Parent != null)
+                {
+                    ((Panel)this.player.Sprite.Parent).Children.Remove(this.player.Sprite);
+                }
                 this.canvas.Children.Add(this.player.Sprite);
                 this.gameManager.canShoot = true;
                 playerReturnTimer.Stop();
+                this.IsCollisionProcessed = false;
             };
             playerReturnTimer.Start();
         }
 
         #endregion
+
+        public void StopAllTimers()
+        {
+            foreach (var timer in this.Timers)
+            {
+                timer.Stop();
+            }
+        }
     }
 }
 

@@ -573,6 +573,21 @@
             GetBindingConnector(int connectionId, object target)
             </summary>
         </member>
+        <member name="M:Galaga.View.HighScoreDialog.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.HighScoreDialog.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:Galaga.View.HighScoreDialog.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
         <member name="T:Galaga.View.Sprites.BaseSprite">
             <summary>
             Defines BaseSprite from which all sprites inherit.

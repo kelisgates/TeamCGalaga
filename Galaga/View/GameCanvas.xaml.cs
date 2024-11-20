@@ -20,7 +20,7 @@ namespace Galaga.View
     {
         #region Data Members
 
-        private readonly GameManager gameManager;
+        private GameManager gameManager;
 
         #endregion
 
@@ -39,11 +39,14 @@ namespace Galaga.View
             ApplicationView.PreferredLaunchViewSize = new Size { Width = Width, Height = Height };
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(Width, Height));
+            
 
-            this.gameManager = new GameManager(this.canvas);
+            this.displayStartScreen();
 
-            this.initializeGameComponents();
+            
         }
+
+        
 
         #endregion
         
@@ -69,6 +72,7 @@ namespace Galaga.View
 
         private async void onGameWon(object sender, EventArgs e)
         {
+            this.gameManager.collisionManager.StopAllTimers();
             this.gameWonTextBlock.Visibility = Visibility.Visible;
             var dialog = new ContentDialog()
             {
@@ -84,8 +88,10 @@ namespace Galaga.View
 
         private async void onGameOver(object sender, EventArgs e)
         {
+            this.gameManager.collisionManager.StopAllTimers();
             this.canvas.Children.Clear();
             this.canvas.Children.Add(this.gameOverTextBlock);
+
             this.gameOverTextBlock.Visibility = Visibility.Visible;
             var dialog = new ContentDialog()
             {
@@ -95,6 +101,8 @@ namespace Galaga.View
             };
             dialog.CloseButtonClick += (_, _) => { Application.Current.Exit(); };
             _ = await dialog.ShowAsync();
+
+            
         }
 
         private void onEnemyKilled(object sender, EventArgs e)
@@ -105,6 +113,36 @@ namespace Galaga.View
         #endregion
 
         #region Methods
+        private async Task displayStartScreen()
+        {
+            var dialog = new ContentDialog()
+            {
+                Title = "Welcome to Galaga",
+                Content = "Choose Start to play game or Highscores to see top 10 scores!",
+                PrimaryButtonText = "Start",
+                SecondaryButtonText = "Highscores",
+                CloseButtonText = "Exit"
+            };
+
+            ContentDialogResult result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                this.gameManager = new GameManager(this.canvas);
+                this.initializeGameComponents();
+            }
+            else if (result == ContentDialogResult.Secondary)
+            {
+                dialog.Hide();
+                HighScoreDialog highscores = new HighScoreDialog();
+                _ = await highscores.ShowAsync();
+                await this.displayStartScreen();
+            }
+            else if (result == ContentDialogResult.None)
+            {
+                Application.Current.Exit();
+            }
+        }
 
         private void initializeGameComponents()
         {
