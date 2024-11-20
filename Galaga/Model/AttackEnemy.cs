@@ -71,8 +71,8 @@ namespace Galaga.Model
             {
                 var enemyBullet = new Bullet
                 {
-                    X = X,
-                    Y = Y
+                    X = X + Width /2,
+                    Y = Y + Height
                 };
 
                 this.canvas.Children.Add(enemyBullet.Sprite);

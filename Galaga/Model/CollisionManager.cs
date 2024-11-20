@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
-using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
-using System.Diagnostics;
 
 namespace Galaga.Model
 {
@@ -73,7 +72,6 @@ namespace Galaga.Model
                 {
                     var movementPerStep = 10;
                     bullet.Y -= movementPerStep;
-                    bullet.UpdateBoundingBox();
                     this.checkCollisionWithEnemy(bullet, canvasParam);
                     this.updatePlayerBullet(bullet, timer, canvasParam);
                 }
@@ -88,15 +86,11 @@ namespace Galaga.Model
 
         private void checkCollisionWithEnemy(Bullet bullet, Canvas canvasParam)
         {
-            bullet.UpdateBoundingBox();
-
             foreach (var enemy in this.gameManager.enemyManager.Enemies)
             {
                 if (enemy != null)
                 {
-                    enemy.UpdateBoundingBox();
-
-                    if (this.isCollision(bullet.BoundingBox, enemy.BoundingBox))
+                    if (bullet.Intersects(enemy))
                     {
                         this.checkIfEnemyIsAttackingEnemy(enemy);
                         canvasParam.Children.Remove(bullet.Sprite);
@@ -106,14 +100,6 @@ namespace Galaga.Model
                     }
                 }
             }
-        }
-
-        private bool isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
-        {
-            return !(boundingBox1.Left > boundingBox2.Left + boundingBox2.Width ||
-                     boundingBox1.Left + boundingBox1.Width < boundingBox2.Left ||
-                     boundingBox1.Top > boundingBox2.Top + boundingBox2.Height ||
-                     boundingBox1.Top + boundingBox1.Height < boundingBox2.Top);
         }
 
         private void checkIfEnemyIsAttackingEnemy(Enemy enemy)
@@ -162,12 +148,6 @@ namespace Galaga.Model
             this.activeBullets.Remove(bullet);
         }
 
-
-
-
-
-        
-
         /// <summary>
         /// Starts the enemy bullet movement.
         /// </summary>
@@ -190,7 +170,6 @@ namespace Galaga.Model
                 {
                     var movementPerStep = 10;
                     bullet.Y += movementPerStep;
-                    bullet.UpdateBoundingBox();
                     this.checkCollisionWithPlayer(bullet, canvasParam, timer);
                 }
                 else
@@ -205,13 +184,10 @@ namespace Galaga.Model
 
         private void checkCollisionWithPlayer(Bullet enemyBullet, Canvas canvasParam, DispatcherTimer timer)
         {
-            enemyBullet.UpdateBoundingBox();
-            this.player.UpdateBoundingBox();
-
-            if (this.isCollision(enemyBullet.BoundingBox, this.player.BoundingBox))
+            if (enemyBullet.Intersects(this.player))
             {
                 this.updateGameState(enemyBullet, canvasParam, timer);
-                this.checkPlayerStatus();
+                this.checkPlayerStatus(enemyBullet);
             }
         }
 
@@ -227,7 +203,7 @@ namespace Galaga.Model
         }
 
 
-        private void checkPlayerStatus()
+        private void checkPlayerStatus(Bullet enemyBullet)
         {
             if (this.gameManager.Player.Lives == 0)
             {
@@ -235,9 +211,9 @@ namespace Galaga.Model
             }
             else
             {
+                this.gameManager.canShoot = false;
                 this.canvas.Children.Remove(this.player.Sprite);
                 this.player.StartInvincibility(3);
-
                 var playerReturnTimer = new DispatcherTimer
                 {
                     Interval = TimeSpan.FromSeconds(1)
@@ -251,6 +227,7 @@ namespace Galaga.Model
             playerReturnTimer.Tick += (s, e) =>
             {
                 this.canvas.Children.Add(this.player.Sprite);
+                this.gameManager.canShoot = true;
                 playerReturnTimer.Stop();
             };
             playerReturnTimer.Start();

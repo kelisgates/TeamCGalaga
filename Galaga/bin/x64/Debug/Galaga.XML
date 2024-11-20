@@ -348,14 +348,6 @@
             Represents a game object in the Galaga game.
             </summary>
         </member>
-        <member name="P:Galaga.Model.GameObject.BoundingBox">
-            <summary>
-            Gets or sets the bounding box.
-            </summary>
-            <value>
-            The bounding box.
-            </value>
-        </member>
         <member name="P:Galaga.Model.GameObject.X">
             <summary>
                 Gets or sets the x location of the game object.
@@ -449,10 +441,14 @@
             <param name="speedX">The speed x.</param>
             <param name="speedY">The speed y.</param>
         </member>
-        <member name="M:Galaga.Model.GameObject.UpdateBoundingBox">
-            <summary>
-            Updates the bounding box.
-            </summary>
+        <member name="M:Galaga.Model.GameObject.Intersects(Galaga.Model.GameObject)">
+             <summary>
+             Checks if the game object intersects with another game object.
+            
+             <param name="other">the game object to check for intersection with.</param>
+             <returns>true if the game objects intersect
+                     false if the game objects don't intersect</returns>
+             </summary>
         </member>
         <member name="T:Galaga.Model.Player">
             <summary>

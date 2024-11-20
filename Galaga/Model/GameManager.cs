@@ -20,7 +20,7 @@ namespace Galaga.Model
         private readonly double canvasHeight;
         private readonly double canvasWidth;
 
-        private bool canShoot = true;
+        public bool canShoot = true;
 
         public List<Bullet> activeBullets;
         public EnemyManager enemyManager;
@@ -157,7 +157,7 @@ namespace Galaga.Model
             this.canvas.Children.Add(bullet.Sprite);
             this.activeBullets.Add(bullet);
             this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
-            await Task.Delay(100);
+            await Task.Delay(300);
             this.canShoot = true;
 
         }
