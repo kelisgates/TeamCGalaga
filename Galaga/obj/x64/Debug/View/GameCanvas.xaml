@@ -6,15 +6,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
     
 
     <Canvas x:ConnectionId='2' x:Name="canvas" Width="720" Height="600" Background ="Black">
 
-        <TextBlock x:ConnectionId='3' x:Name="livesTextBlock" Canvas.Left="0" TextWrapping="Wrap" Text="Lives: 3" Canvas.Top="15" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
-        <TextBlock x:ConnectionId='4' x:Name="scoreTextBlock" Canvas.Left="55" TextWrapping="Wrap" Text="Score:" Canvas.Top="256" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
-        <TextBlock x:ConnectionId='5' x:Name="gameOverTextBlock" Canvas.Left="201" TextWrapping="Wrap" Text="Game Over!" Canvas.Top="235" Foreground="#FFF9F8F8" FontSize="72" Visibility="Collapsed"/>
-        <TextBlock x:ConnectionId='6' x:Name="gameWonTextBlock" Canvas.Left="201" TextWrapping="Wrap" Text="Game Won!" Canvas.Top="235" Foreground="#FFF9F8F8" FontSize="72" Visibility="Collapsed"/>
-
+        <TextBlock x:ConnectionId='3' Text="{Binding LivesTextBlock}" x:Name="livesTextBlock" Canvas.Left="0" TextWrapping="Wrap" Canvas.Top="15" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
+        <TextBlock x:ConnectionId='4' Text="{Binding ScoreTextBlock}" x:Name="scoreTextBlock" Canvas.Left="55" TextWrapping="Wrap"  Canvas.Top="256" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
+       
     </Canvas>
 </Page>
 

@@ -6,14 +6,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
     
 
     <Canvas x:Name="canvas" Width="720" Height="600" Background ="Black">
 
-        <TextBlock x:Name="livesTextBlock" Canvas.Left="0" TextWrapping="Wrap" Text="Lives: 3" Canvas.Top="15" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
-        <TextBlock x:Name="scoreTextBlock" Canvas.Left="55" TextWrapping="Wrap" Text="Score:" Canvas.Top="256" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
-        <TextBlock x:Name="gameOverTextBlock" Canvas.Left="201" TextWrapping="Wrap" Text="Game Over!" Canvas.Top="235" Foreground="#FFF9F8F8" FontSize="72" Visibility="Collapsed"/>
-        <TextBlock x:Name="gameWonTextBlock" Canvas.Left="201" TextWrapping="Wrap" Text="Game Won!" Canvas.Top="235" Foreground="#FFF9F8F8" FontSize="72" Visibility="Collapsed"/>
-
+        <TextBlock Text="{Binding LivesTextBlock}" x:Name="livesTextBlock" Canvas.Left="0" TextWrapping="Wrap" Canvas.Top="15" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
+        <TextBlock Text="{Binding ScoreTextBlock}" x:Name="scoreTextBlock" Canvas.Left="55" TextWrapping="Wrap"  Canvas.Top="256" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
+       
     </Canvas>
 </Page>

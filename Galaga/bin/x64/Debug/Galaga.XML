@@ -548,6 +548,76 @@
             Creates and place player.
             </summary>
         </member>
+        <member name="T:Galaga.ViewModel.GameManagerViewModel">
+            <summary>
+            Game manager view model.
+            </summary>
+        </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.LivesTextBlock">
+            <summary>
+            Gets or sets the lives text block.
+            </summary>
+            <value>
+            The lives text block.
+            </value>
+        </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.ScoreTextBlock">
+            <summary>
+            Gets or sets the score text block.
+            </summary>
+            <value>
+            The score text block.
+            </value>
+        </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.GameOverVisibility">
+            <summary>
+            Gets or sets the game over visibility.
+            </summary>
+            <value>
+            The game over visibility.
+            </value>
+        </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.GameWonVisibility">
+            <summary>
+            Gets or sets the game won visibility.
+            </summary>
+            <value>
+            The game won visibility.
+            </value>
+        </member>
+        <member name="M:Galaga.ViewModel.GameManagerViewModel.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.ViewModel.GameManagerViewModel"/> class.
+            </summary>
+            <param name="canvas">The canvas.</param>
+        </member>
+        <member name="M:Galaga.ViewModel.GameManagerViewModel.DisplayStartScreen">
+            <summary>
+            Displays the start screen.
+            </summary>
+        </member>
+        <member name="E:Galaga.ViewModel.GameManagerViewModel.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Galaga.ViewModel.GameManagerViewModel.OnPropertyChanged(System.String)">
+            <summary>
+            Called when [property changed].
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+        </member>
+        <member name="M:Galaga.ViewModel.GameManagerViewModel.SetField``1(``0@,``0,System.String)">
+            <summary>
+            Sets the field.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="field">The field.</param>
+            <param name="value">The value.</param>
+            <param name="propertyName">Name of the property.</param>
+            <returns></returns>
+        </member>
         <member name="T:Galaga.View.GameCanvas">
             <summary>
             An empty page that can be used on its own or navigated to within a Frame.
