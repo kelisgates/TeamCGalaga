@@ -25,7 +25,7 @@ namespace Galaga.Model
         public List<Bullet> activeBullets;
         public EnemyManager enemyManager;
         public PlayerManager playerManager;
-        private CollisionManager collisionManager;
+        public CollisionManager collisionManager;
 
         #endregion
 
@@ -96,6 +96,8 @@ namespace Galaga.Model
             this.canvas = canvas;
             this.canvasHeight = canvas.Height;
             this.canvasWidth = canvas.Width;
+
+
 
             this.initializeGame();
         }

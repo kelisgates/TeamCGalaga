@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
+  <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="ScoreTextBlock" />
+    <RootPropertyPathName Name="LivesTextBlock" />
+  </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
@@ -18,15 +22,31 @@
       <RootMethod Name="SetTop" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
-      <RootProperty Name="TextWrapping" />
       <RootProperty Name="Text" />
+      <RootProperty Name="TextWrapping" />
       <RootProperty Name="RequestedTheme" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="FocusVisualPrimaryBrush" />
       <RootProperty Name="Foreground" />
-      <RootProperty Name="Visibility" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Data.Binding" />
     <RootType FullName="Galaga.View.GameCanvas" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ContentDialog">
+      <RootProperty Name="Title" />
+      <RootProperty Name="PrimaryButtonText" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Grid">
+      <RootProperty Name="Children" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ListView">
+      <RootProperty Name="Name" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="BorderThickness" />
+    </RootType>
+    <RootType FullName="Galaga.View.HighScoreDialog" />
     <RootType FullName="Windows.UI.Xaml.Controls.UserControl" />
     <RootType FullName="Galaga.View.Sprites.BaseSprite">
       <RootProperty Name="Height" />
@@ -57,9 +77,6 @@
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
       <RootProperty Name="Content" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.Grid">
-      <RootProperty Name="Children" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Shapes.Line">
       <RootProperty Name="X1" />

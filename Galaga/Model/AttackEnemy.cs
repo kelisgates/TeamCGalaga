@@ -95,6 +95,7 @@ namespace Galaga.Model
                 {
                     Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000))
                 };
+                this.collisionManager.Timers.Add(Timer);
                 Timer.Tick += this.shootingTimer_Tick;
                 Timer.Start();
             }
