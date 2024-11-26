@@ -251,6 +251,7 @@ namespace Galaga.ViewModel
 
         private void onPlayerHit(object sender, EventArgs e)
         {
+            this.gameManager.soundManager.PlayPlayerDeathSound();
             if (this.gameManager.Player.Lives == 0)
             {
                 this.LivesTextBlock = $"Lives: {this.gameManager.Player.Lives}";
@@ -264,6 +265,7 @@ namespace Galaga.ViewModel
 
         private async void onGameWon(object sender, EventArgs e)
         {
+            this.gameManager.soundManager.PlayGameWonSound();
             this.gameManager.collisionManager.StopAllTimers();
             this.GameWonVisibility = Visibility.Visible;
             var dialog = new ContentDialog()
@@ -280,6 +282,7 @@ namespace Galaga.ViewModel
 
         private async void onGameOver(object sender, EventArgs e)
         {
+            this.gameManager.soundManager.PlayGameOverSound();
             this.gameManager.collisionManager.StopAllTimers();
             this.GameOverVisibility = Visibility.Visible;
             var dialog = new ContentDialog()
@@ -294,6 +297,7 @@ namespace Galaga.ViewModel
 
         private void onEnemyKilled(object sender, EventArgs e)
         {
+            this.gameManager.soundManager.PlayEnemyHitSound();
             this.ScoreTextBlock = $"Score: {this.gameManager.Player.Score}";
         }
 

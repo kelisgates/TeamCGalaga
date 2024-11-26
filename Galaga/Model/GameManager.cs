@@ -26,6 +26,7 @@ namespace Galaga.Model
         public EnemyManager enemyManager;
         public PlayerManager playerManager;
         public CollisionManager collisionManager;
+        public SoundManager soundManager;
 
         #endregion
 
@@ -112,6 +113,7 @@ namespace Galaga.Model
             this.collisionManager = new CollisionManager(this, this.Player, this.activeBullets);
             this.activeBullets = new List<Bullet>();
             this.placeEnemies();
+            this.soundManager = new SoundManager();
             
         }
 
@@ -144,7 +146,7 @@ namespace Galaga.Model
             {
                 return;
             }
-
+            this.soundManager.PlayPlayerFireSound();
             this.canShoot = false;
 
             var movementPerStep = 20;

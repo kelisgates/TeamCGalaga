@@ -9,61 +9,77 @@ using Windows.UI.Xaml.Controls;
 
 namespace Galaga.Model
 {
+    /// <summary>
+    /// Manages the playing of the game sound effects. 
+    /// </summary>
     public class SoundManager
     {
-        //TODO: Implement SoundManager
 
         private readonly MediaPlayer playerFireSound;
         private readonly MediaPlayer enemyFireSound;
         private readonly MediaPlayer enemyHitSound;
         private readonly MediaPlayer playerHitSound;
-        private readonly MediaPlayer playerDeathSound;
-        private readonly MediaPlayer enemyDeathSound;
-
+        private readonly MediaPlayer gameOverSound;
+        private readonly MediaPlayer gameWonSound;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SoundManager"/> class.
+        /// </summary>
         public SoundManager()
         {
             this.playerFireSound = new MediaPlayer();
             this.enemyFireSound = new MediaPlayer();
             this.enemyHitSound = new MediaPlayer();
             this.playerHitSound = new MediaPlayer();
-            this.playerDeathSound = new MediaPlayer();
-            this.enemyDeathSound = new MediaPlayer();
+            this.gameOverSound = new MediaPlayer();
+            this.gameWonSound = new MediaPlayer();  
         }
-
+        /// <summary>
+        /// Plays the player fire sound.
+        /// </summary>
         public void PlayPlayerFireSound()
         {
             this.playerFireSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/playerFire.wav"));
             this.playerFireSound.Play();
         }
-
+        /// <summary>
+        /// Plays the enemy fire sound.
+        /// </summary>
         public void PlayEnemyFireSound()
         {
-            this.enemyFireSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx///Sounds/enemyFire.wav"));
+            this.enemyFireSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/enemyFire.wav"));
             this.enemyFireSound.Play();
         }
-
+        /// <summary>
+        /// Plays the enemy hit sound.
+        /// </summary>
         public void PlayEnemyHitSound()
         {
-            this.enemyHitSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx///Sounds/enemyHit.wav"));
+            this.enemyHitSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/enemyHit.wav"));
             this.enemyHitSound.Play();
         }
-
-        public void PlayPlayerHitSound()
-        {
-            this.playerHitSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx///Sounds/playerHit.wav"));
-            this.playerHitSound.Play();
-        }
-
+        /// <summary>
+        /// Plays the player death sound.
+        /// </summary>
         public void PlayPlayerDeathSound()
         {
-            this.playerDeathSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx///Sounds/playerDeath.wav"));
-            this.playerDeathSound.Play();
+            this.playerHitSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/playerDeath.wav"));
+            this.playerHitSound.Play();
         }
-
-        public void PlayEnemyDeathSound()
+        /// <summary>
+        /// Plays the game over sound.
+        /// </summary>
+        public void PlayGameOverSound()
         {
-            this.enemyDeathSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx///Sounds/enemyDeath.wav"));
-            this.enemyDeathSound.Play();
+            this.gameOverSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/gameOver.wav"));
+            this.gameOverSound.Play();
+        }
+        /// <summary>
+        /// Plays the sound effect when the game is won.
+        /// </summary>
+        public void PlayGameWonSound()
+        {
+            this.gameWonSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/gameWon.wav"));
+            this.gameWonSound.Play();
         }
 
     }
