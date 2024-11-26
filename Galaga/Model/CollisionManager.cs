@@ -17,7 +17,6 @@ namespace Galaga.Model
         private readonly Player player;
         private readonly List<Bullet> activeBullets;
         private readonly Canvas canvas;
-        private Random random;
 
 
         /// <summary>
@@ -157,7 +156,7 @@ namespace Galaga.Model
         /// <param name="canvasParam">The canvasParam.</param>
         public void StartEnemyBulletMovement(Bullet bullet, Canvas canvasParam)
         {
-            
+            this.gameManager.soundManager.PlayEnemyFireSound();
             var timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(5)

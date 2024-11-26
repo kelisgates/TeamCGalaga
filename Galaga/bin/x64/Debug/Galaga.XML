@@ -548,6 +548,46 @@
             Creates and place player.
             </summary>
         </member>
+        <member name="T:Galaga.Model.SoundManager">
+            <summary>
+            Manages the playing of the game sound effects. 
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.SoundManager"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.PlayPlayerFireSound">
+            <summary>
+            Plays the player fire sound.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.PlayEnemyFireSound">
+            <summary>
+            Plays the enemy fire sound.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.PlayEnemyHitSound">
+            <summary>
+            Plays the enemy hit sound.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.PlayPlayerDeathSound">
+            <summary>
+            Plays the player death sound.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.PlayGameOverSound">
+            <summary>
+            Plays the game over sound.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.PlayGameWonSound">
+            <summary>
+            Plays the sound effect when the game is won.
+            </summary>
+        </member>
         <member name="T:Galaga.ViewModel.GameManagerViewModel">
             <summary>
             Game manager view model.
