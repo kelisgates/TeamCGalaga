@@ -133,6 +133,7 @@
     <Compile Include="Model\CollisionManager.cs" />
     <Compile Include="Model\Enemy.cs" />
     <Compile Include="Model\EnemyManager.cs" />
+    <Compile Include="Model\HighScore.cs" />
     <Compile Include="Model\NonAttackEnemy.cs" />
     <Compile Include="Model\AttackEnemy.cs" />
     <Compile Include="Model\GameManager.cs" />

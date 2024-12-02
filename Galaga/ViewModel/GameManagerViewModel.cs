@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using Windows.UI.Xaml;
 using Galaga.Model;
 using Windows.UI.Xaml.Controls;
@@ -9,6 +12,8 @@ using Galaga.View;
 using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Core;
+using System.Linq;
+using Windows.Storage;
 
 namespace Galaga.ViewModel
 {
@@ -18,6 +23,8 @@ namespace Galaga.ViewModel
     public class GameManagerViewModel : INotifyPropertyChanged
     {
         #region Data Members and Properties
+
+        private const string HighScoreFileName = "HighScores.xml";  
 
         private GameManager gameManager;
 
@@ -83,6 +90,21 @@ namespace Galaga.ViewModel
             
             set => this.SetField(ref this.gameWonVisibility, value);
         }
+        
+        private ObservableCollection<HighScore> highScores;
+
+        /// <summary>
+        /// Gets or sets the high scores.
+        /// </summary>
+        /// <value>
+        /// The high scores.
+        /// </value>
+        public ObservableCollection<HighScore> HighScores
+        {
+            get => this.highScores;
+            
+            set => this.SetField(ref this.highScores, value);
+        }
 
         #endregion
 
@@ -103,6 +125,10 @@ namespace Galaga.ViewModel
             this.LivesTextBlock = "Lives: 3";
 
             this.ScoreTextBlock = "Score: 0";
+
+            this.highScores = new ObservableCollection<HighScore>();
+
+            _ = this.loadHighScores();
         }
 
         #endregion
@@ -143,9 +169,45 @@ namespace Galaga.ViewModel
         private async Task displayHighScoreBoardDialog(ContentDialog dialog)
         {
             dialog.Hide();
-            HighScoreDialog highscores = new HighScoreDialog();
+            HighScoreDialog highscores = new HighScoreDialog
+            {
+                DataContext = this
+            };
             _ = await highscores.ShowAsync();
             await this.DisplayStartScreen();
+        }
+
+        private async Task loadHighScores()
+        {
+            var folder = ApplicationData.Current.LocalFolder;
+            try
+            {
+                var file = await folder.GetFileAsync(HighScoreFileName);
+                using (var inStream = await file.OpenStreamForReadAsync())
+                {
+                    var deserializer = new DataContractSerializer(typeof(ObservableCollection<HighScore>));
+                    var data = (ObservableCollection<HighScore>)deserializer.ReadObject(inStream);
+                    this.HighScores = data ?? new ObservableCollection<HighScore>();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                
+                this.HighScores = new ObservableCollection<HighScore>();
+            }
+
+        }
+
+        private async Task saveHighScores()
+        {
+            var folder = ApplicationData.Current.LocalFolder;
+            var file = await folder.CreateFileAsync(HighScoreFileName, CreationCollisionOption.ReplaceExisting);
+            using (var outStream = await file.OpenStreamForWriteAsync())
+            {
+                var serializer = new DataContractSerializer(typeof(ObservableCollection<HighScore>));
+                serializer.WriteObject(outStream, this.HighScores);
+            }
+
         }
 
         private void initializeGame()
@@ -245,6 +307,30 @@ namespace Galaga.ViewModel
             return true;
         }
 
+        public void SortByScoreNameLevel()
+        {
+            HighScores = new ObservableCollection<HighScore>(
+                HighScores.OrderByDescending(h => h.Score)
+                    .ThenBy(h => h.PlayerName)
+                    .ThenByDescending(h => h.Level));
+        }
+
+        public void SortByNameScoreLevel()
+        {
+            HighScores = new ObservableCollection<HighScore>(
+                HighScores.OrderBy(h => h.PlayerName)
+                    .ThenByDescending(h => h.Score)
+                    .ThenByDescending(h => h.Level));
+        }
+
+        public void SortByLevelScoreName()
+        {
+            HighScores = new ObservableCollection<HighScore>(
+                HighScores.OrderByDescending(h => h.Level)
+                    .ThenByDescending(h => h.Score)
+                    .ThenBy(h => h.PlayerName));
+        }
+
         #endregion
 
         #region Events
@@ -268,6 +354,7 @@ namespace Galaga.ViewModel
             this.gameManager.soundManager.PlayGameWonSound();
             this.gameManager.collisionManager.StopAllTimers();
             this.GameWonVisibility = Visibility.Visible;
+            await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.level);
             var dialog = new ContentDialog()
             {
                 Title = "You Won!",
@@ -278,13 +365,44 @@ namespace Galaga.ViewModel
             dialog.CloseButtonClick += (_, _) => { Application.Current.Exit(); };
 
             await dialog.ShowAsync();
+
+            
+        }
+
+        private async Task checkAndAddHighScore(int score, int level)
+        {
+            if (this.HighScores.Count < 10 || score > this.HighScores.Min(h => h.Score))
+            {
+                var inputTextBox = new TextBox { PlaceholderText = "Enter your name" };
+                var dialog = new ContentDialog
+                {
+                    Title = "New High Score!",
+                    Content = inputTextBox,
+                    PrimaryButtonText = "OK",
+                    CloseButtonText = "Cancel"
+                };
+
+                if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    string playerName = inputTextBox.Text;
+                    this.HighScores.Add(new HighScore { PlayerName = playerName, Score = score, Level = level});
+                    this.HighScores = new ObservableCollection<HighScore>(this.HighScores.OrderByDescending(h => h.Score).Take(10));
+                    await this.saveHighScores();
+                }
+            }
+
+            HighScoreDialog highscores = new HighScoreDialog
+            {
+                DataContext = this
+            };
+            _ = await highscores.ShowAsync();
         }
 
         private async void onGameOver(object sender, EventArgs e)
         {
             this.gameManager.soundManager.PlayGameOverSound();
             this.gameManager.collisionManager.StopAllTimers();
-            this.GameOverVisibility = Visibility.Visible;
+            await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.level);
             var dialog = new ContentDialog()
             {
                 Title = "Game Over!",
@@ -292,6 +410,7 @@ namespace Galaga.ViewModel
                 CloseButtonText = "Exit"
             };
             dialog.CloseButtonClick += (_, _) => { Application.Current.Exit(); };
+
             await dialog.ShowAsync();
         }
 

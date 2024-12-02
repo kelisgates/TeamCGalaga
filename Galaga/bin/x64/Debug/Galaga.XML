@@ -243,6 +243,56 @@
             <param name="numOfEnemies">The number of enemies.</param>
             <param name="isAttackEnemy">if set to <c>true</c> [is attack enemy].</param>
         </member>
+        <member name="T:Galaga.Model.HighScore">
+            <summary>
+            defines the high score class
+            </summary>
+        </member>
+        <member name="P:Galaga.Model.HighScore.PlayerName">
+            <summary>
+            Gets or sets the name of the player.
+            </summary>
+            <value>
+            The name of the player.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.HighScore.Score">
+            <summary>
+            Gets or sets the score.
+            </summary>
+            <value>
+            The score.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.HighScore.Level">
+            <summary>
+            Gets or sets the level.
+            </summary>
+            <value>
+            The level.
+            </value>
+        </member>
+        <member name="M:Galaga.Model.HighScore.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.HighScore"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.HighScore.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.HighScore"/> class.
+            </summary>
+            <param name="playerName">Name of the player.</param>
+            <param name="score">The score.</param>
+            <param name="level">The level.</param>
+        </member>
+        <member name="M:Galaga.Model.HighScore.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
         <member name="T:Galaga.Model.NonAttackEnemy">
             <summary>
             Represents an enemy in the game.
@@ -623,6 +673,14 @@
             </summary>
             <value>
             The game won visibility.
+            </value>
+        </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.HighScores">
+            <summary>
+            Gets or sets the high scores.
+            </summary>
+            <value>
+            The high scores.
             </value>
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.#ctor(Windows.UI.Xaml.Controls.Canvas)">

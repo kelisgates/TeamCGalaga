@@ -27,6 +27,7 @@ namespace Galaga.Model
         public PlayerManager playerManager;
         public CollisionManager collisionManager;
         public SoundManager soundManager;
+        public int level = 1;
 
         #endregion
 

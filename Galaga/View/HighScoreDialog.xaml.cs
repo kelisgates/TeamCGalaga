@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Galaga.Model;
+using Galaga.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -19,18 +22,38 @@ namespace Galaga.View
 {
     public sealed partial class HighScoreDialog : ContentDialog
     {
+        
         public HighScoreDialog()
         {
             this.InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void SortByScoreNameLevel_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            var viewModel = (GameManagerViewModel)DataContext;
+            viewModel.SortByScoreNameLevel();
+            this.UpdateSortedHighScores(viewModel);
         }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void SortByNameScoreLevel_Click(object sender, RoutedEventArgs e)
         {
+            var viewModel = (GameManagerViewModel)DataContext;
+            viewModel.SortByNameScoreLevel();
+            this.UpdateSortedHighScores(viewModel);
         }
+
+        private void SortByLevelScoreName_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = (GameManagerViewModel)DataContext;
+            viewModel.SortByLevelScoreName();
+            this.UpdateSortedHighScores(viewModel);
+        }
+
+        private void UpdateSortedHighScores(GameManagerViewModel viewModel)
+        {
+            var collectionViewSource = (CollectionViewSource)Resources["SortedHighScores"];
+            collectionViewSource.Source = viewModel.HighScores;
+        }
+
     }
 }
