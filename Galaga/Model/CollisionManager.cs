@@ -11,9 +11,11 @@ namespace Galaga.Model
     /// </summary>
     public class CollisionManager
     {
-        #region Data Members
-
-        private readonly GameManager gameManager;
+        #region Data Members        
+        /// <summary>
+        /// The game manager
+        /// </summary>
+        public GameManager gameManager;
         private readonly Player player;
         private readonly List<Bullet> activeBullets;
         private readonly Canvas canvas;
@@ -26,7 +28,12 @@ namespace Galaga.Model
         ///   <c>true</c> if this instance is collision processed; otherwise, <c>false</c>.
         /// </value>
         public bool IsCollisionProcessed { get; set; }
-
+        /// <summary>
+        /// Gets or sets the timers.
+        /// </summary>
+        /// <value>
+        /// The timers.
+        /// </value>
         public IList<DispatcherTimer> Timers { get; set; }
 
         #endregion
@@ -244,8 +251,10 @@ namespace Galaga.Model
             playerReturnTimer.Start();
         }
 
-        #endregion
-
+        #endregion        
+        /// <summary>
+        /// Stops all timers.
+        /// </summary>
         public void StopAllTimers()
         {
             foreach (var timer in this.Timers)

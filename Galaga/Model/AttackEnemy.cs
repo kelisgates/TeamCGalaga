@@ -56,7 +56,7 @@ namespace Galaga.Model
             try
             {
                 this.shoot();
-                Timer.Interval = TimeSpan.FromMilliseconds(this.random.Next(1000, 10000));
+                Timer.Interval = this.getShootingTimerForLevel(this.collisionManager.gameManager.level);
             }
             catch (Exception ex)
             {
@@ -104,6 +104,32 @@ namespace Galaga.Model
                 Debug.WriteLine($"Exception in restartShootingTimer: {ex.Message}");
                 Debug.WriteLine(ex.StackTrace);
             }
+        }
+
+        private TimeSpan getShootingTimerForLevel(int level)
+        {
+            int minInterval, maxInterval;
+
+            switch (level)
+            {
+                case 1:
+                    minInterval = 1000;
+                    maxInterval = 10000;
+                    break;
+
+                case 2:
+                    minInterval = 1000;
+                    maxInterval = 5000;
+                    break;
+                case 3:
+                    minInterval = 500;
+                    maxInterval = 1000;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid level");
+
+            }
+            return TimeSpan.FromMilliseconds(random.Next(minInterval, maxInterval));
         }
 
         #endregion

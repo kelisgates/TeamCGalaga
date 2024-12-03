@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
+using System.Runtime.CompilerServices;
 
 namespace Galaga.Model
 {
@@ -27,7 +28,8 @@ namespace Galaga.Model
         public PlayerManager playerManager;
         public CollisionManager collisionManager;
         public SoundManager soundManager;
-        public int level = 1;
+        public int level;
+        private const int maxLevels = 3;
 
         #endregion
 
@@ -100,7 +102,7 @@ namespace Galaga.Model
             this.canvasWidth = canvas.Width;
 
 
-
+            this.level = 1;
             this.initializeGame();
         }
 
@@ -116,6 +118,10 @@ namespace Galaga.Model
             this.placeEnemies();
             this.soundManager = new SoundManager();
             
+        }
+        private void InitializeNextLevel(int level)
+        {
+            this.activeBullets.Clear();
         }
 
         private void placeEnemies()
@@ -180,7 +186,13 @@ namespace Galaga.Model
         /// </summary>
         public void OnGameWon()
         {
-            this.GameWon?.Invoke(this, EventArgs.Empty);
+            if (this.isLastLevel())
+            {
+                this.GameWon?.Invoke(this, EventArgs.Empty);
+            } else
+            {
+                this.changeLevel();
+            }
         }
 
         /// <summary>
@@ -200,6 +212,27 @@ namespace Galaga.Model
             this.PlayerHit?.Invoke(this, EventArgs.Empty);
         }
 
+        private void changeLevel()
+        {
+            if (this.level < maxLevels)
+            {
+                this.level++;
+                this.initializeNextLevel(this.level);
+            } else
+            {
+                this.OnGameWon();
+            }
+        }
+
+        private bool isLastLevel()
+        {
+            return this.level >= maxLevels;
+        }
+
+        private void initializeNextLevel(int level)
+        {
+            this.placeEnemies();
+        }
         #endregion
 
     }
