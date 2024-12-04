@@ -570,6 +570,11 @@
             Called when [player hit].
             </summary>
         </member>
+        <member name="M:Galaga.Model.GameManager.playerPowerUp">
+            <summary>
+            Players the power up. Let's player shoot all three bullets at the same time
+            </summary>
+        </member>
         <member name="T:Galaga.Model.GameObject">
             <summary>
             Represents a game object in the Galaga game.

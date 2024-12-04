@@ -24762,18 +24762,18 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kg00281\\.nuget\\packages\\": {},
+    "C:\\Users\\aadhika1\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kg00281\\Desktop\\TeamCGalaga\\TeamCGalaga\\Galaga\\Galaga.csproj",
+      "projectUniqueName": "C:\\Users\\aadhika1\\Desktop\\Project\\TeamCGalaga\\Galaga\\Galaga.csproj",
       "projectName": "Galaga",
-      "projectPath": "C:\\Users\\kg00281\\Desktop\\TeamCGalaga\\TeamCGalaga\\Galaga\\Galaga.csproj",
-      "packagesPath": "C:\\Users\\kg00281\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kg00281\\Desktop\\TeamCGalaga\\TeamCGalaga\\Galaga\\obj\\",
+      "projectPath": "C:\\Users\\aadhika1\\Desktop\\Project\\TeamCGalaga\\Galaga\\Galaga.csproj",
+      "packagesPath": "C:\\Users\\aadhika1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aadhika1\\Desktop\\Project\\TeamCGalaga\\Galaga\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -24781,7 +24781,7 @@
         "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\kg00281\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\aadhika1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

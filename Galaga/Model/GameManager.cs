@@ -50,6 +50,7 @@ namespace Galaga.Model
         /// </summary>
         public int Level;
         private const int maxLevels = 3;
+        private bool isPoweredUp = false;
 
         #endregion
 
@@ -186,20 +187,46 @@ namespace Galaga.Model
             this.canShoot = false;
 
             var movementPerStep = 20;
-
-            var bullet = new Bullet
+            if (this.isPoweredUp)
             {
-                IsShooting = true,
-                X = this.Player.X + movementPerStep,
-                Y = this.Player.Y,
-            };
+                this.PlayerPowerUp(movementPerStep);
+            }
+            else
+            {
+                var bullet = new Bullet
+                {
+                    IsShooting = true,
+                    X = this.Player.X + movementPerStep,
+                    Y = this.Player.Y,
+                };
 
-            this.canvas.Children.Add(bullet.Sprite);
-            this.activeBullets.Add(bullet);
-            this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
+                this.canvas.Children.Add(bullet.Sprite);
+                this.activeBullets.Add(bullet);
+                this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
+
+            }
+
             await Task.Delay(300);
             this.canShoot = true;
 
+        }
+
+        private void PlayerPowerUp(int movementPerStep)
+        {
+            for (int i = -1; i <= 1; i++)
+            {
+                var horizontalOffset = 30;
+                var bullet = new Bullet
+                {
+                    IsShooting = true,
+                    X = this.Player.X + movementPerStep + (i * horizontalOffset),
+                    Y = this.Player.Y,
+                };
+
+                this.canvas.Children.Add(bullet.Sprite);
+                this.activeBullets.Add(bullet);
+                this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
+            }
         }
 
         /// <summary>
@@ -271,6 +298,22 @@ namespace Galaga.Model
         {
             this.enemyManager.initializeBonusShipTimer();
         }
+
+        /// <summary>
+        /// Players the power up. Let's player shoot all three bullets at the same time
+        /// </summary>
+        public async void playerPowerUp()
+        {
+            if (this.isPoweredUp) return;
+
+            this.isPoweredUp = true;
+
+            await Task.Delay(10000);
+
+            this.isPoweredUp = false;
+        }
+
+
         #endregion
 
     }

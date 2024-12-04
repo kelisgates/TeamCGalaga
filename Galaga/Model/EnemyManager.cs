@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System;
+using System.Threading;
 
 namespace Galaga.Model
 {
@@ -56,6 +57,8 @@ namespace Galaga.Model
         /// </summary>
         public bool BonusEnemyActive;
 
+        private DispatcherTimer bonusShipTimer;
+
         #endregion
 
         #region Constructor
@@ -74,6 +77,7 @@ namespace Galaga.Model
             this.collisionManager = collisionManager;
             this.initializeAnimationTimer();
             this.BonusEnemyActive = false;
+
         }
 
         #endregion
@@ -212,6 +216,7 @@ namespace Galaga.Model
             }
 
             this.Manager.soundManager.PlayBonusEnenySound();
+            
 
         }
         
@@ -219,23 +224,27 @@ namespace Galaga.Model
         /// Initializes bonushipTimer
         /// </summary>
         public void  initializeBonusShipTimer()
-        {
-            var bonusShipTimer = new DispatcherTimer
+         {
+            if(this.bonusShipTimer != null)
             {
-                Interval = TimeSpan.FromSeconds(10)
+                this.bonusShipTimer.Stop();
+                this.bonusShipTimer = null;
+            }
+            this.bonusShipTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(5)
             };
-
             var random = new Random();
 
-            bonusShipTimer.Tick += (_, _) =>
+            this.bonusShipTimer.Tick += (_, _) =>
             {
-                if (random.NextDouble() < 0.3 && !this.BonusEnemyActive)
+                if (!this.BonusEnemyActive && random.NextDouble() < 0.3)
                 {
                     this.bonusEnemyShip();
                 }
             };
             
-            bonusShipTimer.Start();
+            this.bonusShipTimer.Start();
            
         }
         #endregion

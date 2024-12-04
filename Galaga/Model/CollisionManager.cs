@@ -102,8 +102,8 @@ namespace Galaga.Model
                     {
                         this.gameManager.soundManager.PlayEnemyHitSound();
                         canvasParam.Children.Remove(bullet.Sprite);
-                        this.checkIfEnemyIsAttackingEnemy(enemy);
                         this.removeEnemyAndUpdateScore(enemy);
+                        this.checkIfEnemyIsAttackingEnemy(enemy);
                         break;
                     }
                 }
@@ -114,19 +114,20 @@ namespace Galaga.Model
         {
             if (enemy is AttackEnemy enemyLevelThree)
             {
-                this.handleBonusEnemyException(enemyLevelThree);
+                if (enemyLevelThree.isBonusShip)
+                {
+                    this.handleBonusEnemyException(enemyLevelThree);
+                }
                 enemyLevelThree.Timer.Stop();
             }
         }
 
         private void handleBonusEnemyException(AttackEnemy enemyLevelThree)
         {
-            if (enemyLevelThree.isBonusShip)
-            {
-                this.gameManager.Player.Lives++;
-                this.gameManager.enemyManager.BonusEnemyActive = false;
-                this.gameManager.soundManager.StopBonusEnemySound();
-            }
+            this.gameManager.Player.Lives++;
+            this.gameManager.enemyManager.BonusEnemyActive = false;
+            this.gameManager.soundManager.StopBonusEnemySound();
+            this.gameManager.playerPowerUp();
         }
 
         private void removeEnemyAndUpdateScore(Enemy enemy)
@@ -137,7 +138,7 @@ namespace Galaga.Model
 
             var amount = enemy.ScoreValue;
             this.gameManager.Player.Score += amount;
-
+            
             this.gameManager.OnEnemyKilled();
 
             if (this.gameManager.enemyManager.Enemies.Count == 0)
