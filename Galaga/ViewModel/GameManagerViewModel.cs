@@ -61,6 +61,19 @@ namespace Galaga.ViewModel
             set => this.SetField(ref this.scoreTextBlock, value);
         }
 
+        private String levelTextBlock;
+        /// <summary>
+        /// Gets or sets the level text block.
+        /// </summary>
+        /// <value>
+        /// The level text block.
+        /// </value>
+        public String LevelTextBlock
+        {
+            get => this.levelTextBlock;
+            set => this.SetField(ref this.levelTextBlock, value);
+        }
+
         private Visibility gameOverVisibility;
 
         /// <summary>
@@ -125,6 +138,8 @@ namespace Galaga.ViewModel
             this.LivesTextBlock = "Lives: 3";
 
             this.ScoreTextBlock = "Score: 0";
+
+            this.LevelTextBlock = "Level: 1";
 
             this.highScores = new ObservableCollection<HighScore>();
 
@@ -220,6 +235,7 @@ namespace Galaga.ViewModel
             this.gameManager.PlayerHit += this.onPlayerHit;
             this.gameManager.GameOver += this.onGameOver;
             this.gameManager.GameWon += this.onGameWon;
+            this.gameManager.LevelChanged += this.onLevelChanged;
         }
 
         private void CoreWindowOnKeyDown(CoreWindow sender, KeyEventArgs args)
@@ -307,6 +323,9 @@ namespace Galaga.ViewModel
             return true;
         }
 
+        /// <summary>
+        /// Sorts the by score name level.
+        /// </summary>
         public void SortByScoreNameLevel()
         {
             HighScores = new ObservableCollection<HighScore>(
@@ -315,6 +334,9 @@ namespace Galaga.ViewModel
                     .ThenByDescending(h => h.Level));
         }
 
+        /// <summary>
+        /// Sorts the by name score level.
+        /// </summary>
         public void SortByNameScoreLevel()
         {
             HighScores = new ObservableCollection<HighScore>(
@@ -323,6 +345,9 @@ namespace Galaga.ViewModel
                     .ThenByDescending(h => h.Level));
         }
 
+        /// <summary>
+        /// Sorts the name of the by level score.
+        /// </summary>
         public void SortByLevelScoreName()
         {
             HighScores = new ObservableCollection<HighScore>(
@@ -420,6 +445,10 @@ namespace Galaga.ViewModel
             this.ScoreTextBlock = $"Score: {this.gameManager.Player.Score}";
         }
 
+        private void onLevelChanged(object sender, EventArgs e)
+        {
+            this.LevelTextBlock = $"Level: {this.gameManager.level}";
+        }
         #endregion
 
     }

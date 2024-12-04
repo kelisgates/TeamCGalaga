@@ -83,12 +83,25 @@
             Manages collision detection and bullet movement.
             </summary>
         </member>
+        <member name="F:Galaga.Model.CollisionManager.gameManager">
+            <summary>
+            The game manager
+            </summary>
+        </member>
         <member name="P:Galaga.Model.CollisionManager.IsCollisionProcessed">
             <summary>
             Gets or sets a value indicating whether this instance is collision processed.
             </summary>
             <value>
               <c>true</c> if this instance is collision processed; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.CollisionManager.Timers">
+            <summary>
+            Gets or sets the timers.
+            </summary>
+            <value>
+            The timers.
             </value>
         </member>
         <member name="M:Galaga.Model.CollisionManager.#ctor(Galaga.Model.GameManager,Galaga.Model.Player,System.Collections.Generic.List{Galaga.Model.Bullet})">
@@ -112,6 +125,11 @@
             </summary>
             <param name="bullet">The bullet.</param>
             <param name="canvasParam">The canvasParam.</param>
+        </member>
+        <member name="M:Galaga.Model.CollisionManager.StopAllTimers">
+            <summary>
+            Stops all timers.
+            </summary>
         </member>
         <member name="T:Galaga.Model.Enemy">
             <summary>
@@ -338,6 +356,11 @@
             Occurs when [player hit].
             </summary>
         </member>
+        <member name="E:Galaga.Model.GameManager.LevelChanged">
+            <summary>
+            Occurs when [level changed].
+            </summary>
+        </member>
         <member name="P:Galaga.Model.GameManager.Player">
             <summary>
             player object
@@ -361,6 +384,19 @@
               <c>true</c> if [was collision]; otherwise, <c>false</c>.
             </value>
             <returns>bool value if collision occurred</returns>
+        </member>
+        <member name="P:Galaga.Model.GameManager.EnemyManager">
+            <summary>
+            Gets the enemy manager.
+            </summary>
+            <value>
+            The enemy manager.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.GameManager.Canvas">
+            <summary>
+            Canvas
+            </summary>
         </member>
         <member name="M:Galaga.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
             <summary>
@@ -659,6 +695,14 @@
             The score text block.
             </value>
         </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.LevelTextBlock">
+            <summary>
+            Gets or sets the level text block.
+            </summary>
+            <value>
+            The level text block.
+            </value>
+        </member>
         <member name="P:Galaga.ViewModel.GameManagerViewModel.GameOverVisibility">
             <summary>
             Gets or sets the game over visibility.
@@ -715,6 +759,21 @@
             <param name="value">The value.</param>
             <param name="propertyName">Name of the property.</param>
             <returns></returns>
+        </member>
+        <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByScoreNameLevel">
+            <summary>
+            Sorts the by score name level.
+            </summary>
+        </member>
+        <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByNameScoreLevel">
+            <summary>
+            Sorts the by name score level.
+            </summary>
+        </member>
+        <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByLevelScoreName">
+            <summary>
+            Sorts the name of the by level score.
+            </summary>
         </member>
         <member name="T:Galaga.View.GameCanvas">
             <summary>

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
   <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="LevelTextBlock" />
     <RootPropertyPathName Name="ScoreTextBlock" />
     <RootPropertyPathName Name="LivesTextBlock" />
     <RootPropertyPathName Name="HighScores" />

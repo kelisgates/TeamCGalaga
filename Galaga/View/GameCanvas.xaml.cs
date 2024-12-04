@@ -20,9 +20,7 @@ namespace Galaga.View
         public GameCanvas()
         {
             
-            this.InitializeComponent();
-            this.setWindowTitle("Galaga by TeamC A3");
-            
+            this.InitializeComponent();            
             Width = this.canvas.Width;
             Height= this.canvas.Height;
             ApplicationView.PreferredLaunchViewSize = new Size { Width = Width, Height = Height };

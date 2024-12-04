@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Galaga.Model
 {
@@ -55,6 +56,10 @@ namespace Galaga.Model
         /// </summary>
         public event EventHandler PlayerHit;
 
+        /// <summary>
+        /// Occurs when [level changed].
+        /// </summary>
+        public event EventHandler LevelChanged;
         #endregion
 
         #region Properties
@@ -82,9 +87,18 @@ namespace Galaga.Model
         /// </value>
         /// <returns>bool value if collision occurred</returns>
         public bool WasCollision { get; set; }
-
+        /// <summary>
+        /// Gets the enemy manager.
+        /// </summary>
+        /// <value>
+        /// The enemy manager.
+        /// </value>
         public EnemyManager EnemyManager => this.enemyManager;
+        /// <summary>
+        /// Canvas
+        /// </summary>
         public Canvas Canvas => this.canvas;
+
 
         #endregion
 
@@ -200,6 +214,7 @@ namespace Galaga.Model
         /// </summary>
         public void OnGameOver()
         {
+            this.canShoot = false;
             Debug.WriteLine("game manager onGame invoked");
             this.GameOver?.Invoke(this, EventArgs.Empty);
         }
@@ -231,7 +246,9 @@ namespace Galaga.Model
 
         private void initializeNextLevel(int level)
         {
+            this.activeBullets.Clear();
             this.placeEnemies();
+            this.LevelChanged?.Invoke(this, EventArgs.Empty); //Sometimes the collision detection doesn't work on enemy when new lwvel start
         }
         #endregion
 

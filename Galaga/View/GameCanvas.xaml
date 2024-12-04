@@ -13,6 +13,6 @@
 
         <TextBlock Text="{Binding LivesTextBlock}" x:Name="livesTextBlock" Canvas.Left="0" TextWrapping="Wrap" Canvas.Top="15" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
         <TextBlock Text="{Binding ScoreTextBlock}" x:Name="scoreTextBlock" Canvas.Left="55" TextWrapping="Wrap"  Canvas.Top="256" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
-       
+        <TextBlock Text="{Binding LevelTextBlock}" x:Name="levelTextBlock" Canvas.Left="55" TextWrapping="Wrap"  Canvas.Top="300" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
     </Canvas>
 </Page>
