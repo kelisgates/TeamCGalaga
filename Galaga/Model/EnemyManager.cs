@@ -157,7 +157,7 @@ namespace Galaga.Model
             }
             else
             {
-                var nonAttackEnemy = new NonAttackEnemy(sprites, score)
+                var nonAttackEnemy = new NonAttackEnemy(sprites, score, this)
                 {
                     X = xPosition,
                     Y = y

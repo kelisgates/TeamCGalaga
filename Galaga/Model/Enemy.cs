@@ -7,6 +7,17 @@ using Windows.UI.Xaml.Controls;
 namespace Galaga.Model
 {
     /// <summary>
+    /// movement direction of enemy
+    /// </summary>
+    public enum MovementDirection
+    {
+        Right,
+        Left,
+        Down,
+        Up
+    }
+
+    /// <summary>
     /// abstract class for enemy
     /// </summary>
     /// <seealso cref="Galaga.Model.GameObject" />
@@ -150,6 +161,51 @@ namespace Galaga.Model
             this.movementTimer(resetSteps);
         }
 
+        /// <summary>
+        /// Moves the enemy pattern one.
+        /// </summary>
+        protected void MoveEnemyPatternOne()
+        {
+            var resetSteps = 3;
+            this.SidewaysSteps = resetSteps;
+            this.MovingRight = true;
+            this.movementTimer(resetSteps, MovementDirection.Left);
+        }
+
+        /// <summary>
+        /// Moves the enemy pattern two.
+        /// </summary>
+        protected void MoveEnemyPatternTwo()
+        {
+            var resetSteps = 0;
+            this.SidewaysSteps = resetSteps;
+            this.MovingRight = true;
+            this.movementTimer(resetSteps, MovementDirection.Right);
+        }
+
+        /// <summary>
+        /// Moves the enemy pattern three.
+        /// </summary>
+        protected void MoveEnemyPatternThree()
+        {
+            var resetSteps = 2;
+            this.SidewaysSteps = resetSteps;
+            this.MovingRight = false;
+            this.movementTimer(resetSteps, MovementDirection.Left);
+        }
+
+        /// <summary>
+        /// Moves the enemy pattern four.
+        /// </summary>
+        protected void MoveEnemyPatternFour()
+        {
+            var resetSteps = 1;
+            this.SidewaysSteps = resetSteps;
+            this.MovingRight = true;
+            this.movementTimer(resetSteps, MovementDirection.Right);
+        }
+
+
         private void movementTimer(int resetSteps)
         {
             var seconds = 1000;
@@ -158,14 +214,25 @@ namespace Galaga.Model
             {
                 Interval = TimeSpan.FromMilliseconds(seconds)
             };
-            if (this.MovingRight && !this.MovingDown)
+            if (direction == MovementDirection.Left)
             {
+                this.MovingRight = false;
                 this.Timer.Tick += (_, _) => { this.checkMovingRightOrLeft(resetSteps); };
             }
-            else if (this.MovingDown && !this.MovingRight)
+            else if (direction == MovementDirection.Right)
             {
-                this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
+                this.MovingRight = true;
+                this.Timer.Tick += (_, _) => { this.checkMovingRightOrLeft(resetSteps); };
+            }
+            else if (direction == MovementDirection.Down)
+            {
 
+                this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
+            }
+            else if (direction == MovementDirection.Up)
+            {
+
+                this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
             }
 
             this.Timer.Start();

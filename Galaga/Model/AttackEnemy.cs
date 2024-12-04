@@ -37,7 +37,7 @@ namespace Galaga.Model
             }
             else
             {
-                MoveEnemy();
+                this.moveEnemyBasedOnLevel();
             }
             this.shootAtPlayer();
         }
@@ -45,6 +45,33 @@ namespace Galaga.Model
         #endregion
 
         #region private methods
+
+        private void moveEnemyBasedOnLevel()
+        {
+            int level = this.collisionManager.gameManager.Level;
+            switch (level)
+            {
+                case 1:
+                    MoveEnemy();
+                    break;
+                case 2:
+                    MoveEnemyPatternThree();
+
+                    break;
+                case 3:
+                    if (this.Y == 100)
+                    {
+                        MoveEnemyPatternTwo();
+                    }
+                    else
+                    {
+                        MoveEnemyPatternOne();
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("Invalid level");
+            }
+        }
 
         private void shootAtPlayer()
         {
