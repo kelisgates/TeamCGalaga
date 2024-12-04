@@ -206,6 +206,9 @@
     <Content Include="Sounds\enemyHit.wav" />
     <Content Include="Sounds\playerDeath.wav" />
     <Content Include="Sounds\playerFire.wav" />
+    <Content Include="Assets\ExplosionImages\ExplosionImage1.PNG" />
+    <Content Include="Assets\ExplosionImages\ExplosionImage2.PNG" />
+    <Content Include="Assets\ExplosionImages\ExplosionImage3.PNG" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

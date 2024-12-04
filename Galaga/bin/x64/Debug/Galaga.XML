@@ -643,6 +643,14 @@
             </summary>
             <param name="durationInSeconds">The duration in seconds.</param>
         </member>
+        <member name="M:Galaga.Model.Player.PlayExplosionAnimation(System.Double,System.Double,Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+            Plays the explosion animation.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+            <param name="canvas">The canvas.</param>
+        </member>
         <member name="T:Galaga.Model.PlayerManager">
             <summary>
             player manager
@@ -668,6 +676,29 @@
             <summary>
             Creates and place player.
             </summary>
+        </member>
+        <member name="T:Galaga.Model.ShipFactory">
+            <summary>
+            ship factory class
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.ShipFactory.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Model.ShipFactory"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.ShipFactory.CreatePlayerShip">
+            <summary>
+            Creates the player ship.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Galaga.Model.ShipFactory.CreateEnemyShip(Galaga.Model.EnemyType)">
+            <summary>
+            Creates the enemy ship.
+            </summary>
+            <param name="level">The level.</param>
+            <returns></returns>
         </member>
         <member name="T:Galaga.Model.SoundManager">
             <summary>

@@ -94,6 +94,15 @@
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamGalaga\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage1.PNG">
+      <PackagePath>Assets\ExplosionImages\ExplosionImage1.PNG</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamGalaga\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage2.PNG">
+      <PackagePath>Assets\ExplosionImages\ExplosionImage2.PNG</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamGalaga\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage3.PNG">
+      <PackagePath>Assets\ExplosionImages\ExplosionImage3.PNG</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamGalaga\TeamCGalaga\Galaga\bin\x64\Debug\Galaga.xr.xml">
       <PackagePath>Galaga.xr.xml</PackagePath>
     </AppxPackagedFile>

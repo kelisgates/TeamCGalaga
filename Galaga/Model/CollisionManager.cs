@@ -199,6 +199,7 @@ namespace Galaga.Model
 
             if (enemyBullet.Intersects(this.player))
             {
+                this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
                 this.updateGameState(enemyBullet, canvasParam, timer);
                 this.checkPlayerStatus(enemyBullet);
             }
@@ -214,7 +215,6 @@ namespace Galaga.Model
             timer.Stop();
             
         }
-
 
         private void checkPlayerStatus(Bullet enemyBullet)
         {
@@ -251,7 +251,6 @@ namespace Galaga.Model
             playerReturnTimer.Start();
         }
 
-        #endregion        
         /// <summary>
         /// Stops all timers.
         /// </summary>
@@ -262,6 +261,8 @@ namespace Galaga.Model
                 timer.Stop();
             }
         }
+
+        #endregion
     }
 }
 

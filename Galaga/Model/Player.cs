@@ -1,6 +1,9 @@
 ﻿using Galaga.View.Sprites;
 using Windows.UI.Xaml;
 using System;
+using System.Collections.Generic;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Galaga.Model
 {
@@ -113,6 +116,49 @@ namespace Galaga.Model
                 this.invincibilityTimer.Stop();
             };
             this.invincibilityTimer.Start();
+        }
+
+        /// <summary>
+        /// Plays the explosion animation.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="canvas">The canvas.</param>
+        public void PlayExplosionAnimation(double x, double y, Canvas canvas)
+        {
+            var explosionFrames = new List<Image>
+            {
+                new Image {Source = new BitmapImage(new Uri("ms-appx:///Assets/ExplosionImages/ExplosionImage3.PNG"))},
+                new Image {Source = new BitmapImage(new Uri("ms-appx:///Assets/ExplosionImages/ExplosionImage2.PNG"))},
+                new Image {Source = new BitmapImage(new Uri("ms-appx:///Assets/ExplosionImages/ExplosionImage1.PNG"))}
+            };
+
+            var explosion = new Image();
+            canvas.Children.Add(explosion);
+            Canvas.SetLeft(explosion, x);
+            Canvas.SetTop(explosion, y);
+
+            var frameIndex = 0;
+            var explosionTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(100)
+            };
+
+            explosionTimer.Tick += (s, e) =>
+            {
+                if (frameIndex < explosionFrames.Count)
+                {
+                    explosion.Source = explosionFrames[frameIndex].Source;
+                    frameIndex++;
+                }
+                else
+                {
+                    explosionTimer.Stop();
+                    canvas.Children.Remove(explosion);
+                }
+
+            };
+            explosionTimer.Start();
         }
 
         #endregion
