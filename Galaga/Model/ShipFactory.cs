@@ -4,26 +4,28 @@ using Galaga.View.Sprites.EnemyL2Sprites;
 using Galaga.View.Sprites.EnemyL3Sprites;
 using Galaga.View.Sprites;
 using System.Collections.Generic;
+using Windows.ApplicationModel.VoiceCommands;
+using Windows.UI.Xaml.Documents;
 
 namespace Galaga.Model
 {
     /// <summary>
     /// ship factory class
     /// </summary>
-    public class ShipFactory
+    public static class ShipFactory
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShipFactory"/> class.
-        /// </summary>
-        public ShipFactory()
-        {
-        }
+        ///// <summary>
+        ///// Initializes a new instance of the <see cref="ShipFactory"/> class.
+        ///// </summary>
+        //public ShipFactory()
+        //{
+        //}
 
         /// <summary>
         /// Creates the player ship.
         /// </summary>
         /// <returns></returns>
-        public GameObject CreatePlayerShip()
+        public static GameObject CreatePlayerShip()
         {
             return new Player();
         }
@@ -33,14 +35,14 @@ namespace Galaga.Model
         /// </summary>
         /// <param name="level">The level.</param>
         /// <returns></returns>
-        public ICollection<BaseSprite> CreateEnemyShip(EnemyType level)
+        public static ICollection<BaseSprite> CreateEnemyShip(EnemyType level)
         {
             ICollection<BaseSprite> sprites = new List<BaseSprite>();
 
-            return this.findAndCreateEnemy(level, sprites);
+            return findAndCreateEnemy(level, sprites);
         }
 
-        private ICollection<BaseSprite> findAndCreateEnemy(EnemyType level, ICollection<BaseSprite> sprites)
+        private static ICollection<BaseSprite> findAndCreateEnemy(EnemyType level, ICollection<BaseSprite> sprites)
         {
             switch (level)
             {

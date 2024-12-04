@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Galaga.View.Sprites.EnemeyL4Sprites;
-using Galaga.View.Sprites.EnemyL1Sprites;
-using Galaga.View.Sprites.EnemyL2Sprites;
-using Galaga.View.Sprites.EnemyL3Sprites;
 using System;
 
 namespace Galaga.Model
@@ -47,7 +43,13 @@ namespace Galaga.Model
 
         private readonly Canvas canvas;
         private DispatcherTimer animationTimer;
-        private readonly GameManager manager;
+        /// <summary>
+        /// Gets the manager.
+        /// </summary>
+        /// <value>
+        /// The manager.
+        /// </value>
+        public GameManager Manager { get; }
         private readonly CollisionManager collisionManager;
 
         #endregion
@@ -63,7 +65,7 @@ namespace Galaga.Model
         public EnemyManager(Canvas canvas, GameManager manager, CollisionManager collisionManager)
         {
             this.Enemies = new List<Enemy>();
-            this.manager = manager;
+            this.Manager = manager;
             this.canvas = canvas;
             this.collisionManager = collisionManager;
             this.initializeAnimationTimer();
@@ -124,13 +126,11 @@ namespace Galaga.Model
             for (int i = 0; i < numOfEnemies; i++)
             {
                 var widthDistance = 100;
-                ICollection<BaseSprite> sprites = new List<BaseSprite>();
-
-                this.findAndCreateEnemy(level, sprites);
+                var sprites = ShipFactory.CreateEnemyShip(level);
 
                 var xPosition = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance);
 
-                this.checkIfAttackOrNonAttackEnemy(score, y, isAttackEnemy, sprites, xPosition);
+                this.checkIfAttackOrNonAttackEnemy(score, y, isAttackEnemy, sprites, xPosition, false);
             }
         }
 
@@ -138,35 +138,12 @@ namespace Galaga.Model
 
         #region Private Methods
 
-        private void findAndCreateEnemy(EnemyType level, ICollection<BaseSprite> sprites)
-        {
-            switch (level)
-            {
-                case EnemyType.Level1:
-                    sprites.Add(new EnemyL1Sprite());
-                    sprites.Add(new EnemyL1SpriteTwo());
-                    break;
-                case EnemyType.Level2:
-                    sprites.Add(new EnemyL2Sprite());
-                    sprites.Add(new EnemyL2SpriteTwo());
-                    break;
-                case EnemyType.Level3:
-                    sprites.Add(new EnemyL3Sprite());
-                    sprites.Add(new EnemyL3SpriteTwo());
-                    break;
-                case EnemyType.Level4:
-                    sprites.Add(new EnemyL4Sprite());
-                    sprites.Add(new EnemyL4SpriteTwo());
-                    break;
-            }
-        }
-
         private void checkIfAttackOrNonAttackEnemy(int score, double y, bool isAttackEnemy, ICollection<BaseSprite> sprites,
-            double xPosition)
+            double xPosition, bool isBonusShip)
         {
             if (isAttackEnemy)
             {
-                var attackEnemy = new AttackEnemy(sprites, score, this.canvas, this.collisionManager)
+                var attackEnemy = new AttackEnemy(sprites, score, this.canvas, this.collisionManager, isBonusShip)
                 {
                     X = xPosition,
                     Y = y
@@ -210,7 +187,48 @@ namespace Galaga.Model
             return canvasMiddle - (numOfEnemies * widthDistance) / half;
 
         }
+        /// <summary>
+        /// Bonuses the enemy ship.
+        /// </summary>
+        private void bonusEnemyShip()
+        {
+            var bonusEnemyShip = ShipFactory.CreateEnemyShip(EnemyType.Level4);
+            var random = new Random();
+            var x = random.Next(50, 500);
+            var y = random.Next(50, 200);
+            this.checkIfAttackOrNonAttackEnemy(50, y, true, bonusEnemyShip, x, true);
 
+            foreach (var currSprite in bonusEnemyShip)
+            {
+                Canvas.SetLeft(currSprite, x);
+                Canvas.SetTop(currSprite, y);
+                this.canvas.Children.Add(currSprite);
+            }
+
+        }
+        
+        /// <summary>
+        /// Initializes bonushipTimer
+        /// </summary>
+        public void  initializeBonusShipTimer()
+        {
+            var bonusShipTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(15)
+            };
+
+            var random = new Random();
+
+            bonusShipTimer.Tick += (_, _) =>
+            {
+                if (random.NextDouble() < 0.3)
+                {
+                    this.bonusEnemyShip();
+                }
+            };
+
+            bonusShipTimer.Start();
+        }
         #endregion
     }
 

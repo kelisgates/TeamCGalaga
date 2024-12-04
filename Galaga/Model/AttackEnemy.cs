@@ -25,11 +25,18 @@ namespace Galaga.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AttackEnemy"/> class.
         /// </summary>
-        public AttackEnemy(ICollection<BaseSprite> sprites, int score, Canvas canvas, CollisionManager collisionManager) : base(sprites, score)
+        public AttackEnemy(ICollection<BaseSprite> sprites, int score, Canvas canvas, CollisionManager collisionManager, bool isBonusShip) : base(sprites, score)
         {
             this.canvas = canvas;
             this.collisionManager = collisionManager;
-            MoveEnemy();
+            if (isBonusShip)
+            {
+                MoveBonusEnemyShip();
+            }
+            else
+            {
+                MoveEnemy();
+            }
             this.shootAtPlayer();
         }
 
@@ -129,7 +136,7 @@ namespace Galaga.Model
                     throw new ArgumentException("Invalid level");
 
             }
-            return TimeSpan.FromMilliseconds(random.Next(minInterval, maxInterval));
+            return TimeSpan.FromMilliseconds(this.random.Next(minInterval, maxInterval));
         }
 
         #endregion

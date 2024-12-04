@@ -22,7 +22,7 @@ namespace Galaga.Model
         /// <summary>
         /// The speed y direction
         /// </summary>
-        protected const int SpeedYDirection = 0;
+        protected const int SpeedYDirection = 10;
 
         /// <summary>
         /// The movement per step
@@ -37,12 +37,20 @@ namespace Galaga.Model
         /// <summary>
         /// The steps
         /// </summary>
-        protected int Steps;
+        protected int SidewaysSteps;
+        /// <summary>
+        /// The horizontal steps
+        /// </summary>
+        protected int HorizontalSteps;
        
         /// <summary>
         /// The moving right
         /// </summary>
         protected bool MovingRight;
+        /// <summary>
+        /// The moving down
+        /// </summary>
+        protected bool MovingDown;
 
         /// <summary>
         /// The sprites used for animation.
@@ -137,16 +145,28 @@ namespace Galaga.Model
         protected void MoveEnemy()
         {
             var resetSteps = 0;
-            this.Steps = resetSteps;
+            this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
+            this.movementTimer(resetSteps);
+        }
+
+        private void movementTimer(int resetSteps)
+        {
             var seconds = 1000;
 
             this.Timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(seconds)
             };
+            if (this.MovingRight && !this.MovingDown)
+            {
+                this.Timer.Tick += (_, _) => { this.checkMovingRightOrLeft(resetSteps); };
+            }
+            else if (this.MovingDown && !this.MovingRight)
+            {
+                this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
 
-            this.Timer.Tick += (s, e) => { this.checkMovingRightOrLeft(resetSteps); };
+            }
 
             this.Timer.Start();
         }
@@ -164,11 +184,30 @@ namespace Galaga.Model
 
             this.checkWhichSpriteIsVisible();
 
-            this.Steps++;
-            if (this.Steps == MovementPerStep)
+            this.SidewaysSteps++;
+            if (this.SidewaysSteps == MovementPerStep)
             {
                 this.MovingRight = !this.MovingRight;
-                this.Steps = resetSteps;
+                this.SidewaysSteps = resetSteps;
+            }
+        }
+
+        private void checkMovingUpOrDown(int resetSteps)
+        {
+            if (this.MovingDown && Y <= 400)
+            {
+                MoveDown();
+            }
+            else
+            {
+                MoveUp();
+            }
+            this.checkWhichSpriteIsVisible();
+            this.HorizontalSteps--;
+            if (this.HorizontalSteps == MovementPerStep)
+            {
+                this.MovingDown = !this.MovingDown;
+                this.HorizontalSteps = resetSteps;
             }
         }
 
@@ -184,6 +223,19 @@ namespace Galaga.Model
             Canvas.SetLeft(hiddenSprite, X);
             Canvas.SetTop(hiddenSprite, Y);
         }
+
+        /// <summary>
+        /// Moves bonus enemy ships
+        /// </summary>
+        protected void MoveBonusEnemyShip()
+        {
+            var resetSteps = 0;
+            this.HorizontalSteps = resetSteps;
+            this.MovingDown = true;
+            this.movementTimer(resetSteps);
+        }
+
+        
 
         #endregion
     }

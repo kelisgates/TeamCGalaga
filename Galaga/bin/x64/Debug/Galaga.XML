@@ -192,14 +192,24 @@
             The timer
             </summary>
         </member>
-        <member name="F:Galaga.Model.Enemy.Steps">
+        <member name="F:Galaga.Model.Enemy.SidewaysSteps">
             <summary>
             The steps
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.HorizontalSteps">
+            <summary>
+            The horizontal steps
             </summary>
         </member>
         <member name="F:Galaga.Model.Enemy.MovingRight">
             <summary>
             The moving right
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.Enemy.MovingDown">
+            <summary>
+            The moving down
             </summary>
         </member>
         <member name="F:Galaga.Model.Enemy.Sprites">
@@ -237,6 +247,11 @@
             Moves the enemy.
             </summary>
         </member>
+        <member name="M:Galaga.Model.Enemy.MoveBonusEnemyShip">
+            <summary>
+            Moves bonus enemy ships
+            </summary>
+        </member>
         <member name="T:Galaga.Model.EnemyType">
             <summary>
             enemy type levels
@@ -272,6 +287,14 @@
             list of enemies in game
             </summary>
         </member>
+        <member name="P:Galaga.Model.EnemyManager.Manager">
+            <summary>
+            Gets the manager.
+            </summary>
+            <value>
+            The manager.
+            </value>
+        </member>
         <member name="M:Galaga.Model.EnemyManager.#ctor(Windows.UI.Xaml.Controls.Canvas,Galaga.Model.GameManager,Galaga.Model.CollisionManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.EnemyManager"/> class.
@@ -295,6 +318,16 @@
             <param name="y">The y.</param>
             <param name="numOfEnemies">The number of enemies.</param>
             <param name="isAttackEnemy">if set to <c>true</c> [is attack enemy].</param>
+        </member>
+        <member name="M:Galaga.Model.EnemyManager.bonusEnemyShip">
+            <summary>
+            Bonuses the enemy ship.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.EnemyManager.initializeBonusShipTimer">
+            <summary>
+            Initializes bonushipTimer
+            </summary>
         </member>
         <member name="T:Galaga.Model.HighScore">
             <summary>
@@ -361,7 +394,7 @@
              class for attack enemy 
             </summary>
         </member>
-        <member name="M:Galaga.Model.AttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32,Windows.UI.Xaml.Controls.Canvas,Galaga.Model.CollisionManager)">
+        <member name="M:Galaga.Model.AttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32,Windows.UI.Xaml.Controls.Canvas,Galaga.Model.CollisionManager,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.AttackEnemy"/> class.
             </summary>
@@ -680,11 +713,6 @@
         <member name="T:Galaga.Model.ShipFactory">
             <summary>
             ship factory class
-            </summary>
-        </member>
-        <member name="M:Galaga.Model.ShipFactory.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Galaga.Model.ShipFactory"/> class.
             </summary>
         </member>
         <member name="M:Galaga.Model.ShipFactory.CreatePlayerShip">
