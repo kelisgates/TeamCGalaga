@@ -158,7 +158,7 @@ namespace Galaga.Model
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps);
+            this.movementTimer(resetSteps, MovementDirection.Right);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Galaga.Model
         }
 
 
-        private void movementTimer(int resetSteps)
+        private void movementTimer(int resetSteps, MovementDirection direction)
         {
             var seconds = 1000;
 
@@ -299,7 +299,7 @@ namespace Galaga.Model
             var resetSteps = 0;
             this.HorizontalSteps = resetSteps;
             this.MovingDown = true;
-            this.movementTimer(resetSteps);
+            this.movementTimer(resetSteps, MovementDirection.Down);
         }
 
         

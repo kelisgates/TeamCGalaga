@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Galaga.View.Sprites;
 
 namespace Galaga.Model
@@ -28,7 +29,7 @@ namespace Galaga.Model
             this.moveEnemyBasedOnLevel();
         }
 
-        private Void moveEnemyBasedOnLevel()
+        private void moveEnemyBasedOnLevel()
         {
             int level = this.manager.Manager.Level;
             switch (level)

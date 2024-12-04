@@ -166,6 +166,11 @@
             Stops all timers.
             </summary>
         </member>
+        <member name="T:Galaga.Model.MovementDirection">
+            <summary>
+            movement direction of enemy
+            </summary>
+        </member>
         <member name="T:Galaga.Model.Enemy">
             <summary>
             abstract class for enemy
@@ -245,6 +250,26 @@
         <member name="M:Galaga.Model.Enemy.MoveEnemy">
             <summary>
             Moves the enemy.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.Enemy.MoveEnemyPatternOne">
+            <summary>
+            Moves the enemy pattern one.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.Enemy.MoveEnemyPatternTwo">
+            <summary>
+            Moves the enemy pattern two.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.Enemy.MoveEnemyPatternThree">
+            <summary>
+            Moves the enemy pattern three.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.Enemy.MoveEnemyPatternFour">
+            <summary>
+            Moves the enemy pattern four.
             </summary>
         </member>
         <member name="M:Galaga.Model.Enemy.MoveBonusEnemyShip">
@@ -389,7 +414,15 @@
             Represents an enemy in the game.
             </summary>
         </member>
-        <member name="M:Galaga.Model.NonAttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32)">
+        <member name="P:Galaga.Model.NonAttackEnemy.manager">
+            <summary>
+            Gets the manager.
+            </summary>
+            <value>
+            The manager.
+            </value>
+        </member>
+        <member name="M:Galaga.Model.NonAttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32,Galaga.Model.EnemyManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.NonAttackEnemy"/> class.
             </summary>
