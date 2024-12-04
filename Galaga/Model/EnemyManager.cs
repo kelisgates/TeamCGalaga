@@ -89,10 +89,10 @@ namespace Galaga.Model
             var canvasWidth = this.canvas.Width;
             var canvasMiddle = canvasWidth / half;
 
-            this.PlaceEnemy(EnemyType.Level1, 10, canvasMiddle, 250, 3, false);
-            this.PlaceEnemy(EnemyType.Level2, 20, canvasMiddle, 170, 4, false);
+            this.PlaceEnemy(EnemyType.Level1, 10, canvasMiddle, 300, 3, false);
+            this.PlaceEnemy(EnemyType.Level2, 20, canvasMiddle, 200, 4, false);
             this.PlaceEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, true);
-            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 20, 5, true);
+            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 10, 5, true);
 
             this.addEnemiesToCanvas();
         }

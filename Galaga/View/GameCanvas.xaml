@@ -9,7 +9,7 @@
 
     
 
-    <Canvas x:Name="canvas" Width="720" Height="600" Background ="Black">
+    <Canvas x:Name="canvas" Width="900" Height="700" Background ="Black">
 
         <TextBlock Text="{Binding LivesTextBlock}" x:Name="livesTextBlock" Canvas.Left="0" TextWrapping="Wrap" Canvas.Top="15" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />
         <TextBlock Text="{Binding ScoreTextBlock}" x:Name="scoreTextBlock" Canvas.Left="55" TextWrapping="Wrap"  Canvas.Top="256" RequestedTheme="Light" FontSize="22" FocusVisualPrimaryBrush="Black" Foreground="White" />

@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2024-12-04T20:48:31.272</Modified>
+      <Modified>2024-12-04T21:07:12.821</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\Galaga.exe">
       <PackagePath>entrypoint\Galaga.exe</PackagePath>
-      <Modified>2024-12-04T20:48:28.971</Modified>
+      <Modified>2024-12-04T21:07:12.272</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\.nuget\packages\microsoft.azure.cognitiveservices.vision.customvision.prediction\2.0.0\lib\netstandard2.0\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll">
       <PackagePath>Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll</PackagePath>
@@ -146,59 +146,59 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.799</Modified>
+      <Modified>2024-12-04T21:07:12.033</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\GameCanvas.xbf">
       <PackagePath>View\GameCanvas.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.800</Modified>
+      <Modified>2024-12-04T21:07:12.033</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\HighScoreDialog.xbf">
       <PackagePath>View\HighScoreDialog.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.800</Modified>
+      <Modified>2024-12-04T21:07:12.033</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BaseSprite.xbf">
       <PackagePath>View\Sprites\BaseSprite.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.801</Modified>
+      <Modified>2024-12-04T21:07:12.035</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\Bullet.xbf">
       <PackagePath>View\Sprites\Bullet.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.801</Modified>
+      <Modified>2024-12-04T21:07:12.035</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.801</Modified>
+      <Modified>2024-12-04T21:07:12.036</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.801</Modified>
+      <Modified>2024-12-04T21:07:12.036</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.802</Modified>
+      <Modified>2024-12-04T21:07:12.036</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.802</Modified>
+      <Modified>2024-12-04T21:07:12.036</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.802</Modified>
+      <Modified>2024-12-04T21:07:12.036</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.802</Modified>
+      <Modified>2024-12-04T21:07:12.037</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xbf">
       <PackagePath>View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.803</Modified>
+      <Modified>2024-12-04T21:07:12.037</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.803</Modified>
+      <Modified>2024-12-04T21:07:12.037</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\PlayerSprite.xbf">
       <PackagePath>View\Sprites\PlayerSprite.xbf</PackagePath>
-      <Modified>2024-12-04T20:48:28.803</Modified>
+      <Modified>2024-12-04T21:07:12.037</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -210,7 +210,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\Core\Galaga.exe">
       <PackagePath>Galaga.exe</PackagePath>
-      <Modified>2024-12-04T20:48:31.262</Modified>
+      <Modified>2024-12-04T21:07:12.816</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
