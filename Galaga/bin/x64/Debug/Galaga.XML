@@ -58,6 +58,41 @@
             GetXmlnsDefinitions()
             </summary>
         </member>
+        <member name="T:Galaga.Command.RelayCommand">
+            <summary>
+            relay command class
+            </summary>
+            <seealso cref="T:System.Windows.Input.ICommand" />
+        </member>
+        <member name="M:Galaga.Command.RelayCommand.#ctor(System.Action,System.Func{System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.Command.RelayCommand"/> class.
+            </summary>
+            <param name="execute">The execute.</param>
+            <param name="canExecute">The can execute.</param>
+            <exception cref="T:System.ArgumentNullException">execute</exception>
+        </member>
+        <member name="M:Galaga.Command.RelayCommand.CanExecute(System.Object)">
+            <summary>
+            Defines the method that determines whether the command can execute in its current state.
+            </summary>
+            <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+            <returns>
+            true if this command can be executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Galaga.Command.RelayCommand.Execute(System.Object)">
+            <summary>
+            Defines the method to be called when the command is invoked.
+            </summary>
+            <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+        </member>
+        <member name="E:Galaga.Command.RelayCommand.CanExecuteChanged">
+            <summary>
+            Occurs when changes occur that affect whether or not the command should execute.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Galaga.Model.Bullet">
             <summary>
             manages the bullets in the game
@@ -727,6 +762,21 @@
             The high scores.
             </value>
         </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.SortByScoreNameLevelCommand">
+            <summary>
+            Gets the sort by score name level command.
+            </summary>
+        </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.SortByNameScoreLevelCommand">
+            <summary>
+            Gets the sort by name score level command.
+            </summary>
+        </member>
+        <member name="P:Galaga.ViewModel.GameManagerViewModel.SortByLevelScoreNameCommand">
+            <summary>
+            Gets the sort by level score name command.
+            </summary>
+        </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.#ctor(Windows.UI.Xaml.Controls.Canvas)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.ViewModel.GameManagerViewModel"/> class.
@@ -762,17 +812,22 @@
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByScoreNameLevel">
             <summary>
-            Sorts the by score name level.
+            sorts the high scores by score, name and level.
             </summary>
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByNameScoreLevel">
             <summary>
-            Sorts the by name score level.
+            sorts the high scores by name, score and level.
             </summary>
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByLevelScoreName">
             <summary>
-            Sorts the name of the by level score.
+            sorts the high scores by level, score and name.
+            </summary>
+        </member>
+        <member name="M:Galaga.ViewModel.GameManagerViewModel.updateSortedHighScores">
+            <summary>
+            Updates the sorted high scores.
             </summary>
         </member>
         <member name="T:Galaga.View.GameCanvas">

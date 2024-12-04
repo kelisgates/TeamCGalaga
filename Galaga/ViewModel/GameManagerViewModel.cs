@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Core;
 using System.Linq;
+using System.Windows.Input;
 using Windows.Storage;
 using Galaga.Command;
 
