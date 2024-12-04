@@ -51,6 +51,10 @@ namespace Galaga.Model
         /// </value>
         public GameManager Manager { get; }
         private readonly CollisionManager collisionManager;
+        /// <summary>
+        /// The bonus enemy active
+        /// </summary>
+        public bool BonusEnemyActive;
 
         #endregion
 
@@ -69,6 +73,7 @@ namespace Galaga.Model
             this.canvas = canvas;
             this.collisionManager = collisionManager;
             this.initializeAnimationTimer();
+            this.BonusEnemyActive = false;
         }
 
         #endregion
@@ -114,7 +119,7 @@ namespace Galaga.Model
         /// <summary>
         /// Places the enemy.
         /// </summary>
-        /// <param name="level">The level.</param>
+        /// <param name="level">The Level.</param>
         /// <param name="score">The score.</param>
         /// <param name="canvasMiddle">The canvas middle.</param>
         /// <param name="y">The y.</param>
@@ -192,6 +197,7 @@ namespace Galaga.Model
         /// </summary>
         private void bonusEnemyShip()
         {
+            this.BonusEnemyActive = true;
             var bonusEnemyShip = ShipFactory.CreateEnemyShip(EnemyType.Level4);
             var random = new Random();
             var x = random.Next(50, 500);
@@ -205,6 +211,8 @@ namespace Galaga.Model
                 this.canvas.Children.Add(currSprite);
             }
 
+            this.Manager.soundManager.PlayBonusEnenySound();
+
         }
         
         /// <summary>
@@ -214,20 +222,21 @@ namespace Galaga.Model
         {
             var bonusShipTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(15)
+                Interval = TimeSpan.FromSeconds(10)
             };
 
             var random = new Random();
 
             bonusShipTimer.Tick += (_, _) =>
             {
-                if (random.NextDouble() < 0.3)
+                if (random.NextDouble() < 0.3 && !this.BonusEnemyActive)
                 {
                     this.bonusEnemyShip();
                 }
             };
-
+            
             bonusShipTimer.Start();
+           
         }
         #endregion
     }

@@ -29,10 +29,10 @@ namespace Galaga.Model
         public int Score { get; set; }
 
         /// <summary>
-        /// Gets or sets the level.
+        /// Gets or sets the Level.
         /// </summary>
         /// <value>
-        /// The level.
+        /// The Level.
         /// </value>
         [DataMember]
         public int Level { get; set; }
@@ -56,7 +56,7 @@ namespace Galaga.Model
         /// </summary>
         /// <param name="playerName">Name of the player.</param>
         /// <param name="score">The score.</param>
-        /// <param name="level">The level.</param>
+        /// <param name="level">The Level.</param>
         public HighScore(string playerName, int score, int level)
         {
             this.PlayerName = playerName;

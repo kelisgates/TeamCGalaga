@@ -17,6 +17,7 @@ namespace Galaga.Model
         private Random random;
         private readonly Canvas canvas;
         private readonly CollisionManager collisionManager;
+        public bool isBonusShip;
 
         #endregion
 
@@ -29,7 +30,8 @@ namespace Galaga.Model
         {
             this.canvas = canvas;
             this.collisionManager = collisionManager;
-            if (isBonusShip)
+            this.isBonusShip = isBonusShip;
+            if (this.isBonusShip)
             {
                 MoveBonusEnemyShip();
             }
@@ -63,7 +65,7 @@ namespace Galaga.Model
             try
             {
                 this.shoot();
-                Timer.Interval = this.getShootingTimerForLevel(this.collisionManager.gameManager.level);
+                Timer.Interval = this.getShootingTimerForLevel(this.collisionManager.gameManager.Level);
             }
             catch (Exception ex)
             {
@@ -133,7 +135,7 @@ namespace Galaga.Model
                     maxInterval = 1000;
                     break;
                 default:
-                    throw new ArgumentException("Invalid level");
+                    throw new ArgumentException("Invalid Level");
 
             }
             return TimeSpan.FromMilliseconds(this.random.Next(minInterval, maxInterval));

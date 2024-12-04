@@ -65,10 +65,10 @@ namespace Galaga.ViewModel
 
         private String levelTextBlock;
         /// <summary>
-        /// Gets or sets the level text block.
+        /// Gets or sets the Level text block.
         /// </summary>
         /// <value>
-        /// The level text block.
+        /// The Level text block.
         /// </value>
         public String LevelTextBlock
         {
@@ -122,17 +122,17 @@ namespace Galaga.ViewModel
         }
 
         /// <summary>
-        /// Gets the sort by score name level command.
+        /// Gets the sort by score name Level command.
         /// </summary>
         public ICommand SortByScoreNameLevelCommand { get; }
 
         /// <summary>
-        /// Gets the sort by name score level command.
+        /// Gets the sort by name score Level command.
         /// </summary>
         public ICommand SortByNameScoreLevelCommand { get; }
 
         /// <summary>
-        /// Gets the sort by level score name command.
+        /// Gets the sort by Level score name command.
         /// </summary>
         public ICommand SortByLevelScoreNameCommand { get; }
 
@@ -345,7 +345,7 @@ namespace Galaga.ViewModel
         }
 
         /// <summary>
-        /// sorts the high scores by score, name and level.
+        /// sorts the high scores by score, name and Level.
         /// </summary>
         public void SortByScoreNameLevel()
         {
@@ -357,7 +357,7 @@ namespace Galaga.ViewModel
         }
 
         /// <summary>
-        /// sorts the high scores by name, score and level.
+        /// sorts the high scores by name, score and Level.
         /// </summary>
         public void SortByNameScoreLevel()
         {
@@ -369,7 +369,7 @@ namespace Galaga.ViewModel
         }
 
         /// <summary>
-        /// sorts the high scores by level, score and name.
+        /// sorts the high scores by Level, score and name.
         /// </summary>
         public void SortByLevelScoreName()
         {
@@ -411,7 +411,7 @@ namespace Galaga.ViewModel
             this.gameManager.soundManager.PlayGameWonSound();
             this.gameManager.collisionManager.StopAllTimers();
             this.GameWonVisibility = Visibility.Visible;
-            await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.level);
+            await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.Level);
             var dialog = new ContentDialog()
             {
                 Title = "You Won!",
@@ -473,7 +473,7 @@ namespace Galaga.ViewModel
         {
             this.gameManager.soundManager.PlayGameOverSound();
             this.gameManager.collisionManager.StopAllTimers();
-            await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.level);
+            await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.Level);
             var dialog = new ContentDialog()
             {
                 Title = "Game Over!",
@@ -503,11 +503,12 @@ namespace Galaga.ViewModel
         {
             this.gameManager.soundManager.PlayEnemyHitSound();
             this.ScoreTextBlock = $"Score: {this.gameManager.Player.Score}";
+            this.LivesTextBlock = $"Lives: {this.gameManager.Player.Lives}";
         }
 
         private void onLevelChanged(object sender, EventArgs e)
         {
-            this.LevelTextBlock = $"Level: {this.gameManager.level}";
+            this.LevelTextBlock = $"Level: {this.gameManager.Level}";
         }
         #endregion
 

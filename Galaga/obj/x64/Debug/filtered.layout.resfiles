@@ -25,6 +25,7 @@ View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xbf
 View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xbf
 View\Sprites\PlayerSprite.xbf
 Properties\Default.rd.xml
+Sounds\bonuEnemy.wav
 Sounds\enemyFire.wav
 Sounds\enemyHit.wav
 Sounds\gameOver.wav

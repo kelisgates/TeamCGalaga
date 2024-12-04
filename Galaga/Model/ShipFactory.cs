@@ -33,7 +33,7 @@ namespace Galaga.Model
         /// <summary>
         /// Creates the enemy ship.
         /// </summary>
-        /// <param name="level">The level.</param>
+        /// <param name="level">The Level.</param>
         /// <returns></returns>
         public static ICollection<BaseSprite> CreateEnemyShip(EnemyType level)
         {

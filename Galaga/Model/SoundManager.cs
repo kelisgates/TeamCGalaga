@@ -21,6 +21,7 @@ namespace Galaga.Model
         private readonly MediaPlayer playerHitSound;
         private readonly MediaPlayer gameOverSound;
         private readonly MediaPlayer gameWonSound;
+        private readonly MediaPlayer bonusEnemySound;
         /// <summary>
         /// Initializes a new instance of the <see cref="SoundManager"/> class.
         /// </summary>
@@ -31,7 +32,8 @@ namespace Galaga.Model
             this.enemyHitSound = new MediaPlayer();
             this.playerHitSound = new MediaPlayer();
             this.gameOverSound = new MediaPlayer();
-            this.gameWonSound = new MediaPlayer();  
+            this.gameWonSound = new MediaPlayer();
+            this.bonusEnemySound = new MediaPlayer{IsLoopingEnabled = true};
         }
         /// <summary>
         /// Plays the player fire sound.
@@ -81,6 +83,18 @@ namespace Galaga.Model
             this.gameWonSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/gameWon.wav"));
             this.gameWonSound.Play();
         }
+        /// <summary>
+        /// Plays the bonus eneny sound.
+        /// </summary>
+        public void PlayBonusEnenySound()
+        {
+            this.bonusEnemySound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/bonuEnemy.wav"));
+            this.bonusEnemySound.Play();
+        }
 
+        public void StopBonusEnemySound()
+        {
+            this.bonusEnemySound.Pause();
+        }
     }
 }

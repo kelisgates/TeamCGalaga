@@ -8,7 +8,7 @@ namespace Galaga.Model
     public class PlayerManager
     {
         private const double PlayerOffsetFromBottom = 30;
-        public readonly Player player;
+        public readonly Player Player;
         private Canvas canvas;
 
         /// <summary>
@@ -17,7 +17,7 @@ namespace Galaga.Model
         /// <param name="canvas">The canvas.</param>
         public PlayerManager(Canvas canvas)
         {
-            this.player = new Player();
+            this.Player = new Player();
             this.canvas = canvas;
         }
 
@@ -27,9 +27,9 @@ namespace Galaga.Model
         public void MovePlayerLeft()
         {
             var leftCanvasBarrier = 0;
-            if (this.player.X - this.player.SpeedX >= leftCanvasBarrier)
+            if (this.Player.X - this.Player.SpeedX >= leftCanvasBarrier)
             {
-                this.player.MoveLeft();
+                this.Player.MoveLeft();
             }
         }
 
@@ -39,9 +39,9 @@ namespace Galaga.Model
         public void MovePlayerRight()
         {
             var canvasWidth = this.canvas.Width;
-            if (this.player.X + this.player.SpeedX + this.player.Width <= canvasWidth)
+            if (this.Player.X + this.Player.SpeedX + this.Player.Width <= canvasWidth)
             {
-                this.player.MoveRight();
+                this.Player.MoveRight();
             }
 
         }
@@ -52,7 +52,7 @@ namespace Galaga.Model
         public void CreateAndPlacePlayer()
         {
             
-            this.canvas.Children.Add(this.player.Sprite);
+            this.canvas.Children.Add(this.Player.Sprite);
 
             this.placePlayerNearBottomOfBackgroundCentered();
         }
@@ -62,8 +62,8 @@ namespace Galaga.Model
             var half = 2;
             var canvasWidth = this.canvas.Width;
             var canvasHeight = this.canvas.Height;
-            this.player.X = canvasWidth / half - this.player.Width / half;
-            this.player.Y = canvasHeight - this.player.Height - PlayerOffsetFromBottom;
+            this.Player.X = canvasWidth / half - this.Player.Width / half;
+            this.Player.Y = canvasHeight - this.Player.Height - PlayerOffsetFromBottom;
         }
 
     }

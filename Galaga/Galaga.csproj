@@ -192,6 +192,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Sounds\bonuEnemy.wav" />
     <Content Include="Sounds\gameOver.wav" />
     <Content Include="Sounds\gameWon.wav" />
     <Content Include="Properties\Default.rd.xml" />

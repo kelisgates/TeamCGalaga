@@ -100,10 +100,10 @@ namespace Galaga.Model
                 {
                     if (bullet.Intersects(enemy))
                     {
-                        this.checkIfEnemyIsAttackingEnemy(enemy);
+                        this.gameManager.soundManager.PlayEnemyHitSound();
                         canvasParam.Children.Remove(bullet.Sprite);
+                        this.checkIfEnemyIsAttackingEnemy(enemy);
                         this.removeEnemyAndUpdateScore(enemy);
-
                         break;
                     }
                 }
@@ -114,7 +114,18 @@ namespace Galaga.Model
         {
             if (enemy is AttackEnemy enemyLevelThree)
             {
+                this.handleBonusEnemyException(enemyLevelThree);
                 enemyLevelThree.Timer.Stop();
+            }
+        }
+
+        private void handleBonusEnemyException(AttackEnemy enemyLevelThree)
+        {
+            if (enemyLevelThree.isBonusShip)
+            {
+                this.gameManager.Player.Lives++;
+                this.gameManager.enemyManager.BonusEnemyActive = false;
+                this.gameManager.soundManager.StopBonusEnemySound();
             }
         }
 
@@ -144,6 +155,7 @@ namespace Galaga.Model
                 dispatcherTimer.Stop();
                 this.gameManager.activeBullets.Remove(bullet);
                 this.activeBullets.Remove(bullet);
+
             }
         }
 
@@ -169,7 +181,7 @@ namespace Galaga.Model
                 Interval = TimeSpan.FromMilliseconds(5)
             };
             this.Timers.Add(timer);
-            timer.Tick += (s, e) =>
+            timer.Tick += (_, _) =>
             {
                 var position = bullet.Y;
                 var canvasHeight = canvasParam.ActualHeight;

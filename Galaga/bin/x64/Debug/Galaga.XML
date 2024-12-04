@@ -295,6 +295,11 @@
             The manager.
             </value>
         </member>
+        <member name="F:Galaga.Model.EnemyManager.BonusEnemyActive">
+            <summary>
+            The bonus enemy active
+            </summary>
+        </member>
         <member name="M:Galaga.Model.EnemyManager.#ctor(Windows.UI.Xaml.Controls.Canvas,Galaga.Model.GameManager,Galaga.Model.CollisionManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.EnemyManager"/> class.
@@ -312,7 +317,7 @@
             <summary>
             Places the enemy.
             </summary>
-            <param name="level">The level.</param>
+            <param name="level">The Level.</param>
             <param name="score">The score.</param>
             <param name="canvasMiddle">The canvas middle.</param>
             <param name="y">The y.</param>
@@ -352,10 +357,10 @@
         </member>
         <member name="P:Galaga.Model.HighScore.Level">
             <summary>
-            Gets or sets the level.
+            Gets or sets the Level.
             </summary>
             <value>
-            The level.
+            The Level.
             </value>
         </member>
         <member name="M:Galaga.Model.HighScore.#ctor">
@@ -369,7 +374,7 @@
             </summary>
             <param name="playerName">Name of the player.</param>
             <param name="score">The score.</param>
-            <param name="level">The level.</param>
+            <param name="level">The Level.</param>
         </member>
         <member name="M:Galaga.Model.HighScore.ToString">
             <summary>
@@ -404,6 +409,41 @@
             Manages the Galaga game play
             </summary>
         </member>
+        <member name="F:Galaga.Model.GameManager.canShoot">
+            <summary>
+            Checks if player can shoot
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.GameManager.activeBullets">
+            <summary>
+            list of active bullets
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.GameManager.enemyManager">
+            <summary>
+            EnemyManager
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.GameManager.playerManager">
+            <summary>
+            Player Manager
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.GameManager.collisionManager">
+            <summary>
+            Collision Manager
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.GameManager.soundManager">
+            <summary>
+            Sound M
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.GameManager.Level">
+            <summary>
+            Number of levels
+            </summary>
+        </member>
         <member name="E:Galaga.Model.GameManager.EnemyKilled">
             <summary>
             Occurs when [enemy killed].
@@ -426,7 +466,7 @@
         </member>
         <member name="E:Galaga.Model.GameManager.LevelChanged">
             <summary>
-            Occurs when [level changed].
+            Occurs when [Level changed].
             </summary>
         </member>
         <member name="P:Galaga.Model.GameManager.Player">
@@ -725,7 +765,7 @@
             <summary>
             Creates the enemy ship.
             </summary>
-            <param name="level">The level.</param>
+            <param name="level">The Level.</param>
             <returns></returns>
         </member>
         <member name="T:Galaga.Model.SoundManager">
@@ -768,6 +808,11 @@
             Plays the sound effect when the game is won.
             </summary>
         </member>
+        <member name="M:Galaga.Model.SoundManager.PlayBonusEnenySound">
+            <summary>
+            Plays the bonus eneny sound.
+            </summary>
+        </member>
         <member name="T:Galaga.ViewModel.GameManagerViewModel">
             <summary>
             Game manager view model.
@@ -791,10 +836,10 @@
         </member>
         <member name="P:Galaga.ViewModel.GameManagerViewModel.LevelTextBlock">
             <summary>
-            Gets or sets the level text block.
+            Gets or sets the Level text block.
             </summary>
             <value>
-            The level text block.
+            The Level text block.
             </value>
         </member>
         <member name="P:Galaga.ViewModel.GameManagerViewModel.GameOverVisibility">
@@ -823,17 +868,17 @@
         </member>
         <member name="P:Galaga.ViewModel.GameManagerViewModel.SortByScoreNameLevelCommand">
             <summary>
-            Gets the sort by score name level command.
+            Gets the sort by score name Level command.
             </summary>
         </member>
         <member name="P:Galaga.ViewModel.GameManagerViewModel.SortByNameScoreLevelCommand">
             <summary>
-            Gets the sort by name score level command.
+            Gets the sort by name score Level command.
             </summary>
         </member>
         <member name="P:Galaga.ViewModel.GameManagerViewModel.SortByLevelScoreNameCommand">
             <summary>
-            Gets the sort by level score name command.
+            Gets the sort by Level score name command.
             </summary>
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.#ctor(Windows.UI.Xaml.Controls.Canvas)">
@@ -871,17 +916,17 @@
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByScoreNameLevel">
             <summary>
-            sorts the high scores by score, name and level.
+            sorts the high scores by score, name and Level.
             </summary>
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByNameScoreLevel">
             <summary>
-            sorts the high scores by name, score and level.
+            sorts the high scores by name, score and Level.
             </summary>
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.SortByLevelScoreName">
             <summary>
-            sorts the high scores by level, score and name.
+            sorts the high scores by Level, score and name.
             </summary>
         </member>
         <member name="M:Galaga.ViewModel.GameManagerViewModel.updateSortedHighScores">
@@ -994,7 +1039,7 @@
         </member>
         <member name="T:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo">
             <summary>
-            enemy level 4 sprite second image
+            enemy Level 4 sprite second image
             </summary>
             <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
@@ -1022,7 +1067,7 @@
         </member>
         <member name="T:Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite">
             <summary>
-            enemy level 4 sprite.
+            enemy Level 4 sprite.
             </summary>
             <seealso cref="T:Galaga.View.Sprites.BaseSprite" />
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
@@ -1050,7 +1095,7 @@
         </member>
         <member name="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo">
             <summary>
-            enemy level 1 sprite second image
+            enemy Level 1 sprite second image
             </summary>
             <seealso cref="T:Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite" />
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
@@ -1104,7 +1149,7 @@
         </member>
         <member name="T:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite">
             <summary>
-            the enemy level two sprite.
+            the enemy Level two sprite.
             </summary>
             <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
         </member>
@@ -1130,7 +1175,7 @@
         </member>
         <member name="T:Galaga.View.Sprites.EnemyL2Sprites.EnemyL2SpriteTwo">
             <summary>
-            enemy level 2 sprite second image
+            enemy Level 2 sprite second image
             </summary>
             <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
@@ -1158,7 +1203,7 @@
         </member>
         <member name="T:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3Sprite">
             <summary>
-            the enemy level 3 sprite.
+            the enemy Level 3 sprite.
             </summary>
             <seealso cref="T:Galaga.View.Sprites.BaseSprite" />
         </member>
@@ -1184,7 +1229,7 @@
         </member>
         <member name="T:Galaga.View.Sprites.EnemyL3Sprites.EnemyL3SpriteTwo">
             <summary>
-            enemy level 3 sprite second image
+            enemy Level 3 sprite second image
             </summary>
             <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />

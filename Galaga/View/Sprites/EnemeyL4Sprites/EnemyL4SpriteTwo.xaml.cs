@@ -5,7 +5,7 @@
 namespace Galaga.View.Sprites.EnemeyL4Sprites
 {
     /// <summary>
-    /// enemy level 4 sprite second image
+    /// enemy Level 4 sprite second image
     /// </summary>
     /// <seealso cref="Windows.UI.Xaml.Controls.UserControl" />
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />

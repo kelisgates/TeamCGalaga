@@ -5,7 +5,7 @@
 namespace Galaga.View.Sprites.EnemyL1Sprites
 {
     /// <summary>
-    /// enemy level 1 sprite second image
+    /// enemy Level 1 sprite second image
     /// </summary>
     /// <seealso cref="Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite" />
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />

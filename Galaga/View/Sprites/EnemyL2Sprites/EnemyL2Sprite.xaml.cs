@@ -5,7 +5,7 @@
 namespace Galaga.View.Sprites.EnemyL2Sprites
 {
     /// <summary>
-    /// the enemy level two sprite.
+    /// the enemy Level two sprite.
     /// </summary>
     /// <seealso cref="Windows.UI.Xaml.Controls.UserControl" />
     public partial class EnemyL2Sprite

@@ -21,15 +21,34 @@ namespace Galaga.Model
         private readonly Canvas canvas;
         private readonly double canvasHeight;
         private readonly double canvasWidth;
-
+        /// <summary>
+        /// Checks if player can shoot
+        /// </summary>
         public bool canShoot = true;
-
+        /// <summary>
+        /// list of active bullets
+        /// </summary>
         public List<Bullet> activeBullets;
+        /// <summary>
+        /// EnemyManager
+        /// </summary>
         public EnemyManager enemyManager;
+        /// <summary>
+        /// Player Manager
+        /// </summary>
         public PlayerManager playerManager;
+        /// <summary>
+        /// Collision Manager
+        /// </summary>
         public CollisionManager collisionManager;
+        /// <summary>
+        /// Sound M
+        /// </summary>
         public SoundManager soundManager;
-        public int level;
+        /// <summary>
+        /// Number of levels
+        /// </summary>
+        public int Level;
         private const int maxLevels = 3;
 
         #endregion
@@ -57,7 +76,7 @@ namespace Galaga.Model
         public event EventHandler PlayerHit;
 
         /// <summary>
-        /// Occurs when [level changed].
+        /// Occurs when [Level changed].
         /// </summary>
         public event EventHandler LevelChanged;
         #endregion
@@ -116,7 +135,7 @@ namespace Galaga.Model
             this.canvasWidth = canvas.Width;
 
 
-            this.level = 1;
+            this.Level = 1;
             this.initializeGame();
             this.bonusShipGamePlay();
         }
@@ -145,7 +164,7 @@ namespace Galaga.Model
             
             this.playerManager = new PlayerManager(this.canvas);
             this.playerManager.CreateAndPlacePlayer();
-            this.Player = this.playerManager.player;
+            this.Player = this.playerManager.Player;
             
         }
 
@@ -225,10 +244,10 @@ namespace Galaga.Model
 
         private void changeLevel()
         {
-            if (this.level < maxLevels)
+            if (this.Level < maxLevels)
             {
-                this.level++;
-                this.initializeNextLevel(this.level);
+                this.Level++;
+                this.initializeNextLevel(this.Level);
             } else
             {
                 this.OnGameWon();
@@ -237,7 +256,7 @@ namespace Galaga.Model
 
         private bool isLastLevel()
         {
-            return this.level >= maxLevels;
+            return this.Level >= maxLevels;
         }
 
         private void initializeNextLevel(int level)

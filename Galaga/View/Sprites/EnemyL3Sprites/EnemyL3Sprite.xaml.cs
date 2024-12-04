@@ -5,7 +5,7 @@
 namespace Galaga.View.Sprites.EnemyL3Sprites
 {
     /// <summary>
-    /// the enemy level 3 sprite.
+    /// the enemy Level 3 sprite.
     /// </summary>
     /// <seealso cref="Galaga.View.Sprites.BaseSprite" />
     public partial class EnemyL3Sprite 

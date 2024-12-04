@@ -46,6 +46,9 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\bonuEnemy.wav">
+      <PackagePath>Sounds\bonuEnemy.wav</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\gameOver.wav">
       <PackagePath>Sounds\gameOver.wav</PackagePath>
     </AppxPackagedFile>
