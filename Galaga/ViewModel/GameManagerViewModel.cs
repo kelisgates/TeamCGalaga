@@ -14,6 +14,7 @@ using Windows.System;
 using Windows.UI.Core;
 using System.Linq;
 using Windows.Storage;
+using Galaga.Command;
 
 namespace Galaga.ViewModel
 {
@@ -119,6 +120,21 @@ namespace Galaga.ViewModel
             set => this.SetField(ref this.highScores, value);
         }
 
+        /// <summary>
+        /// Gets the sort by score name level command.
+        /// </summary>
+        public ICommand SortByScoreNameLevelCommand { get; }
+
+        /// <summary>
+        /// Gets the sort by name score level command.
+        /// </summary>
+        public ICommand SortByNameScoreLevelCommand { get; }
+
+        /// <summary>
+        /// Gets the sort by level score name command.
+        /// </summary>
+        public ICommand SortByLevelScoreNameCommand { get; }
+
         #endregion
 
         #region Constructor
@@ -144,6 +160,10 @@ namespace Galaga.ViewModel
             this.highScores = new ObservableCollection<HighScore>();
 
             _ = this.loadHighScores();
+
+            this.SortByScoreNameLevelCommand = new RelayCommand(this.SortByScoreNameLevel);
+            this.SortByNameScoreLevelCommand = new RelayCommand(this.SortByNameScoreLevel);
+            this.SortByLevelScoreNameCommand = new RelayCommand(this.SortByLevelScoreName);
         }
 
         #endregion
@@ -324,36 +344,47 @@ namespace Galaga.ViewModel
         }
 
         /// <summary>
-        /// Sorts the by score name level.
+        /// sorts the high scores by score, name and level.
         /// </summary>
         public void SortByScoreNameLevel()
         {
-            HighScores = new ObservableCollection<HighScore>(
-                HighScores.OrderByDescending(h => h.Score)
+            this.HighScores = new ObservableCollection<HighScore>(
+                this.HighScores.OrderByDescending(h => h.Score)
                     .ThenBy(h => h.PlayerName)
                     .ThenByDescending(h => h.Level));
+            this.updateSortedHighScores();
         }
 
         /// <summary>
-        /// Sorts the by name score level.
+        /// sorts the high scores by name, score and level.
         /// </summary>
         public void SortByNameScoreLevel()
         {
-            HighScores = new ObservableCollection<HighScore>(
-                HighScores.OrderBy(h => h.PlayerName)
+            this.HighScores = new ObservableCollection<HighScore>(
+                this.HighScores.OrderBy(h => h.PlayerName)
                     .ThenByDescending(h => h.Score)
                     .ThenByDescending(h => h.Level));
+            this.updateSortedHighScores();
         }
 
         /// <summary>
-        /// Sorts the name of the by level score.
+        /// sorts the high scores by level, score and name.
         /// </summary>
         public void SortByLevelScoreName()
         {
-            HighScores = new ObservableCollection<HighScore>(
-                HighScores.OrderByDescending(h => h.Level)
+            this.HighScores = new ObservableCollection<HighScore>(
+                this.HighScores.OrderByDescending(h => h.Level)
                     .ThenByDescending(h => h.Score)
                     .ThenBy(h => h.PlayerName));
+            this.updateSortedHighScores();
+        }
+
+        /// <summary>
+        /// Updates the sorted high scores.
+        /// </summary>
+        private void updateSortedHighScores()
+        {
+            this.OnPropertyChanged(nameof(this.HighScores));
         }
 
         #endregion
@@ -384,14 +415,28 @@ namespace Galaga.ViewModel
             {
                 Title = "You Won!",
                 Content = "Congratulations, you have killed all the enemies!",
+                PrimaryButtonText = "Check High scores Leaderboard",
                 CloseButtonText = "Exit"
             };
 
-            dialog.CloseButtonClick += (_, _) => { Application.Current.Exit(); };
+            ContentDialogResult result = await dialog.ShowAsync();
 
-            await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                dialog.Hide();
+                HighScoreDialog highscores = new HighScoreDialog
+                {
+                    DataContext = this
+                };
+                _ = await highscores.ShowAsync();
+                await dialog.ShowAsync();
+            }
+            else if (result == ContentDialogResult.None)
+            {
+                Application.Current.Exit();
+            }
 
-            
+
         }
 
         private async Task checkAndAddHighScore(int score, int level)
@@ -432,11 +477,25 @@ namespace Galaga.ViewModel
             {
                 Title = "Game Over!",
                 Content = "You have been killed by the enemy.",
+                PrimaryButtonText = "Check High scores Leaderboard",
                 CloseButtonText = "Exit"
             };
-            dialog.CloseButtonClick += (_, _) => { Application.Current.Exit(); };
+            ContentDialogResult result = await dialog.ShowAsync();
 
-            await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                dialog.Hide();
+                HighScoreDialog highscores = new HighScoreDialog
+                {
+                    DataContext = this
+                };
+                _ = await highscores.ShowAsync();
+                await dialog.ShowAsync();
+            }
+            else if (result == ContentDialogResult.None)
+            {
+                Application.Current.Exit();
+            }
         }
 
         private void onEnemyKilled(object sender, EventArgs e)

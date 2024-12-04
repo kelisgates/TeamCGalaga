@@ -129,6 +129,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Model\Bullet.cs" />
     <Compile Include="Model\CollisionManager.cs" />
     <Compile Include="Model\Enemy.cs" />

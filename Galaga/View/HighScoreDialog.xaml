@@ -22,11 +22,12 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Score/Name/Level" Click="SortByScoreNameLevel_Click" Margin="5"/>
-            <Button Content="Name/Score/Level" Click="SortByNameScoreLevel_Click" Margin="5"/>
-            <Button Content="Level/Score/Name" Click="SortByLevelScoreName_Click" Margin="5"/>
+            <Button Content="Score/Name/Level" Command="{Binding SortByScoreNameLevelCommand}" Margin="5"/>
+            <Button Content="Name/Score/Level" Command="{Binding SortByNameScoreLevelCommand}" Margin="5"/>
+            <Button Content="Level/Score/Name" Command="{Binding SortByLevelScoreNameCommand}" Margin="5"/>
         </StackPanel>
-        <ListView Grid.Row="1" ItemsSource="{Binding Source={StaticResource SortedHighScores}}">
+
+        <ListView Grid.Row="1" ItemsSource="{Binding HighScores}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
