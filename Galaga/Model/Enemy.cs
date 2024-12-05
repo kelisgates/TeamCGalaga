@@ -155,10 +155,11 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemy()
         {
+            var speed = 1;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps, MovementDirection.Right);
+            this.movementTimer(resetSteps, MovementDirection.Right, speed);
         }
 
         /// <summary>
@@ -166,10 +167,11 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternOne()
         {
-            var resetSteps = 3;
+            var speed = 5;
+            var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps, MovementDirection.Left);
+            this.movementTimer(resetSteps, MovementDirection.Left, speed);
         }
 
         /// <summary>
@@ -177,10 +179,11 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternTwo()
         {
+            var speed = 5;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps, MovementDirection.Right);
+            this.movementTimer(resetSteps, MovementDirection.Right, speed);
         }
 
         /// <summary>
@@ -188,10 +191,11 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternThree()
         {
-            var resetSteps = 2;
+            var speed = 5;
+            var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = false;
-            this.movementTimer(resetSteps, MovementDirection.Left);
+            this.movementTimer(resetSteps, MovementDirection.Left, speed);
         }
 
         /// <summary>
@@ -199,16 +203,17 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternFour()
         {
-            var resetSteps = 1;
+            var speed = 5;
+            var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps, MovementDirection.Right);
+            this.movementTimer(resetSteps, MovementDirection.Right, speed);
         }
 
 
-        private void movementTimer(int resetSteps, MovementDirection direction)
+        private void movementTimer(int resetSteps, MovementDirection direction,int speed)
         {
-            var seconds = 1000;
+            var seconds = 1000 / speed;
 
             this.Timer = new DispatcherTimer
             {
@@ -296,10 +301,11 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveBonusEnemyShip()
         {
+            var speed = 3;
             var resetSteps = 0;
             this.HorizontalSteps = resetSteps;
             this.MovingDown = true;
-            this.movementTimer(resetSteps, MovementDirection.Down);
+            this.movementTimer(resetSteps, MovementDirection.Down, speed);
         }
 
         

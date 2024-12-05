@@ -419,6 +419,11 @@
              class for attack enemy 
             </summary>
         </member>
+        <member name="F:Galaga.Model.AttackEnemy.isBonusShip">
+            <summary>
+            The is bonus ship
+            </summary>
+        </member>
         <member name="M:Galaga.Model.AttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32,Windows.UI.Xaml.Controls.Canvas,Galaga.Model.CollisionManager,System.Boolean,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.AttackEnemy"/> class.

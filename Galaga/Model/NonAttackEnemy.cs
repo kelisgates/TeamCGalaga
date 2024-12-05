@@ -42,7 +42,7 @@ namespace Galaga.Model
 
                     break;
                 case 3:
-                    if (this.Y == 250)
+                    if (this.Y == 300)
                     {
                         MoveEnemyPatternTwo();
                     }
