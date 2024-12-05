@@ -115,6 +115,10 @@ namespace Galaga.Model
                 {
                     Canvas.SetLeft(currSprite, enemy.X);
                     Canvas.SetTop(currSprite, enemy.Y);
+                    if (this.canvas.Children.Contains(currSprite))
+                    {
+                        this.canvas.Children.Remove(currSprite);
+                    }
                     this.canvas.Children.Add(currSprite);
                 }
 
@@ -153,7 +157,7 @@ namespace Galaga.Model
         {
             if (isAttackEnemy)
             {
-                var attackEnemy = new AttackEnemy(sprites, score, this.canvas, this.collisionManager, isBonusShip, canTrackPlayer)
+                AttackEnemy attackEnemy = new AttackEnemy(sprites, score, this.canvas, this.collisionManager, isBonusShip, canTrackPlayer)
                 {
                     X = xPosition,
                     Y = y

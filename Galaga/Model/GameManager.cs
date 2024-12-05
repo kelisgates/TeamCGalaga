@@ -51,7 +51,7 @@ namespace Galaga.Model
         /// </summary>
         public int Level;
         private const int maxLevels = 4;
-        private bool isPoweredUp = false;
+        public bool isPoweredUp = false;
         private int maxPlayerBullets;
         
 
@@ -144,9 +144,9 @@ namespace Galaga.Model
             this.canvasHeight = canvas.Height;
             this.canvasWidth = canvas.Width;
 
-            this.Level = 2;
+            this.Level = 1;
             this.initializeGame();
-            this.maxPlayerBullets = this.playerManager.isDoubleShipActive ? 6 : 3;
+            this.maxPlayerBullets = 3;
             
         }
 
@@ -211,6 +211,7 @@ namespace Galaga.Model
 
             if (this.isPoweredUp)
             {
+
                 this.PlayerPowerUpBullets(this.Player, movementPerStep);
             }
             else
@@ -338,10 +339,12 @@ namespace Galaga.Model
             if (this.isPoweredUp) return;
 
             this.isPoweredUp = true;
-
+            this.maxPlayerBullets = 3 * this.maxPlayerBullets;
+            
             await Task.Delay(10000);
 
             this.isPoweredUp = false;
+            this.maxPlayerBullets = this.maxPlayerBullets / 3;
         }
 
         /// <summary>
@@ -350,6 +353,7 @@ namespace Galaga.Model
         public void ActivateDoublePlayerShip()
         {
             this.playerManager.isDoubleShipActive = true;
+            this.maxPlayerBullets = 6;
             this.playerManager.createSecondShip();
         }
         #endregion

@@ -4,6 +4,7 @@ using System.Reflection.Metadata.Ecma335;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using System.ComponentModel.Design;
+using System.Threading.Tasks;
 
 namespace Galaga.Model
 {
@@ -17,7 +18,7 @@ namespace Galaga.Model
         /// The game manager
         /// </summary>
         public GameManager gameManager;
-        private readonly Player player;
+        private readonly Player Player;
         private readonly Player secondPlayer;
         private readonly List<Bullet> activeBullets;
         private readonly Canvas canvas;
@@ -47,11 +48,12 @@ namespace Galaga.Model
         /// </summary>
         /// <param name="gameManager">The game manager.</param>
         /// <param name="player">The player.</param>
+        /// <param name="secondPlayer"> The second player</param>
         /// <param name="activeBullets">The list of active bullets.</param>
         public CollisionManager(GameManager gameManager, Player player, Player secondPlayer, List<Bullet> activeBullets)
         {
             this.gameManager = gameManager;
-            this.player = player;
+            this.Player = player;
             this.secondPlayer = secondPlayer;
             this.activeBullets = activeBullets ?? new List<Bullet>();
             this.canvas = gameManager.Canvas;
@@ -79,10 +81,11 @@ namespace Galaga.Model
             {
                 var position = bullet.Y;
                 var canvasBarrier = 0;
-
                 if (position > canvasBarrier)
                 {
                     var movementPerStep = 10;
+                    
+                  
                     bullet.Y -= movementPerStep;
                     this.checkCollisionWithEnemy(bullet, canvasParam);
                     this.updatePlayerBullet(bullet, timer, canvasParam);
@@ -132,7 +135,10 @@ namespace Galaga.Model
             {
                 this.gameManager.ActivateDoublePlayerShip();
             }
-            this.gameManager.Player.Lives++;
+            else if (this.gameManager.Level == 1)
+            {
+                this.gameManager.Player.Lives++;
+            }
             this.gameManager.soundManager.StopBonusEnemySound();
             this.gameManager.playerPowerUp();
         }
@@ -240,32 +246,33 @@ namespace Galaga.Model
             {
                 return;
             }
-            if (this.gameManager.playerManager.isDoubleShipActive)
-            {
-                this.OneOfTwoPlayerDeath(enemyBullet, canvasParam);
-            }
-            if (enemyBullet.Intersects(this.player))
+            if (!this.gameManager.playerManager.isDoubleShipActive && enemyBullet.Intersects(this.Player))
             {
                 this.Player.PlayExplosionAnimation(this.Player.X, this.Player.Y, canvasParam);
                 this.updateGameState(enemyBullet, canvasParam, timer);
                 this.checkPlayerStatus(enemyBullet);
             }
+            else if (this.gameManager.playerManager.isDoubleShipActive)
+            {
+                this.OneOfTwoPlayerDeath(enemyBullet, canvasParam);
+            }
+            
 
 
         }
 
         private void OneOfTwoPlayerDeath(Bullet enemyBullet, Canvas canvasParam)
         {   
-            if (enemyBullet.Intersects(this.player))
+            if (enemyBullet.Intersects(this.Player))
             {
                 this.gameManager.soundManager.PlayPlayerDeathSound();
-                this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
-                this.gameManager.playerManager.removePlayer(this.player);
+                this.Player.PlayExplosionAnimation(this.Player.X, this.Player.Y, canvasParam);
+                this.gameManager.playerManager.removePlayer(this.Player);
             }
             else if (enemyBullet.Intersects(this.secondPlayer))
             {
                 this.gameManager.soundManager.PlayPlayerDeathSound();
-                this.player.PlayExplosionAnimation(this.secondPlayer.X, this.secondPlayer.Y, canvasParam);
+                this.Player.PlayExplosionAnimation(this.secondPlayer.X, this.secondPlayer.Y, canvasParam);
                 this.gameManager.playerManager.removePlayer(this.secondPlayer);
             }
             

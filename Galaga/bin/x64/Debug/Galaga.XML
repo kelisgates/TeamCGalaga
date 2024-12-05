@@ -145,6 +145,7 @@
             </summary>
             <param name="gameManager">The game manager.</param>
             <param name="player">The player.</param>
+            <param name="secondPlayer"> The second player</param>
             <param name="activeBullets">The list of active bullets.</param>
         </member>
         <member name="M:Galaga.Model.CollisionManager.StartPlayerBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas)">
@@ -577,6 +578,11 @@
             Players the power up. Let's player shoot all three bullets at the same time
             </summary>
         </member>
+        <member name="M:Galaga.Model.GameManager.ActivateDoublePlayerShip">
+            <summary>
+            Activates the double player ship.
+            </summary>
+        </member>
         <member name="T:Galaga.Model.GameObject">
             <summary>
             Represents a game object in the Galaga game.
@@ -789,6 +795,12 @@
             <summary>
             Creates and place player.
             </summary>
+        </member>
+        <member name="M:Galaga.Model.PlayerManager.removePlayer(Galaga.Model.Player)">
+            <summary>
+            Removes the player.
+            </summary>
+            <param name="player">The player.</param>
         </member>
         <member name="T:Galaga.Model.EnemyType">
             <summary>

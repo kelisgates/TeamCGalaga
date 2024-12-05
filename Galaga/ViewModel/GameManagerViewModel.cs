@@ -508,6 +508,10 @@ namespace Galaga.ViewModel
 
         private async void onLevelChanged(object sender, EventArgs e)
         {
+            if (this.gameManager.enemyManager.bonusShipTimer != null)
+            {
+                this.gameManager.enemyManager.bonusShipTimer.Stop();
+            }
             var levelDialog = new ContentDialog
             {
                 Title = "Level Up!",
@@ -519,11 +523,7 @@ namespace Galaga.ViewModel
             if (this.gameManager.Level < 4)
             {
                 this.gameManager.placeEnemies();
-                if (this.gameManager.enemyManager.bonusShipTimer != null)
-                {
-                    this.gameManager.enemyManager.bonusShipTimer.Stop();
-                    this.gameManager.enemyManager.bonusShipTimer.Start();
-                }
+                this.gameManager.enemyManager.bonusShipTimer.Start();
                 this.LevelTextBlock = $"Level: {this.gameManager.Level}";
             } else if (this.gameManager.Level == 4)
             {
