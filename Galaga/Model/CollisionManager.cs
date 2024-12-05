@@ -256,10 +256,11 @@ namespace Galaga.Model
             }
             if (this.GameManager.playerManager.isDoubleShipActive)
             {
-                this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
+                
                 this.OneOfTwoPlayerDeath(enemyBullet, canvasParam);
+
             }
-                this.checkPlayerStatus();
+            
             if (enemyBullet.Intersects(this.player))
             {
                 this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
