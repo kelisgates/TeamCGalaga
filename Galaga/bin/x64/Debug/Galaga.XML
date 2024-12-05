@@ -154,12 +154,13 @@
             <param name="bullet">The bullet.</param>
             <param name="canvasParam">The canvasParam.</param>
         </member>
-        <member name="M:Galaga.Model.CollisionManager.StartEnemyBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas)">
+        <member name="M:Galaga.Model.CollisionManager.StartEnemyBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas,System.Boolean)">
             <summary>
             Starts the enemy bullet movement.
             </summary>
             <param name="bullet">The bullet.</param>
             <param name="canvasParam">The canvasParam.</param>
+            <param name="canTrackPlayer">tracks if enemy can track player or not</param>
         </member>
         <member name="M:Galaga.Model.CollisionManager.StopAllTimers">
             <summary>
@@ -318,7 +319,12 @@
             Places the enemies.
             </summary>
         </member>
-        <member name="M:Galaga.Model.EnemyManager.PlaceEnemy(Galaga.Model.EnemyType,System.Int32,System.Double,System.Double,System.Int32,System.Boolean)">
+        <member name="M:Galaga.Model.EnemyManager.PlaceEnemiesForBossRound">
+            <summary>
+            Places the enemies for boss round.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.EnemyManager.PlaceEnemy(Galaga.Model.EnemyType,System.Int32,System.Double,System.Double,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Places the enemy.
             </summary>
@@ -412,7 +418,7 @@
              class for attack enemy 
             </summary>
         </member>
-        <member name="M:Galaga.Model.AttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32,Windows.UI.Xaml.Controls.Canvas,Galaga.Model.CollisionManager,System.Boolean)">
+        <member name="M:Galaga.Model.AttackEnemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32,Windows.UI.Xaml.Controls.Canvas,Galaga.Model.CollisionManager,System.Boolean,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.AttackEnemy"/> class.
             </summary>
@@ -533,6 +539,11 @@
         <member name="M:Galaga.Model.GameManager.placeEnemies">
             <summary>
             Places the enemies.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameManager.StartBossRound">
+            <summary>
+            Starts the boss round.
             </summary>
         </member>
         <member name="M:Galaga.Model.GameManager.PlayerShoot">

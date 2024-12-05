@@ -18,6 +18,7 @@ namespace Galaga.Model
         private readonly Canvas canvas;
         private readonly CollisionManager collisionManager;
         public bool isBonusShip;
+        private bool canTrackPlayer;
 
         #endregion
 
@@ -26,11 +27,17 @@ namespace Galaga.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AttackEnemy"/> class.
         /// </summary>
-        public AttackEnemy(ICollection<BaseSprite> sprites, int score, Canvas canvas, CollisionManager collisionManager, bool isBonusShip) : base(sprites, score)
+        public AttackEnemy(ICollection<BaseSprite> sprites, int score, Canvas canvas, CollisionManager collisionManager, bool isBonusShip, bool canTrackPlayer) : base(sprites, score)
         {
             this.canvas = canvas;
             this.collisionManager = collisionManager;
             this.isBonusShip = isBonusShip;
+
+            if (canTrackPlayer)
+            {
+                this.canTrackPlayer = true;
+            }
+
             if (this.isBonusShip)
             {
                 MoveBonusEnemyShip();
@@ -67,6 +74,9 @@ namespace Galaga.Model
                     {
                         MoveEnemyPatternOne();
                     }
+                    break;
+                case 4:
+                    MoveEnemy();
                     break;
                 default:
                     throw new ArgumentException("Invalid level");
@@ -111,8 +121,10 @@ namespace Galaga.Model
                     Y = Y + Height
                 };
 
+                
+
                 this.canvas.Children.Add(enemyBullet.Sprite);
-                this.collisionManager.StartEnemyBulletMovement(enemyBullet, this.canvas);
+                this.collisionManager.StartEnemyBulletMovement(enemyBullet, this.canvas, this.canTrackPlayer);
                 
             }
             catch (Exception ex)
@@ -158,8 +170,12 @@ namespace Galaga.Model
                     maxInterval = 5000;
                     break;
                 case 3:
+                    minInterval = 10000;
+                    maxInterval = 250000;
+                    break;
+                case 4:
                     minInterval = 1000;
-                    maxInterval = 2500;
+                    maxInterval = 10000;
                     break;
                 default:
                     throw new ArgumentException("Invalid Level");

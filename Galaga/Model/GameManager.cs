@@ -50,7 +50,7 @@ namespace Galaga.Model
         /// Number of levels
         /// </summary>
         public int Level;
-        private const int maxLevels = 3;
+        private const int maxLevels = 4;
         private bool isPoweredUp = false;
         private int maxPlayerBullets;
         
@@ -169,6 +169,14 @@ namespace Galaga.Model
         {
             this.enemyManager = new EnemyManager(this.canvas, this, this.collisionManager);
             this.enemyManager.PlaceEnemies();
+        }
+
+        /// <summary>
+        /// Starts the boss round.
+        /// </summary>
+        public void StartBossRound()
+        {
+            this.enemyManager.PlaceEnemiesForBossRound();
         }
 
         private void createAndPlacePlayer()

@@ -516,13 +516,20 @@ namespace Galaga.ViewModel
                 DefaultButton = ContentDialogButton.Close
             };
             await levelDialog.ShowAsync();
-            this.gameManager.placeEnemies();
-            if (this.gameManager.enemyManager.bonusShipTimer != null)
+            if (this.gameManager.Level < 4)
             {
-                this.gameManager.enemyManager.bonusShipTimer.Stop();
-                this.gameManager.enemyManager.bonusShipTimer.Start();
+                this.gameManager.placeEnemies();
+                if (this.gameManager.enemyManager.bonusShipTimer != null)
+                {
+                    this.gameManager.enemyManager.bonusShipTimer.Stop();
+                    this.gameManager.enemyManager.bonusShipTimer.Start();
+                }
+                this.LevelTextBlock = $"Level: {this.gameManager.Level}";
+            } else if (this.gameManager.Level == 4)
+            {
+                this.gameManager.StartBossRound();
+                this.LevelTextBlock = $"Level: {this.gameManager.Level}";
             }
-            this.LevelTextBlock = $"Level: {this.gameManager.Level}";
         }
         #endregion
 

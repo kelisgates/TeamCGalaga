@@ -76,10 +76,28 @@ namespace Galaga.Model
             var canvasWidth = this.canvas.Width;
             var canvasMiddle = canvasWidth / half;
 
-            this.PlaceEnemy(EnemyType.Level1, 10, canvasMiddle, 300, 3, false);
-            this.PlaceEnemy(EnemyType.Level2, 20, canvasMiddle, 200, 4, false);
-            this.PlaceEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, true);
-            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 10, 5, true);
+            this.PlaceEnemy(EnemyType.Level1, 10, canvasMiddle, 300, 3, false, false);
+            this.PlaceEnemy(EnemyType.Level2, 20, canvasMiddle, 200, 4, false, false);
+            this.PlaceEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, true, false);
+            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 10, 5, true, true);
+
+            this.addEnemiesToCanvas();
+        }
+
+        /// <summary>
+        /// Places the enemies for boss round.
+        /// </summary>
+        public void PlaceEnemiesForBossRound()
+        {
+            var half = 2.0;
+            var canvasWidth = this.canvas.Width;
+            var canvasMiddle = canvasWidth / half;
+
+            var bossSprites = ShipFactory.CreateEnemyShip(EnemyType.Boss);
+
+            this.checkIfAttackOrNonAttackEnemy(50, 150, true, bossSprites, canvasMiddle, false, true);
+
+            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 300, 7, true, true);
 
             this.addEnemiesToCanvas();
         }
@@ -113,7 +131,7 @@ namespace Galaga.Model
         /// <param name="numOfEnemies">The number of enemies.</param>
         /// <param name="isAttackEnemy">if set to <c>true</c> [is attack enemy].</param>
         public void PlaceEnemy(EnemyType level, int score, double canvasMiddle, double y, int numOfEnemies,
-            bool isAttackEnemy)
+            bool isAttackEnemy, bool canTrackPlayer)
         {
             for (int i = 0; i < numOfEnemies; i++)
             {
@@ -122,7 +140,7 @@ namespace Galaga.Model
 
                 var xPosition = this.getStartPoint(numOfEnemies, canvasMiddle) + (i * widthDistance);
 
-                this.checkIfAttackOrNonAttackEnemy(score, y, isAttackEnemy, sprites, xPosition, false);
+                this.checkIfAttackOrNonAttackEnemy(score, y, isAttackEnemy, sprites, xPosition, false, canTrackPlayer);
             }
         }
 
@@ -131,11 +149,11 @@ namespace Galaga.Model
         #region Private Methods
 
         private void checkIfAttackOrNonAttackEnemy(int score, double y, bool isAttackEnemy, ICollection<BaseSprite> sprites,
-            double xPosition, bool isBonusShip)
+            double xPosition, bool isBonusShip, bool canTrackPlayer)
         {
             if (isAttackEnemy)
             {
-                var attackEnemy = new AttackEnemy(sprites, score, this.canvas, this.collisionManager, isBonusShip)
+                var attackEnemy = new AttackEnemy(sprites, score, this.canvas, this.collisionManager, isBonusShip, canTrackPlayer)
                 {
                     X = xPosition,
                     Y = y
@@ -188,7 +206,7 @@ namespace Galaga.Model
             var random = new Random();
             var x = random.Next(50, 500);
             var y = random.Next(50, 200);
-            this.checkIfAttackOrNonAttackEnemy(50, y, true, bonusEnemyShip, x, true);
+            this.checkIfAttackOrNonAttackEnemy(50, y, true, bonusEnemyShip, x, true, true);
 
             foreach (var currSprite in bonusEnemyShip)
             {
