@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Galaga.Model
 {
@@ -22,30 +17,40 @@ namespace Galaga.Model
         private readonly Canvas canvas;
         private readonly double canvasHeight;
         private readonly double canvasWidth;
+        private const int maxLevels = 4;
+        private bool isPoweredUp = false;
+        private int maxPlayerBullets;
+
         /// <summary>
         /// Checks if player can shoot
         /// </summary>
-        public bool canShoot = true;
+        public bool CanShoot = true;
+
         /// <summary>
         /// list of active bullets
         /// </summary>
         public List<Bullet> activeBullets;
+
         /// <summary>
         /// EnemyManager
         /// </summary>
         public EnemyManager enemyManager;
+
         /// <summary>
         /// Player Manager
         /// </summary>
         public PlayerManager playerManager;
+
         /// <summary>
         /// Collision Manager
         /// </summary>
         public CollisionManager collisionManager;
+
         /// <summary>
         /// Sound M
         /// </summary>
         public SoundManager soundManager;
+
         /// <summary>
         /// Number of levels
         /// </summary>
@@ -199,13 +204,13 @@ namespace Galaga.Model
         /// <returns>Task waiting to see if player can shoot again</returns>
         public async Task PlayerShoot()
         {
-            if (!this.canShoot || this.activeBullets.Count >= this.maxPlayerBullets)
+            if (!this.CanShoot || this.activeBullets.Count >= this.maxPlayerBullets)
             {
                 return;
             }
 
             this.soundManager.PlayPlayerFireSound();
-            this.canShoot = false;
+            this.CanShoot = false;
 
             var movementPerStep = 20;
 
@@ -232,7 +237,7 @@ namespace Galaga.Model
             }
 
             await Task.Delay(300);
-            this.canShoot = true;
+            this.CanShoot = true;
         }
 
         private void FireBulletFromPlayer(Player player, int movementPerStep)
@@ -295,7 +300,7 @@ namespace Galaga.Model
         /// </summary>
         public void OnGameOver()
         {
-            this.canShoot = false;
+            this.CanShoot = false;
             Debug.WriteLine("game manager onGame invoked");
             this.GameOver?.Invoke(this, EventArgs.Empty);
         }

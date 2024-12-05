@@ -55,7 +55,7 @@ namespace Galaga.Model
 
         private void moveEnemyBasedOnLevel()
         {
-            int level = this.collisionManager.gameManager.Level;
+            int level = this.collisionManager.GameManager.Level;
             switch (level)
             {
                 case 1:
@@ -102,7 +102,7 @@ namespace Galaga.Model
             try
             {
                 this.shoot();
-                Timer.Interval = this.getShootingTimerForLevel(this.collisionManager.gameManager.Level);
+                Timer.Interval = this.getShootingTimerForLevel(this.collisionManager.GameManager.Level);
             }
             catch (Exception ex)
             {
