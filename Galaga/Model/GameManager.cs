@@ -47,7 +47,7 @@ namespace Galaga.Model
         public CollisionManager collisionManager;
 
         /// <summary>
-        /// Sound M
+        /// Sound Manager
         /// </summary>
         public SoundManager soundManager;
 
@@ -55,9 +55,6 @@ namespace Galaga.Model
         /// Number of levels
         /// </summary>
         public int Level;
-        private const int maxLevels = 4;
-        public bool isPoweredUp = false;
-        private int maxPlayerBullets;
         
 
 

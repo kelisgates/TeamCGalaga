@@ -52,7 +52,6 @@ namespace Galaga.Model
         /// <param name="player">The player.</param>
         /// <param name="secondPlayer"> The second player</param>
         /// <param name="activeBullets">The list of active bullets.</param>
-        /// <param name="secondPlayer">second player</param>
         public CollisionManager(GameManager gameManager, Player player, Player secondPlayer, List<Bullet> activeBullets)
         {
             this.GameManager = gameManager;
@@ -140,7 +139,7 @@ namespace Galaga.Model
             if (this.GameManager.Level != 1 && !this.GameManager.playerManager.isDoubleShipActive)
             {
                 this.GameManager.ActivateDoublePlayerShip();
-            } else if (this.gameManager.Level == 1)
+            } else if (this.GameManager.Level == 1)
             {
                 this.GameManager.Player.Lives++;
             }
@@ -257,10 +256,10 @@ namespace Galaga.Model
             }
             if (this.GameManager.playerManager.isDoubleShipActive)
             {
-                this.Player.PlayExplosionAnimation(this.Player.X, this.Player.Y, canvasParam);
+                this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
                 this.OneOfTwoPlayerDeath(enemyBullet, canvasParam);
             }
-                this.checkPlayerStatus(enemyBullet);
+                this.checkPlayerStatus();
             if (enemyBullet.Intersects(this.player))
             {
                 this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
@@ -272,15 +271,15 @@ namespace Galaga.Model
         }
         private void OneOfTwoPlayerDeath(Bullet enemyBullet, Canvas canvasParam)
         {   
-            if (enemyBullet.Intersects(this.Player))
+            if (enemyBullet.Intersects(this.player))
             {
-                this.gameManager.soundManager.PlayPlayerDeathSound();
+                this.GameManager.soundManager.PlayPlayerDeathSound();
                 this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
                 this.GameManager.playerManager.removePlayer(this.player);
             }
             else if (enemyBullet.Intersects(this.secondPlayer))
             {
-                this.gameManager.soundManager.PlayPlayerDeathSound();
+                this.GameManager.soundManager.PlayPlayerDeathSound();
                 this.player.PlayExplosionAnimation(this.secondPlayer.X, this.secondPlayer.Y, canvasParam);
                 this.GameManager.playerManager.removePlayer(this.secondPlayer);
             }

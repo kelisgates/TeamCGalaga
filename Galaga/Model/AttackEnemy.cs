@@ -17,6 +17,9 @@ namespace Galaga.Model
         private Random random;
         private readonly Canvas canvas;
         private readonly CollisionManager collisionManager;
+        /// <summary>
+        /// The is bonus ship
+        /// </summary>
         public bool isBonusShip;
         private bool canTrackPlayer;
 

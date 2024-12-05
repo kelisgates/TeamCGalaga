@@ -118,7 +118,7 @@
             Manages collision detection and bullet movement.
             </summary>
         </member>
-        <member name="F:Galaga.Model.CollisionManager.gameManager">
+        <member name="F:Galaga.Model.CollisionManager.GameManager">
             <summary>
             The game manager
             </summary>
@@ -429,7 +429,7 @@
             Manages the Galaga game play
             </summary>
         </member>
-        <member name="F:Galaga.Model.GameManager.canShoot">
+        <member name="F:Galaga.Model.GameManager.CanShoot">
             <summary>
             Checks if player can shoot
             </summary>
@@ -456,7 +456,7 @@
         </member>
         <member name="F:Galaga.Model.GameManager.soundManager">
             <summary>
-            Sound M
+            Sound Manager
             </summary>
         </member>
         <member name="F:Galaga.Model.GameManager.Level">
