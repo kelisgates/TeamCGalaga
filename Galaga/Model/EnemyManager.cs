@@ -7,28 +7,7 @@ using System.Threading;
 
 namespace Galaga.Model
 {
-    /// <summary>
-    /// enemy type levels
-    /// </summary>
-    public enum EnemyType
-    {
-        /// <summary>
-        /// the level1 enemy
-        /// </summary>
-        Level1,
-        /// <summary>
-        /// The level2 enemy
-        /// </summary>
-        Level2,
-        /// <summary>
-        /// The level3 enemy
-        /// </summary>
-        Level3,
-        /// <summary>
-        /// The level4 enemy
-        /// </summary>
-        Level4
-    }
+    
 
     /// <summary>
     /// manages enemies in the game
