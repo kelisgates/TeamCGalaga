@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using System.ComponentModel.Design;
 
 namespace Galaga.Model
 {
@@ -17,6 +18,7 @@ namespace Galaga.Model
         /// </summary>
         public GameManager gameManager;
         private readonly Player player;
+        private readonly Player secondPlayer;
         private readonly List<Bullet> activeBullets;
         private readonly Canvas canvas;
 
@@ -46,13 +48,15 @@ namespace Galaga.Model
         /// <param name="gameManager">The game manager.</param>
         /// <param name="player">The player.</param>
         /// <param name="activeBullets">The list of active bullets.</param>
-        public CollisionManager(GameManager gameManager, Player player, List<Bullet> activeBullets)
+        public CollisionManager(GameManager gameManager, Player player, Player secondPlayer, List<Bullet> activeBullets)
         {
             this.gameManager = gameManager;
             this.player = player;
+            this.secondPlayer = secondPlayer;
             this.activeBullets = activeBullets ?? new List<Bullet>();
             this.canvas = gameManager.Canvas;
             this.Timers = new List<DispatcherTimer>();
+
         }
 
         #endregion
@@ -124,6 +128,10 @@ namespace Galaga.Model
         private void handleBonusEnemyException(AttackEnemy enemyLevelThree)
         {
             this.gameManager.enemyManager.bonusShipTimer.Stop();
+            if (this.gameManager.Level != 1 && !this.gameManager.playerManager.isDoubleShipActive)
+            {
+                this.gameManager.ActivateDoublePlayerShip();
+            }
             this.gameManager.Player.Lives++;
             this.gameManager.soundManager.StopBonusEnemySound();
             this.gameManager.playerPowerUp();
@@ -208,13 +216,35 @@ namespace Galaga.Model
             {
                 return;
             }
-
+            if (this.gameManager.playerManager.isDoubleShipActive)
+            {
+                this.OneOfTwoPlayerDeath(enemyBullet, canvasParam);
+            }
             if (enemyBullet.Intersects(this.player))
             {
                 this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
                 this.updateGameState(enemyBullet, canvasParam, timer);
                 this.checkPlayerStatus(enemyBullet);
             }
+
+
+        }
+
+        private void OneOfTwoPlayerDeath(Bullet enemyBullet, Canvas canvasParam)
+        {   
+            if (enemyBullet.Intersects(this.player))
+            {
+                this.gameManager.soundManager.PlayPlayerDeathSound();
+                this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
+                this.gameManager.playerManager.removePlayer(this.player);
+            }
+            else if (enemyBullet.Intersects(this.secondPlayer))
+            {
+                this.gameManager.soundManager.PlayPlayerDeathSound();
+                this.player.PlayExplosionAnimation(this.secondPlayer.X, this.secondPlayer.Y, canvasParam);
+                this.gameManager.playerManager.removePlayer(this.secondPlayer);
+            }
+            
         }
 
         private void updateGameState(Bullet enemyBullet, Canvas canvasParam, DispatcherTimer timer)

@@ -209,7 +209,7 @@ namespace Galaga.Model
          {
             this.bonusShipTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(7)
+                Interval = TimeSpan.FromSeconds(4)
             };
             var random = new Random();
 

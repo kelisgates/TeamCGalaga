@@ -80,35 +80,22 @@
     <RootType FullName="Galaga.View.HighScoreDialog" />
     <RootType FullName="Windows.UI.Xaml.Controls.UserControl" />
     <RootType FullName="Galaga.View.Sprites.BaseSprite">
-      <RootProperty Name="Content" />
-      <RootProperty Name="Height" />
       <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Content" />
       <RootProperty Name="Resources" />
     </RootType>
-    <RootType FullName="Galaga.View.Sprites.BossSprite.BossSprite2" />
-    <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle">
-      <RootProperty Name="Height" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Stroke" />
-      <RootProperty Name="Fill" />
-    </RootType>
-    <RootType FullName="Galaga.View.Sprites.Bullet" />
-    <RootType FullName="Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite">
-      <RootProperty Name="Height" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Content" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Shapes.Ellipse">
-      <RootProperty Name="Height" />
       <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Fill" />
+      <RootProperty Name="Stroke" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle">
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
       <RootProperty Name="Stroke" />
       <RootProperty Name="Fill" />
-    </RootType>
-    <RootType FullName="Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo" />
-    <RootType FullName="Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite">
-      <RootProperty Name="Height" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Shapes.Line">
       <RootProperty Name="X1" />
@@ -117,6 +104,22 @@
       <RootProperty Name="Y2" />
       <RootProperty Name="StrokeThickness" />
       <RootProperty Name="Stroke" />
+    </RootType>
+    <RootType FullName="Galaga.View.Sprites.BossSprite.BossSprite">
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Galaga.View.Sprites.BossSprite.BossSprite2" />
+    <RootType FullName="Galaga.View.Sprites.Bullet" />
+    <RootType FullName="Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4Sprite">
+      <RootProperty Name="Height" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Galaga.View.Sprites.EnemeyL4Sprites.EnemyL4SpriteTwo" />
+    <RootType FullName="Galaga.View.Sprites.EnemyL1Sprites.EnemyL1Sprite">
+      <RootProperty Name="Height" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="Galaga.View.Sprites.EnemyL1Sprites.EnemyL1SpriteTwo" />
     <RootType FullName="Galaga.View.Sprites.EnemyL2Sprites.EnemyL2Sprite">

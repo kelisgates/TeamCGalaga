@@ -139,7 +139,7 @@
             The timers.
             </value>
         </member>
-        <member name="M:Galaga.Model.CollisionManager.#ctor(Galaga.Model.GameManager,Galaga.Model.Player,System.Collections.Generic.List{Galaga.Model.Bullet})">
+        <member name="M:Galaga.Model.CollisionManager.#ctor(Galaga.Model.GameManager,Galaga.Model.Player,Galaga.Model.Player,System.Collections.Generic.List{Galaga.Model.Bullet})">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.CollisionManager"/> class.
             </summary>
@@ -275,31 +275,6 @@
         <member name="M:Galaga.Model.Enemy.MoveBonusEnemyShip">
             <summary>
             Moves bonus enemy ships
-            </summary>
-        </member>
-        <member name="T:Galaga.Model.EnemyType">
-            <summary>
-            enemy type levels
-            </summary>
-        </member>
-        <member name="F:Galaga.Model.EnemyType.Level1">
-            <summary>
-            the level1 enemy
-            </summary>
-        </member>
-        <member name="F:Galaga.Model.EnemyType.Level2">
-            <summary>
-            The level2 enemy
-            </summary>
-        </member>
-        <member name="F:Galaga.Model.EnemyType.Level3">
-            <summary>
-            The level3 enemy
-            </summary>
-        </member>
-        <member name="F:Galaga.Model.EnemyType.Level4">
-            <summary>
-            The level4 enemy
             </summary>
         </member>
         <member name="T:Galaga.Model.EnemyManager">
@@ -508,6 +483,12 @@
             </summary>
         </member>
         <member name="P:Galaga.Model.GameManager.Player">
+            <summary>
+            player object
+            </summary>
+            <returns>Player object</returns>
+        </member>
+        <member name="P:Galaga.Model.GameManager.SecondPlayer">
             <summary>
             player object
             </summary>
@@ -798,6 +779,36 @@
             Creates and place player.
             </summary>
         </member>
+        <member name="T:Galaga.Model.EnemyType">
+            <summary>
+            enemy type levels
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Level1">
+            <summary>
+            the level1 enemy
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Level2">
+            <summary>
+            The level2 enemy
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Level3">
+            <summary>
+            The level3 enemy
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Level4">
+            <summary>
+            The level4 enemy
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.EnemyType.Boss">
+            <summary>
+            The boss
+            </summary>
+        </member>
         <member name="T:Galaga.Model.ShipFactory">
             <summary>
             ship factory class
@@ -1057,6 +1068,19 @@
         <member name="M:Galaga.View.Sprites.BaseSprite.GetBindingConnector(System.Int32,System.Object)">
             <summary>
             GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:Galaga.View.Sprites.BossSprite.BossSprite">
+            <summary>
+            boss sprite
+            </summary>
+            <seealso cref="T:Galaga.View.Sprites.BaseSprite" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:Galaga.View.Sprites.BossSprite.BossSprite.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.Sprites.BossSprite.BossSprite"/> class.
             </summary>
         </member>
         <member name="M:Galaga.View.Sprites.BossSprite.BossSprite.InitializeComponent">

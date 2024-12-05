@@ -742,3 +742,13 @@ C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprit
 C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite.xaml
 C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite.xbf
 C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite.xbf
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite.xbf
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite2.xbf
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite.g.i.cs
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite.g.cs
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite2.g.i.cs
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite2.g.cs
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite.xaml
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite2.xaml
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite.xbf
+C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\View\Sprites\BossSprite\BossSprite2.xbf
