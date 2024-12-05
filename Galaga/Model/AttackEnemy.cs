@@ -158,8 +158,8 @@ namespace Galaga.Model
                     maxInterval = 5000;
                     break;
                 case 3:
-                    minInterval = 500;
-                    maxInterval = 1000;
+                    minInterval = 1000;
+                    maxInterval = 2500;
                     break;
                 default:
                     throw new ArgumentException("Invalid Level");

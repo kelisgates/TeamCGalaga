@@ -135,10 +135,8 @@ namespace Galaga.Model
             this.canvasHeight = canvas.Height;
             this.canvasWidth = canvas.Width;
 
-
             this.Level = 1;
             this.initializeGame();
-            this.bonusShipGamePlay();
         }
 
         #endregion
@@ -153,8 +151,10 @@ namespace Galaga.Model
             this.placeEnemies();
             this.soundManager = new SoundManager();
         }
-
-        private void placeEnemies()
+        /// <summary>
+        /// Places the enemies.
+        /// </summary>
+        public void placeEnemies()
         {
             this.enemyManager = new EnemyManager(this.canvas, this, this.collisionManager);
             this.enemyManager.PlaceEnemies();
@@ -288,15 +288,8 @@ namespace Galaga.Model
 
         private void initializeNextLevel(int level)
         {
-            this.activeBullets.Clear();
-            this.placeEnemies();
-            this.LevelChanged?.Invoke(this, EventArgs.Empty); //Sometimes the collision detection doesn't work on enemy when new lwvel start
-            this.bonusShipGamePlay();
-        }
-
-        private void bonusShipGamePlay()
-        {
-            this.enemyManager.initializeBonusShipTimer();
+            this.LevelChanged?.Invoke(this, EventArgs.Empty);
+            this.enemyManager.BonusEnemyActive = false;
         }
 
         /// <summary>

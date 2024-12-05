@@ -506,8 +506,22 @@ namespace Galaga.ViewModel
             this.LivesTextBlock = $"Lives: {this.gameManager.Player.Lives}";
         }
 
-        private void onLevelChanged(object sender, EventArgs e)
+        private async void onLevelChanged(object sender, EventArgs e)
         {
+            var levelDialog = new ContentDialog
+            {
+                Title = "Level Up!",
+                Content = $"You are now on Level {this.gameManager.Level}. Get ready!",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close
+            };
+            await levelDialog.ShowAsync();
+            this.gameManager.placeEnemies();
+            if (this.gameManager.enemyManager.bonusShipTimer != null)
+            {
+                this.gameManager.enemyManager.bonusShipTimer.Stop();
+                this.gameManager.enemyManager.bonusShipTimer.Start();
+            }
             this.LevelTextBlock = $"Level: {this.gameManager.Level}";
         }
         #endregion

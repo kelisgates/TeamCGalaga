@@ -261,13 +261,13 @@ namespace Galaga.Model
 
         private void checkMovingUpOrDown(int resetSteps)
         {
-            if (this.MovingDown && Y <= 400)
+            if (this.MovingDown && Y <= 600)
             {
                 MoveDown();
             }
             else
             {
-                MoveUp();
+                Y = 0;
             }
             this.checkWhichSpriteIsVisible();
             this.HorizontalSteps--;

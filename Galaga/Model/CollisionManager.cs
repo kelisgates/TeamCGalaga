@@ -96,17 +96,16 @@ namespace Galaga.Model
         {
             foreach (var enemy in this.gameManager.enemyManager.Enemies)
             {
-                if (enemy != null)
+                if (enemy == null) continue;
+                if (bullet.Intersects(enemy))
                 {
-                    if (bullet.Intersects(enemy))
-                    {
-                        this.gameManager.soundManager.PlayEnemyHitSound();
-                        canvasParam.Children.Remove(bullet.Sprite);
-                        this.removeEnemyAndUpdateScore(enemy);
-                        this.checkIfEnemyIsAttackingEnemy(enemy);
-                        break;
-                    }
+                    this.gameManager.soundManager.PlayEnemyHitSound();
+                    canvasParam.Children.Remove(bullet.Sprite);
+                    this.checkIfEnemyIsAttackingEnemy(enemy);
+                    this.removeEnemyAndUpdateScore(enemy);
+                    break;
                 }
+                
             }
         }
 
@@ -124,8 +123,8 @@ namespace Galaga.Model
 
         private void handleBonusEnemyException(AttackEnemy enemyLevelThree)
         {
+            this.gameManager.enemyManager.bonusShipTimer.Stop();
             this.gameManager.Player.Lives++;
-            this.gameManager.enemyManager.BonusEnemyActive = false;
             this.gameManager.soundManager.StopBonusEnemySound();
             this.gameManager.playerPowerUp();
         }

@@ -4,6 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System;
 using System.Threading;
+using Windows.UI.Xaml.Documents;
 
 namespace Galaga.Model
 {
@@ -56,8 +57,10 @@ namespace Galaga.Model
         /// The bonus enemy active
         /// </summary>
         public bool BonusEnemyActive;
-
-        private DispatcherTimer bonusShipTimer;
+        /// <summary>
+        /// The bonus ship timer
+        /// </summary>
+        public DispatcherTimer bonusShipTimer;
 
         #endregion
 
@@ -77,6 +80,7 @@ namespace Galaga.Model
             this.collisionManager = collisionManager;
             this.initializeAnimationTimer();
             this.BonusEnemyActive = false;
+            this.initializeBonusShipTimer();
 
         }
 
@@ -201,7 +205,6 @@ namespace Galaga.Model
         /// </summary>
         private void bonusEnemyShip()
         {
-            this.BonusEnemyActive = true;
             var bonusEnemyShip = ShipFactory.CreateEnemyShip(EnemyType.Level4);
             var random = new Random();
             var x = random.Next(50, 500);
@@ -225,14 +228,9 @@ namespace Galaga.Model
         /// </summary>
         public void  initializeBonusShipTimer()
          {
-            if(this.bonusShipTimer != null)
-            {
-                this.bonusShipTimer.Stop();
-                this.bonusShipTimer = null;
-            }
             this.bonusShipTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(5)
+                Interval = TimeSpan.FromSeconds(7)
             };
             var random = new Random();
 
@@ -241,11 +239,11 @@ namespace Galaga.Model
                 if (!this.BonusEnemyActive && random.NextDouble() < 0.3)
                 {
                     this.bonusEnemyShip();
+                    this.BonusEnemyActive = true;
                 }
             };
-            
+
             this.bonusShipTimer.Start();
-           
         }
         #endregion
     }

@@ -325,6 +325,11 @@
             The bonus enemy active
             </summary>
         </member>
+        <member name="F:Galaga.Model.EnemyManager.bonusShipTimer">
+            <summary>
+            The bonus ship timer
+            </summary>
+        </member>
         <member name="M:Galaga.Model.EnemyManager.#ctor(Windows.UI.Xaml.Controls.Canvas,Galaga.Model.GameManager,Galaga.Model.CollisionManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.EnemyManager"/> class.
@@ -542,6 +547,11 @@
         <member name="M:Galaga.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.GameManager"/> class.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.GameManager.placeEnemies">
+            <summary>
+            Places the enemies.
             </summary>
         </member>
         <member name="M:Galaga.Model.GameManager.PlayerShoot">
