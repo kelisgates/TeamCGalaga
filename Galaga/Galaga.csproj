@@ -154,6 +154,12 @@
     <Compile Include="View\Sprites\BaseSprite.xaml.cs">
       <DependentUpon>BaseSprite.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Sprites\BossSprite\BossSprite.xaml.cs">
+      <DependentUpon>BossSprite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sprites\BossSprite\BossSprite2.xaml.cs">
+      <DependentUpon>BossSprite2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Sprites\Bullet.xaml.cs">
       <DependentUpon>Bullet.xaml</DependentUpon>
     </Compile>
@@ -225,6 +231,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Sprites\BaseSprite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Sprites\BossSprite\BossSprite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Sprites\BossSprite\BossSprite2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

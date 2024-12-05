@@ -80,11 +80,12 @@
     <RootType FullName="Galaga.View.HighScoreDialog" />
     <RootType FullName="Windows.UI.Xaml.Controls.UserControl" />
     <RootType FullName="Galaga.View.Sprites.BaseSprite">
+      <RootProperty Name="Content" />
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
-      <RootProperty Name="Content" />
       <RootProperty Name="Resources" />
     </RootType>
+    <RootType FullName="Galaga.View.Sprites.BossSprite.BossSprite2" />
     <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle">
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
