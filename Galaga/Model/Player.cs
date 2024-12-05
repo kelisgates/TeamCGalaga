@@ -79,6 +79,7 @@ namespace Galaga.Model
         /// </value>
         public bool IsInvincible { get; private set; }
 
+
         #endregion
 
         #region Constructors
@@ -93,6 +94,7 @@ namespace Galaga.Model
             
             this.Score = 0;
             this.Lives = 3;
+            
         }
 
         #endregion

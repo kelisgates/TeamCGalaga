@@ -23,6 +23,8 @@
         /// </value>
         /// <returns>bool value is bullet is being shot</returns>
         public bool IsShooting { get;  set; }
+        public double Dx { get; set; }
+        public double Dy { get; set; }
 
         #endregion
 

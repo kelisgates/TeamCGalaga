@@ -256,12 +256,14 @@ namespace Galaga.Model
             for (int i = -1; i <= 1; i++)
             {
                 var horizontalOffset = 15;
+                var verticalOffset = 10;
                 var bullet = new Bullet
                 {
                     IsShooting = true,
                     X = player.X + movementPerStep + (i * horizontalOffset),
-                    Y = player.Y,
+                    Y = player.Y + (i * verticalOffset),
                 };
+
 
                 this.canvas.Children.Add(bullet.Sprite);
                 this.activeBullets.Add(bullet);
@@ -329,8 +331,11 @@ namespace Galaga.Model
 
         private void initializeNextLevel(int level)
         {
+            this.CanShoot = false;
+            this.activeBullets.Clear();
             this.LevelChanged?.Invoke(this, EventArgs.Empty);
             this.enemyManager.BonusEnemyActive = false;
+            this.CanShoot = true;
         }
 
         /// <summary>
@@ -342,11 +347,11 @@ namespace Galaga.Model
 
             this.isPoweredUp = true;
             this.maxPlayerBullets = 3 * this.maxPlayerBullets;
-            
+
             await Task.Delay(10000);
 
             this.isPoweredUp = false;
-            this.maxPlayerBullets = this.maxPlayerBullets / 3;
+            this.maxPlayerBullets /= 3;
         }
 
         /// <summary>

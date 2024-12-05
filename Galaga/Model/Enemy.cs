@@ -153,13 +153,13 @@ namespace Galaga.Model
         /// <summary>
         /// Moves the enemy.
         /// </summary>
-        protected void MoveEnemy()
+        protected void MoveEnemy(bool isBonusShip)
         {
-            var speed = 1;
+            var speed = 5;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps, MovementDirection.Right, speed);
+            this.movementTimer(resetSteps, MovementDirection.Right, speed, isBonusShip);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Galaga.Model
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps, MovementDirection.Left, speed);
+            this.movementTimer(resetSteps, MovementDirection.Left, speed, false);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace Galaga.Model
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps, MovementDirection.Right, speed);
+            this.movementTimer(resetSteps, MovementDirection.Right, speed, false);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Galaga.Model
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = false;
-            this.movementTimer(resetSteps, MovementDirection.Left, speed);
+            this.movementTimer(resetSteps, MovementDirection.Left, speed, false);
         }
 
         /// <summary>
@@ -207,11 +207,11 @@ namespace Galaga.Model
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
-            this.movementTimer(resetSteps, MovementDirection.Right, speed);
+            this.movementTimer(resetSteps, MovementDirection.Right, speed, false);
         }
 
 
-        private void movementTimer(int resetSteps, MovementDirection direction,int speed)
+        private void movementTimer(int resetSteps, MovementDirection direction,int speed, bool isBonusShip)
         {
             var seconds = 1000 / speed;
 
@@ -222,28 +222,57 @@ namespace Galaga.Model
             if (direction == MovementDirection.Left)
             {
                 this.MovingRight = false;
-                this.Timer.Tick += (_, _) => { this.checkMovingRightOrLeft(resetSteps); };
+                this.Timer.Tick += (_, _) => { this.checkMovingRightOrLeft(resetSteps, isBonusShip); };
             }
             else if (direction == MovementDirection.Right)
             {
                 this.MovingRight = true;
-                this.Timer.Tick += (_, _) => { this.checkMovingRightOrLeft(resetSteps); };
+                this.Timer.Tick += (_, _) => { this.checkMovingRightOrLeft(resetSteps, isBonusShip); };
             }
-            else if (direction == MovementDirection.Down)
-            {
+            //else if (direction == MovementDirection.Down)
+            //{
 
-                this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
-            }
-            else if (direction == MovementDirection.Up)
-            {
+            //    this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
+            //}
+            //else if (direction == MovementDirection.Up)
+            //{
 
-                this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
-            }
+            //    this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
+            //}
 
             this.Timer.Start();
         }
 
-        private void checkMovingRightOrLeft(int resetSteps)
+        private void checkMovingRightOrLeft(int resetSteps, bool isBonusShip)
+        {
+            if (isBonusShip)
+            {
+                var canvasWidth = 900;
+                if (this.MovingRight && X <= canvasWidth)
+                {
+                    MoveRight();
+                }
+                else
+                {
+                    X = 0;
+                }
+                this.checkWhichSpriteIsVisible();
+                this.HorizontalSteps--;
+                
+                if (this.HorizontalSteps == MovementPerStep)
+                {
+                    this.MovingRight = !this.MovingRight;
+                    this.HorizontalSteps = resetSteps;
+                }
+            }
+            else
+            {
+                this.handleShipMovement(resetSteps);
+            }
+            
+        }
+
+        private void handleShipMovement(int resetSteps)
         {
             if (this.MovingRight)
             {
@@ -254,6 +283,7 @@ namespace Galaga.Model
                 X -= MovementPerStep;
             }
 
+
             this.checkWhichSpriteIsVisible();
 
             this.SidewaysSteps++;
@@ -261,25 +291,6 @@ namespace Galaga.Model
             {
                 this.MovingRight = !this.MovingRight;
                 this.SidewaysSteps = resetSteps;
-            }
-        }
-
-        private void checkMovingUpOrDown(int resetSteps)
-        {
-            if (this.MovingDown && Y <= 600)
-            {
-                MoveDown();
-            }
-            else
-            {
-                Y = 0;
-            }
-            this.checkWhichSpriteIsVisible();
-            this.HorizontalSteps--;
-            if (this.HorizontalSteps == MovementPerStep)
-            {
-                this.MovingDown = !this.MovingDown;
-                this.HorizontalSteps = resetSteps;
             }
         }
 
@@ -294,18 +305,6 @@ namespace Galaga.Model
 
             Canvas.SetLeft(hiddenSprite, X);
             Canvas.SetTop(hiddenSprite, Y);
-        }
-
-        /// <summary>
-        /// Moves bonus enemy ships
-        /// </summary>
-        protected void MoveBonusEnemyShip()
-        {
-            var speed = 3;
-            var resetSteps = 0;
-            this.HorizontalSteps = resetSteps;
-            this.MovingDown = true;
-            this.movementTimer(resetSteps, MovementDirection.Down, speed);
         }
 
         

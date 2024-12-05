@@ -43,7 +43,7 @@ namespace Galaga.Model
 
             if (this.isBonusShip)
             {
-                MoveBonusEnemyShip();
+                MoveEnemy(this.isBonusShip);
             }
             else
             {
@@ -62,7 +62,7 @@ namespace Galaga.Model
             switch (level)
             {
                 case 1:
-                    MoveEnemy();
+                    MoveEnemy(this.isBonusShip);
                     break;
                 case 2:
                     MoveEnemyPatternThree();
@@ -79,7 +79,7 @@ namespace Galaga.Model
                     }
                     break;
                 case 4:
-                    MoveEnemy();
+                    MoveEnemy(this.isBonusShip);
                     break;
                 default:
                     throw new ArgumentException("Invalid level");

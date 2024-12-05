@@ -24,7 +24,7 @@ namespace Galaga.Model
         /// </summary>
         public NonAttackEnemy(ICollection<BaseSprite> sprites, int score, EnemyManager manager) : base(sprites, score)
         {
-            MoveEnemy();
+            MoveEnemy(false);
             this.manager = manager;
             this.moveEnemyBasedOnLevel();
         }
@@ -35,7 +35,7 @@ namespace Galaga.Model
             switch (level)
             {
                 case 1:
-                    MoveEnemy();
+                    MoveEnemy(false);
                     break;
                 case 2:
                     MoveEnemyPatternFour();

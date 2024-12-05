@@ -249,7 +249,7 @@
             </summary>
             <exception cref="T:System.InvalidOperationException">There must be at least two sprites to toggle between.</exception>
         </member>
-        <member name="M:Galaga.Model.Enemy.MoveEnemy">
+        <member name="M:Galaga.Model.Enemy.MoveEnemy(System.Boolean)">
             <summary>
             Moves the enemy.
             </summary>
@@ -272,11 +272,6 @@
         <member name="M:Galaga.Model.Enemy.MoveEnemyPatternFour">
             <summary>
             Moves the enemy pattern four.
-            </summary>
-        </member>
-        <member name="M:Galaga.Model.Enemy.MoveBonusEnemyShip">
-            <summary>
-            Moves bonus enemy ships
             </summary>
         </member>
         <member name="T:Galaga.Model.EnemyManager">

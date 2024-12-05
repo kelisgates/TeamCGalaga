@@ -512,6 +512,7 @@ namespace Galaga.ViewModel
             {
                 this.gameManager.enemyManager.bonusShipTimer.Stop();
             }
+            this.gameManager.enemyManager.Enemies.Clear();
             var levelDialog = new ContentDialog
             {
                 Title = "Level Up!",
