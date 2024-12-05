@@ -68,6 +68,9 @@ namespace Galaga.Model
                         MoveEnemyPatternOne();
                     }
                     break;
+                case 4:
+                    MoveEnemy();
+                    break;
                 default:
                     throw new ArgumentException("Invalid level");
             }
@@ -158,8 +161,12 @@ namespace Galaga.Model
                     maxInterval = 5000;
                     break;
                 case 3:
+                    minInterval = 10000;
+                    maxInterval = 250000;
+                    break;
+                case 4:
                     minInterval = 1000;
-                    maxInterval = 2500;
+                    maxInterval = 10000;
                     break;
                 default:
                     throw new ArgumentException("Invalid Level");

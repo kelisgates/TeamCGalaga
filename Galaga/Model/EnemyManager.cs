@@ -84,6 +84,24 @@ namespace Galaga.Model
             this.addEnemiesToCanvas();
         }
 
+        /// <summary>
+        /// Places the enemies for boss round.
+        /// </summary>
+        public void PlaceEnemiesForBossRound()
+        {
+            var half = 2.0;
+            var canvasWidth = this.canvas.Width;
+            var canvasMiddle = canvasWidth / half;
+
+            var bossSprites = ShipFactory.CreateEnemyShip(EnemyType.Boss);
+
+            this.checkIfAttackOrNonAttackEnemy(50, 150, true, bossSprites, canvasMiddle, false);
+
+            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 300, 7, true);
+
+            this.addEnemiesToCanvas();
+        }
+
         private void addEnemiesToCanvas()
         {
             foreach (var enemy in this.Enemies)
