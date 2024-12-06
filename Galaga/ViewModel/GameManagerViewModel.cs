@@ -518,7 +518,7 @@ namespace Galaga.ViewModel
                 Title = "Level Up!",
                 Content = $"You are now on Level {this.gameManager.Level}. Get ready! Next level Starts in 5 seconds.",
             };
-            var  task = levelDialog.ShowAsync();
+            levelDialog.ShowAsync();
             await Task.Delay(5000);
             levelDialog.Hide();
             

@@ -24,6 +24,7 @@
         /// <returns>bool value is bullet is being shot</returns>
         public bool IsShooting { get;  set; }
 
+        /// <summary>
         /// Gets or sets the velocity x.
         /// </summary>
         /// <value>
