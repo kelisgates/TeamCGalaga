@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>CSVLAB-VM66</Machine>
-    <WindowsUser>aadhika1</WindowsUser>
+    <Machine>CSVLAB-VM48</Machine>
+    <WindowsUser>kg00281</WindowsUser>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetOsVersion>10.0</TargetOsVersion>
     <TargetOsDescription>Windows 10.0</TargetOsDescription>
@@ -10,34 +10,34 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>0bbc9089-a1c6-4461-99a6-6fa757e06b62</PackageIdentityName>
     <PackageIdentityPublisher>CN=dyoder</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\Galaga.exe">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\Galaga.exe">
       <PackagePath>entrypoint\Galaga.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\.nuget\packages\microsoft.azure.cognitiveservices.vision.customvision.prediction\2.0.0\lib\netstandard2.0\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll">
+    <AppxPackagedFile Include="C:\Users\kg00281\.nuget\packages\microsoft.azure.cognitiveservices.vision.customvision.prediction\2.0.0\lib\netstandard2.0\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll">
       <PackagePath>Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\.nuget\packages\microsoft.rest.clientruntime\2.3.20\lib\netstandard2.0\Microsoft.Rest.ClientRuntime.dll">
+    <AppxPackagedFile Include="C:\Users\kg00281\.nuget\packages\microsoft.rest.clientruntime\2.3.20\lib\netstandard2.0\Microsoft.Rest.ClientRuntime.dll">
       <PackagePath>Microsoft.Rest.ClientRuntime.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\.nuget\packages\microsoft.rest.clientruntime.azure\3.3.18\lib\netstandard1.4\Microsoft.Rest.ClientRuntime.Azure.dll">
+    <AppxPackagedFile Include="C:\Users\kg00281\.nuget\packages\microsoft.rest.clientruntime.azure\3.3.18\lib\netstandard1.4\Microsoft.Rest.ClientRuntime.Azure.dll">
       <PackagePath>Microsoft.Rest.ClientRuntime.Azure.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\.nuget\packages\newtonsoft.json\10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll">
+    <AppxPackagedFile Include="C:\Users\kg00281\.nuget\packages\newtonsoft.json\10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.14\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
@@ -46,124 +46,124 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\bonuEnemy.wav">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Sounds\bonuEnemy.wav">
       <PackagePath>Sounds\bonuEnemy.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\gameOver.wav">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Sounds\gameOver.wav">
       <PackagePath>Sounds\gameOver.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\gameWon.wav">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Sounds\gameWon.wav">
       <PackagePath>Sounds\gameWon.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\enemyFire.wav">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Sounds\enemyFire.wav">
       <PackagePath>Sounds\enemyFire.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\enemyHit.wav">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Sounds\enemyHit.wav">
       <PackagePath>Sounds\enemyHit.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\playerDeath.wav">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Sounds\playerDeath.wav">
       <PackagePath>Sounds\playerDeath.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Sounds\playerFire.wav">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Sounds\playerFire.wav">
       <PackagePath>Sounds\playerFire.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage1.PNG">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage1.PNG">
       <PackagePath>Assets\ExplosionImages\ExplosionImage1.PNG</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage2.PNG">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage2.PNG">
       <PackagePath>Assets\ExplosionImages\ExplosionImage2.PNG</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage3.PNG">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Assets\ExplosionImages\ExplosionImage3.PNG">
       <PackagePath>Assets\ExplosionImages\ExplosionImage3.PNG</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\Galaga.xr.xml">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\Galaga.xr.xml">
       <PackagePath>Galaga.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\GameCanvas.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\GameCanvas.xbf">
       <PackagePath>View\GameCanvas.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\HighScoreDialog.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\HighScoreDialog.xbf">
       <PackagePath>View\HighScoreDialog.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BaseSprite.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BaseSprite.xbf">
       <PackagePath>View\Sprites\BaseSprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite.xbf">
       <PackagePath>View\Sprites\BossSprite\BossSprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite2.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite2.xbf">
       <PackagePath>View\Sprites\BossSprite\BossSprite2.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\Bullet.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\Bullet.xbf">
       <PackagePath>View\Sprites\Bullet.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xbf">
       <PackagePath>View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\PlayerSprite.xbf">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\View\Sprites\PlayerSprite.xbf">
       <PackagePath>View\Sprites\PlayerSprite.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\aadhika1\Desktop\Project\TeamCGalaga\Galaga\bin\x64\Debug\Core\Galaga.exe">
+    <AppxPackagedFile Include="C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\bin\x64\Debug\Core\Galaga.exe">
       <PackagePath>Galaga.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

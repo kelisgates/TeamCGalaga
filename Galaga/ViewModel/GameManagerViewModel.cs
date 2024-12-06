@@ -295,12 +295,12 @@ namespace Galaga.ViewModel
         {
             if (this.gameManager.Player.IsMovingLeft)
             {
-                this.gameManager.playerManager.MovePlayerLeft();
+                this.gameManager.PlayerManager.MovePlayerLeft();
             }
 
             if (this.gameManager.Player.IsMovingRight)
             {
-                this.gameManager.playerManager.MovePlayerRight();
+                this.gameManager.PlayerManager.MovePlayerRight();
             }
 
             if (this.gameManager.Player.IsShooting)
@@ -394,7 +394,7 @@ namespace Galaga.ViewModel
 
         private void onPlayerHit(object sender, EventArgs e)
         {
-            this.gameManager.soundManager.PlayPlayerDeathSound();
+            this.gameManager.SoundManager.PlayPlayerDeathSound();
             if (this.gameManager.Player.Lives == 0)
             {
                 this.LivesTextBlock = $"Lives: {this.gameManager.Player.Lives}";
@@ -408,8 +408,8 @@ namespace Galaga.ViewModel
 
         private async void onGameWon(object sender, EventArgs e)
         {
-            this.gameManager.soundManager.PlayGameWonSound();
-            this.gameManager.collisionManager.StopAllTimers();
+            this.gameManager.SoundManager.PlayGameWonSound();
+            this.gameManager.CollisionManager.StopAllTimers();
             this.GameWonVisibility = Visibility.Visible;
             await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.Level);
             var dialog = new ContentDialog()
@@ -471,8 +471,8 @@ namespace Galaga.ViewModel
 
         private async void onGameOver(object sender, EventArgs e)
         {
-            this.gameManager.soundManager.PlayGameOverSound();
-            this.gameManager.collisionManager.StopAllTimers();
+            this.gameManager.SoundManager.PlayGameOverSound();
+            this.gameManager.CollisionManager.StopAllTimers();
             await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.Level);
             var dialog = new ContentDialog()
             {
@@ -501,18 +501,18 @@ namespace Galaga.ViewModel
 
         private void onEnemyKilled(object sender, EventArgs e)
         {
-            this.gameManager.soundManager.PlayEnemyHitSound();
+            this.gameManager.SoundManager.PlayEnemyHitSound();
             this.ScoreTextBlock = $"Score: {this.gameManager.Player.Score}";
             this.LivesTextBlock = $"Lives: {this.gameManager.Player.Lives}";
         }
 
         private async void onLevelChanged(object sender, EventArgs e)
         {
-            if (this.gameManager.enemyManager.bonusShipTimer != null)
+            if (this.gameManager.ManagerEnemy.BonusShipTimer != null)
             {
-                this.gameManager.enemyManager.bonusShipTimer.Stop();
+                this.gameManager.ManagerEnemy.BonusShipTimer.Stop();
             }
-            this.gameManager.enemyManager.Enemies.Clear();
+            this.gameManager.ManagerEnemy.Enemies.Clear();
             var levelDialog = new ContentDialog
             {
                 Title = "Level Up!",
@@ -524,7 +524,13 @@ namespace Galaga.ViewModel
             if (this.gameManager.Level < 4)
             {
                 this.gameManager.placeEnemies();
-                this.gameManager.enemyManager.bonusShipTimer.Start();
+                var managerEnemyBonusShipTimer = this.gameManager.ManagerEnemy.BonusShipTimer;
+
+                if (managerEnemyBonusShipTimer != null)
+                {
+                    managerEnemyBonusShipTimer.Start();
+                }
+
                 this.LevelTextBlock = $"Level: {this.gameManager.Level}";
             } else if (this.gameManager.Level == 4)
             {
@@ -532,6 +538,7 @@ namespace Galaga.ViewModel
                 this.LevelTextBlock = $"Level: {this.gameManager.Level}";
             }
         }
+
         #endregion
 
     }

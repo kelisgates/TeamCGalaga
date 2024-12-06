@@ -15,10 +15,8 @@ namespace Galaga.Model
 
         private const double PlayerOffsetFromBottom = 30;
         private readonly Canvas canvas;
-        private readonly double canvasHeight;
-        private readonly double canvasWidth;
-        private const int maxLevels = 4;
-        private bool isPoweredUp = false;
+        private const int MaxLevels = 4;
+        private bool isPoweredUp;
         private int maxPlayerBullets;
 
         /// <summary>
@@ -29,35 +27,33 @@ namespace Galaga.Model
         /// <summary>
         /// list of active bullets
         /// </summary>
-        public List<Bullet> activeBullets;
+        public List<Bullet> ActiveBullets;
 
         /// <summary>
-        /// EnemyManager
+        /// EnemyManagerDataMember
         /// </summary>
-        public EnemyManager enemyManager;
+        public EnemyManager ManagerEnemy;
 
         /// <summary>
         /// Player Manager
         /// </summary>
-        public PlayerManager playerManager;
+        public PlayerManager PlayerManager;
 
         /// <summary>
         /// Collision Manager
         /// </summary>
-        public CollisionManager collisionManager;
+        public CollisionManager CollisionManager;
 
         /// <summary>
         /// Sound Manager
         /// </summary>
-        public SoundManager soundManager;
+        public SoundManager SoundManager;
 
         /// <summary>
         /// Number of levels
         /// </summary>
         public int Level;
         
-
-
         #endregion
 
         #region Events
@@ -124,7 +120,7 @@ namespace Galaga.Model
         /// <value>
         /// The enemy manager.
         /// </value>
-        public EnemyManager EnemyManager => this.enemyManager;
+        public EnemyManager EnemyManagerDataMember => this.ManagerEnemy;
         /// <summary>
         /// Canvas
         /// </summary>
@@ -143,8 +139,6 @@ namespace Galaga.Model
             this.canvas = canvas ?? throw new ArgumentNullException(nameof(canvas));
 
             this.canvas = canvas;
-            this.canvasHeight = canvas.Height;
-            this.canvasWidth = canvas.Width;
 
             this.Level = 1;
             this.initializeGame();
@@ -154,23 +148,24 @@ namespace Galaga.Model
 
         #endregion
 
-        #region Private Methods
+        #region Private and Public Helper Methods
 
         private void initializeGame()
         {
             this.createAndPlacePlayer();
-            this.collisionManager = new CollisionManager(this, this.Player, this.SecondPlayer, this.activeBullets);
-            this.activeBullets = new List<Bullet>();
+            this.CollisionManager = new CollisionManager(this, this.Player, this.SecondPlayer, this.ActiveBullets);
+            this.ActiveBullets = new List<Bullet>();
             this.placeEnemies();
-            this.soundManager = new SoundManager();
+            this.SoundManager = new SoundManager();
         }
+
         /// <summary>
         /// Places the enemies.
         /// </summary>
         public void placeEnemies()
         {
-            this.enemyManager = new EnemyManager(this.canvas, this, this.collisionManager);
-            this.enemyManager.PlaceEnemies();
+            this.ManagerEnemy = new EnemyManager(this.canvas, this, this.CollisionManager);
+            this.ManagerEnemy.PlaceEnemies();
         }
 
         /// <summary>
@@ -178,16 +173,16 @@ namespace Galaga.Model
         /// </summary>
         public void StartBossRound()
         {
-            this.enemyManager.PlaceEnemiesForBossRound();
+            this.ManagerEnemy.PlaceEnemiesForBossRound();
         }
 
         private void createAndPlacePlayer()
         {
             
-            this.playerManager = new PlayerManager(this.canvas);
-            this.playerManager.CreateAndPlacePlayer();
-            this.Player = this.playerManager.Player;
-            this.SecondPlayer = this.playerManager.SecondPlayer;
+            this.PlayerManager = new PlayerManager(this.canvas);
+            this.PlayerManager.CreateAndPlacePlayer();
+            this.Player = this.PlayerManager.Player;
+            this.SecondPlayer = this.PlayerManager.SecondPlayer;
             
         }
 
@@ -201,12 +196,12 @@ namespace Galaga.Model
         /// <returns>Task waiting to see if player can shoot again</returns>
         public async Task PlayerShoot()
         {
-            if (!this.CanShoot || this.activeBullets.Count >= this.maxPlayerBullets)
+            if (!this.CanShoot || this.ActiveBullets.Count >= this.maxPlayerBullets)
             {
                 return;
             }
 
-            this.soundManager.PlayPlayerFireSound();
+            this.SoundManager.PlayPlayerFireSound();
             this.CanShoot = false;
 
             var movementPerStep = 20;
@@ -214,22 +209,22 @@ namespace Galaga.Model
             if (this.isPoweredUp)
             {
 
-                this.PlayerPowerUpBullets(this.Player, movementPerStep);
+                this.playerPowerUpBullets(this.Player, movementPerStep);
             }
             else
             {
-                this.FireBulletFromPlayer(this.Player, movementPerStep);
+                this.fireBulletFromPlayer(this.Player, movementPerStep);
             }
 
-            if (this.playerManager.isDoubleShipActive && this.SecondPlayer != null)
+            if (this.PlayerManager.IsDoubleShipActive && this.SecondPlayer != null)
             {
                 if (this.isPoweredUp)
                 {
-                    this.PlayerPowerUpBullets(this.SecondPlayer, movementPerStep);
+                    this.playerPowerUpBullets(this.SecondPlayer, movementPerStep);
                 }
                 else
                 {
-                    this.FireBulletFromPlayer(this.SecondPlayer, movementPerStep);
+                    this.fireBulletFromPlayer(this.SecondPlayer, movementPerStep);
                 }
             }
 
@@ -237,7 +232,7 @@ namespace Galaga.Model
             this.CanShoot = true;
         }
 
-        private void FireBulletFromPlayer(Player player, int movementPerStep)
+        private void fireBulletFromPlayer(Player player, int movementPerStep)
         {
             var bullet = new Bullet
             {
@@ -247,11 +242,11 @@ namespace Galaga.Model
             };
 
             this.canvas.Children.Add(bullet.Sprite);
-            this.activeBullets.Add(bullet);
-            this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
+            this.ActiveBullets.Add(bullet);
+            this.CollisionManager.StartPlayerBulletMovement(bullet, this.canvas);
         }
 
-        private void PlayerPowerUpBullets(Player player, int movementPerStep)
+        private void playerPowerUpBullets(Player player, int movementPerStep)
         {
             for (int i = -1; i <= 1; i++)
             {
@@ -266,11 +261,10 @@ namespace Galaga.Model
 
 
                 this.canvas.Children.Add(bullet.Sprite);
-                this.activeBullets.Add(bullet);
-                this.collisionManager.StartPlayerBulletMovement(bullet, this.canvas);
+                this.ActiveBullets.Add(bullet);
+                this.CollisionManager.StartPlayerBulletMovement(bullet, this.canvas);
             }
         }
-
 
         /// <summary>
         /// Called when [enemy killed].
@@ -314,10 +308,10 @@ namespace Galaga.Model
 
         private void changeLevel()
         {
-            if (this.Level < maxLevels)
+            if (this.Level < MaxLevels)
             {
                 this.Level++;
-                this.initializeNextLevel(this.Level);
+                this.initializeNextLevel();
             } else
             {
                 this.OnGameWon();
@@ -326,15 +320,15 @@ namespace Galaga.Model
 
         private bool isLastLevel()
         {
-            return this.Level >= maxLevels;
+            return this.Level >= MaxLevels;
         }
 
-        private void initializeNextLevel(int level)
+        private void initializeNextLevel()
         {
             this.CanShoot = false;
-            this.activeBullets.Clear();
+            this.ActiveBullets.Clear();
             this.LevelChanged?.Invoke(this, EventArgs.Empty);
-            this.enemyManager.BonusEnemyActive = false;
+            this.ManagerEnemy.BonusEnemyActive = false;
             this.CanShoot = true;
         }
 
@@ -343,7 +337,10 @@ namespace Galaga.Model
         /// </summary>
         public async void playerPowerUp()
         {
-            if (this.isPoweredUp) return;
+            if (this.isPoweredUp)
+            {
+                return;
+            }
 
             this.isPoweredUp = true;
             this.maxPlayerBullets = 3 * this.maxPlayerBullets;
@@ -359,9 +356,9 @@ namespace Galaga.Model
         /// </summary>
         public void ActivateDoublePlayerShip()
         {
-            this.playerManager.isDoubleShipActive = true;
+            this.PlayerManager.IsDoubleShipActive = true;
             this.maxPlayerBullets = 6;
-            this.playerManager.createSecondShip();
+            this.PlayerManager.createSecondShip();
         }
         #endregion
 

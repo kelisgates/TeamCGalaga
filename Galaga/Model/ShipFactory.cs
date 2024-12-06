@@ -4,8 +4,6 @@ using Galaga.View.Sprites.EnemyL2Sprites;
 using Galaga.View.Sprites.EnemyL3Sprites;
 using Galaga.View.Sprites;
 using System.Collections.Generic;
-using Windows.ApplicationModel.VoiceCommands;
-using Windows.UI.Xaml.Documents;
 using Galaga.View.Sprites.BossSprite;
 
 namespace Galaga.Model
@@ -42,12 +40,6 @@ namespace Galaga.Model
     /// </summary>
     public static class ShipFactory
     {
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="ShipFactory"/> class.
-        ///// </summary>
-        //public ShipFactory()
-        //{
-        //}
 
         /// <summary>
         /// Creates the player ship.
@@ -98,6 +90,7 @@ namespace Galaga.Model
 
             return sprites;
         }
+
     }
 
 

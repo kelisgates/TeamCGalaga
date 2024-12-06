@@ -1,7 +1,4 @@
-﻿using Galaga.View.Sprites;
-using System.Runtime.CompilerServices;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace Galaga.Model
 {
@@ -10,11 +7,29 @@ namespace Galaga.Model
     /// </summary>
     public class PlayerManager
     {
+        #region Data Members
+
         private const double PlayerOffsetFromBottom = 30;
-        public Player Player;
-        public Player SecondPlayer;
         private Canvas canvas;
-        public bool isDoubleShipActive;
+
+        /// <summary>
+        /// The player
+        /// </summary>
+        public Player Player;
+
+        /// <summary>
+        /// The second player
+        /// </summary>
+        public Player SecondPlayer;
+
+        /// <summary>
+        /// The is double ship active
+        /// </summary>
+        public bool IsDoubleShipActive;
+
+        #endregion
+
+        #region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerManager"/> class.
@@ -27,6 +42,10 @@ namespace Galaga.Model
             this.canvas = canvas;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Moves the Player left.
         /// </summary>
@@ -36,7 +55,7 @@ namespace Galaga.Model
             if (this.Player.X - this.Player.SpeedX >= leftCanvasBarrier)
             {
                 this.Player.MoveLeft();
-                if (isDoubleShipActive)
+                if (this.IsDoubleShipActive)
                 {
                     this.SecondPlayer.X -= this.Player.SpeedX;
                 }
@@ -50,7 +69,7 @@ namespace Galaga.Model
         {
             var canvasWidth = this.canvas.Width;
             var rightBorder = this.Player.X + this.Player.SpeedX + this.Player.Width <= canvasWidth;
-            if (isDoubleShipActive)
+            if (this.IsDoubleShipActive)
             {
                 rightBorder = this.Player.X + this.Player.SpeedX + 2 * this.Player.Width <= canvasWidth;
             }
@@ -58,7 +77,7 @@ namespace Galaga.Model
             if (rightBorder)
             {
                 this.Player.MoveRight();
-                if (isDoubleShipActive)
+                if (this.IsDoubleShipActive)
                 {
                     this.SecondPlayer.X += this.Player.SpeedX;
                 }
@@ -71,11 +90,10 @@ namespace Galaga.Model
         /// </summary>
         public void CreateAndPlacePlayer()
         {
-
             this.canvas.Children.Add(this.Player.Sprite);
 
             this.placePlayerNearBottomOfBackgroundCentered();
-            if (isDoubleShipActive)
+            if (this.IsDoubleShipActive)
             {
                 this.createSecondShip();
             }
@@ -90,10 +108,16 @@ namespace Galaga.Model
             this.Player.Y = canvasHeight - this.Player.Height - PlayerOffsetFromBottom;
         }
 
+        /// <summary>
+        /// Creates the second ship.
+        /// </summary>
         public void createSecondShip()
         {
-            if (!isDoubleShipActive) return;
-            
+            if (!this.IsDoubleShipActive)
+            {
+                return;
+            }
+
             this.SecondPlayer.X = this.Player.X + this.Player.Width;
             this.SecondPlayer.Y = this.Player.Y;
             
@@ -105,19 +129,23 @@ namespace Galaga.Model
            
 
         }
+
         /// <summary>
         /// Removes the player.
         /// </summary>
         /// <param name="player">The player.</param>
         public void removePlayer(Player player)
         {
-            if (isDoubleShipActive)
+            if (this.IsDoubleShipActive)
             {
                 this.canvas.Children.Remove(player.Sprite);
-                this.isDoubleShipActive = false;
+                this.IsDoubleShipActive = false;
                 this.SecondPlayer.Sprite.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             }
 
         }
+
+        #endregion
+
     }
 }

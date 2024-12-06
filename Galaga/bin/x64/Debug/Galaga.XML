@@ -108,6 +108,22 @@
             </value>
             <returns>bool value is bullet is being shot</returns>
         </member>
+        <member name="P:Galaga.Model.Bullet.Dx">
+            <summary>
+            Gets or sets the dx.
+            </summary>
+            <value>
+            The dx.
+            </value>
+        </member>
+        <member name="P:Galaga.Model.Bullet.Dy">
+            <summary>
+            Gets or sets the dy.
+            </summary>
+            <value>
+            The dy.
+            </value>
+        </member>
         <member name="M:Galaga.Model.Bullet.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.Bullet"/> class.
@@ -171,6 +187,26 @@
         <member name="T:Galaga.Model.MovementDirection">
             <summary>
             movement direction of enemy
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.MovementDirection.Right">
+            <summary>
+            right direction
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.MovementDirection.Left">
+            <summary>
+            left direction
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.MovementDirection.Down">
+            <summary>
+            down direction
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.MovementDirection.Up">
+            <summary>
+            up direction
             </summary>
         </member>
         <member name="T:Galaga.Model.Enemy">
@@ -238,6 +274,11 @@
             </value>
             <returns>int the score value</returns>
         </member>
+        <member name="P:Galaga.Model.Enemy.CurrDirection">
+            <summary>
+            current movement direction of enemy
+            </summary>
+        </member>
         <member name="M:Galaga.Model.Enemy.#ctor(System.Collections.Generic.ICollection{Galaga.View.Sprites.BaseSprite},System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.Enemy"/> class.
@@ -274,6 +315,11 @@
             Moves the enemy pattern four.
             </summary>
         </member>
+        <member name="M:Galaga.Model.Enemy.checkWhichSpriteIsVisible">
+            <summary>
+            checks which sprite is visible.
+            </summary>
+        </member>
         <member name="T:Galaga.Model.EnemyManager">
             <summary>
             manages enemies in the game
@@ -297,7 +343,7 @@
             The bonus enemy active
             </summary>
         </member>
-        <member name="F:Galaga.Model.EnemyManager.bonusShipTimer">
+        <member name="F:Galaga.Model.EnemyManager.BonusShipTimer">
             <summary>
             The bonus ship timer
             </summary>
@@ -319,17 +365,6 @@
             <summary>
             Places the enemies for boss round.
             </summary>
-        </member>
-        <member name="M:Galaga.Model.EnemyManager.PlaceEnemy(Galaga.Model.EnemyType,System.Int32,System.Double,System.Double,System.Int32,System.Boolean,System.Boolean)">
-            <summary>
-            Places the enemy.
-            </summary>
-            <param name="level">The Level.</param>
-            <param name="score">The score.</param>
-            <param name="canvasMiddle">The canvas middle.</param>
-            <param name="y">The y.</param>
-            <param name="numOfEnemies">The number of enemies.</param>
-            <param name="isAttackEnemy">if set to <c>true</c> [is attack enemy].</param>
         </member>
         <member name="M:Galaga.Model.EnemyManager.bonusEnemyShip">
             <summary>
@@ -396,7 +431,7 @@
             Represents an enemy in the game.
             </summary>
         </member>
-        <member name="P:Galaga.Model.NonAttackEnemy.manager">
+        <member name="P:Galaga.Model.NonAttackEnemy.Manager">
             <summary>
             Gets the manager.
             </summary>
@@ -414,7 +449,7 @@
              class for attack enemy 
             </summary>
         </member>
-        <member name="F:Galaga.Model.AttackEnemy.isBonusShip">
+        <member name="F:Galaga.Model.AttackEnemy.IsBonusShip">
             <summary>
             The is bonus ship
             </summary>
@@ -434,27 +469,27 @@
             Checks if player can shoot
             </summary>
         </member>
-        <member name="F:Galaga.Model.GameManager.activeBullets">
+        <member name="F:Galaga.Model.GameManager.ActiveBullets">
             <summary>
             list of active bullets
             </summary>
         </member>
-        <member name="F:Galaga.Model.GameManager.enemyManager">
+        <member name="F:Galaga.Model.GameManager.ManagerEnemy">
             <summary>
-            EnemyManager
+            EnemyManagerDataMember
             </summary>
         </member>
-        <member name="F:Galaga.Model.GameManager.playerManager">
+        <member name="F:Galaga.Model.GameManager.PlayerManager">
             <summary>
             Player Manager
             </summary>
         </member>
-        <member name="F:Galaga.Model.GameManager.collisionManager">
+        <member name="F:Galaga.Model.GameManager.CollisionManager">
             <summary>
             Collision Manager
             </summary>
         </member>
-        <member name="F:Galaga.Model.GameManager.soundManager">
+        <member name="F:Galaga.Model.GameManager.SoundManager">
             <summary>
             Sound Manager
             </summary>
@@ -519,7 +554,7 @@
             </value>
             <returns>bool value if collision occurred</returns>
         </member>
-        <member name="P:Galaga.Model.GameManager.EnemyManager">
+        <member name="P:Galaga.Model.GameManager.EnemyManagerDataMember">
             <summary>
             Gets the enemy manager.
             </summary>
@@ -775,6 +810,21 @@
             player manager
             </summary>
         </member>
+        <member name="F:Galaga.Model.PlayerManager.Player">
+            <summary>
+            The player
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.PlayerManager.SecondPlayer">
+            <summary>
+            The second player
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.PlayerManager.IsDoubleShipActive">
+            <summary>
+            The is double ship active
+            </summary>
+        </member>
         <member name="M:Galaga.Model.PlayerManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.PlayerManager"/> class.
@@ -794,6 +844,11 @@
         <member name="M:Galaga.Model.PlayerManager.CreateAndPlacePlayer">
             <summary>
             Creates and place player.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.PlayerManager.createSecondShip">
+            <summary>
+            Creates the second ship.
             </summary>
         </member>
         <member name="M:Galaga.Model.PlayerManager.removePlayer(Galaga.Model.Player)">
@@ -893,6 +948,11 @@
         <member name="M:Galaga.Model.SoundManager.PlayBonusEnenySound">
             <summary>
             Plays the bonus eneny sound.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.StopBonusEnemySound">
+            <summary>
+            Stops the bonus enemy sound.
             </summary>
         </member>
         <member name="T:Galaga.ViewModel.GameManagerViewModel">
@@ -1039,6 +1099,19 @@
         <member name="M:Galaga.View.GameCanvas.GetBindingConnector(System.Int32,System.Object)">
             <summary>
             GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:Galaga.View.HighScoreDialog">
+            <summary>
+            high score dialog
+            </summary>
+            <seealso cref="T:Windows.UI.Xaml.Controls.ContentDialog" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:Galaga.View.HighScoreDialog.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Galaga.View.HighScoreDialog"/> class.
             </summary>
         </member>
         <member name="M:Galaga.View.HighScoreDialog.InitializeComponent">

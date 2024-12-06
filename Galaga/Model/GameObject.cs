@@ -1,7 +1,6 @@
 ﻿using System;
 using Windows.Foundation;
 using Galaga.View.Sprites;
-using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 using Point = Windows.Foundation.Point;
 
 namespace Galaga.Model

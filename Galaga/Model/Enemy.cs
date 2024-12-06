@@ -11,9 +11,24 @@ namespace Galaga.Model
     /// </summary>
     public enum MovementDirection
     {
+        /// <summary>
+        /// right direction
+        /// </summary>
         Right,
+
+        /// <summary>
+        /// left direction
+        /// </summary>
         Left,
+
+        /// <summary>
+        /// down direction
+        /// </summary>
         Down,
+
+        /// <summary>
+        /// up direction
+        /// </summary>
         Up
     }
 
@@ -38,7 +53,7 @@ namespace Galaga.Model
         /// <summary>
         /// The movement per step
         /// </summary>
-        protected const int MovementPerStep = 10;
+        public const int MovementPerStep = 10;
 
         /// <summary>
         /// The timer
@@ -49,6 +64,7 @@ namespace Galaga.Model
         /// The steps
         /// </summary>
         protected int SidewaysSteps;
+
         /// <summary>
         /// The horizontal steps
         /// </summary>
@@ -57,11 +73,12 @@ namespace Galaga.Model
         /// <summary>
         /// The moving right
         /// </summary>
-        protected bool MovingRight;
+        public bool MovingRight = true;
+
         /// <summary>
         /// The moving down
         /// </summary>
-        protected bool MovingDown;
+        public bool MovingDown;
 
         /// <summary>
         /// The sprites used for animation.
@@ -86,6 +103,11 @@ namespace Galaga.Model
         /// <returns>int the score value</returns>
         public int ScoreValue { get; set; }
 
+        /// <summary>
+        /// current movement direction of enemy
+        /// </summary>
+        public MovementDirection CurrDirection { get; set; }
+
         #endregion
 
         #region Constructors
@@ -99,6 +121,7 @@ namespace Galaga.Model
             Sprite = this.getFirstSprite();
             this.ScoreValue = score;
             SetSpeed(SpeedXDirection, SpeedYDirection);
+            this.CurrDirection = MovementDirection.Right;
         }
 
         #endregion
@@ -167,7 +190,7 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternOne()
         {
-            var speed = 5;
+            var speed = 4;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
@@ -191,7 +214,7 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternThree()
         {
-            var speed = 5;
+            var speed = 6;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = false;
@@ -203,13 +226,12 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternFour()
         {
-            var speed = 5;
+            var speed = 7;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
             this.MovingRight = true;
             this.movementTimer(resetSteps, MovementDirection.Right, speed, false);
         }
-
 
         private void movementTimer(int resetSteps, MovementDirection direction,int speed, bool isBonusShip)
         {
@@ -229,16 +251,6 @@ namespace Galaga.Model
                 this.MovingRight = true;
                 this.Timer.Tick += (_, _) => { this.checkMovingRightOrLeft(resetSteps, isBonusShip); };
             }
-            //else if (direction == MovementDirection.Down)
-            //{
-
-            //    this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
-            //}
-            //else if (direction == MovementDirection.Up)
-            //{
-
-            //    this.Timer.Tick += (_, _) => { this.checkMovingUpOrDown(resetSteps); };
-            //}
 
             this.Timer.Start();
         }
@@ -278,9 +290,15 @@ namespace Galaga.Model
             {
                 X += MovementPerStep;
             }
-            else
+            else if (!this.MovingRight)
             {
                 X -= MovementPerStep;
+            } else if (this.MovingDown)
+            {
+                Y += MovementPerStep;
+            } else if (!this.MovingDown)
+            {
+                Y -= MovementPerStep;
             }
 
 
@@ -294,7 +312,10 @@ namespace Galaga.Model
             }
         }
 
-        private void checkWhichSpriteIsVisible()
+        /// <summary>
+        /// checks which sprite is visible.
+        /// </summary>
+        public void checkWhichSpriteIsVisible()
         {
             var spriteArray = new List<BaseSprite>(this.Sprites);
             BaseSprite visibleSprite = this.IsFirstSpriteVisible ? spriteArray[0] : spriteArray[1];
@@ -307,8 +328,7 @@ namespace Galaga.Model
             Canvas.SetTop(hiddenSprite, Y);
         }
 
-        
-
         #endregion
+
     }
 }

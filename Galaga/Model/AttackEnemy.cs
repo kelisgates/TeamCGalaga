@@ -17,11 +17,12 @@ namespace Galaga.Model
         private Random random;
         private readonly Canvas canvas;
         private readonly CollisionManager collisionManager;
+        private bool canTrackPlayer;
+
         /// <summary>
         /// The is bonus ship
         /// </summary>
-        public bool isBonusShip;
-        private bool canTrackPlayer;
+        public bool IsBonusShip;
 
         #endregion
 
@@ -34,16 +35,16 @@ namespace Galaga.Model
         {
             this.canvas = canvas;
             this.collisionManager = collisionManager;
-            this.isBonusShip = isBonusShip;
+            this.IsBonusShip = isBonusShip;
 
             if (canTrackPlayer)
             {
                 this.canTrackPlayer = true;
             }
 
-            if (this.isBonusShip)
+            if (this.IsBonusShip)
             {
-                MoveEnemy(this.isBonusShip);
+                MoveEnemy(this.IsBonusShip);
             }
             else
             {
@@ -62,14 +63,15 @@ namespace Galaga.Model
             switch (level)
             {
                 case 1:
-                    MoveEnemy(this.isBonusShip);
+                    MoveEnemy(this.IsBonusShip);
                     break;
                 case 2:
                     MoveEnemyPatternThree();
 
                     break;
                 case 3:
-                    if (this.Y == 100)
+                    var y = 100;
+                    if (Y.Equals(y))
                     {
                         MoveEnemyPatternTwo();
                     }
@@ -79,7 +81,6 @@ namespace Galaga.Model
                     }
                     break;
                 case 4:
-                    MoveEnemy(this.isBonusShip);
                     break;
                 default:
                     throw new ArgumentException("Invalid level");
@@ -136,7 +137,6 @@ namespace Galaga.Model
                 Debug.WriteLine(ex.StackTrace);
             }
         }
-
         
         private void restartShootingTimer()
         {
@@ -164,21 +164,21 @@ namespace Galaga.Model
             switch (level)
             {
                 case 1:
-                    minInterval = 1000;
-                    maxInterval = 10000;
+                    minInterval = 5000;
+                    maxInterval = 200000;
                     break;
 
                 case 2:
-                    minInterval = 1000;
-                    maxInterval = 5000;
+                    minInterval = 4000;
+                    maxInterval = 500000;
                     break;
                 case 3:
-                    minInterval = 10000;
+                    minInterval = 3000;
                     maxInterval = 250000;
                     break;
                 case 4:
                     minInterval = 1000;
-                    maxInterval = 10000;
+                    maxInterval = 25000;
                     break;
                 default:
                     throw new ArgumentException("Invalid Level");

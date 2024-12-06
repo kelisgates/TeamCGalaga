@@ -112,7 +112,7 @@ namespace Galaga.Model
             {
                 Interval = TimeSpan.FromSeconds(durationInSeconds)
             };
-            this.invincibilityTimer.Tick += (s, e) =>
+            this.invincibilityTimer.Tick += (_, _) =>
             {
                 this.IsInvincible = false;
                 this.invincibilityTimer.Stop();
@@ -146,7 +146,7 @@ namespace Galaga.Model
                 Interval = TimeSpan.FromMilliseconds(100)
             };
 
-            explosionTimer.Tick += (s, e) =>
+            explosionTimer.Tick += (_, _) =>
             {
                 if (frameIndex < explosionFrames.Count)
                 {

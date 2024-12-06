@@ -78,7 +78,7 @@ namespace Galaga.Model
                 Interval = TimeSpan.FromMilliseconds(5)
             };
             this.Timers.Add(timer);
-            timer.Tick += (s, e) =>
+            timer.Tick += (_, _) =>
             {
                 var position = bullet.Y;
                 var canvasBarrier = 0;
@@ -102,7 +102,7 @@ namespace Galaga.Model
 
         private void checkCollisionWithEnemy(Bullet bullet, Canvas canvasParam)
         {
-            foreach (var enemy in this.GameManager.enemyManager.Enemies)
+            foreach (var enemy in this.GameManager.ManagerEnemy.Enemies)
             {
                 if (enemy == null)
                 {
@@ -111,7 +111,7 @@ namespace Galaga.Model
 
                 if (bullet.Intersects(enemy))
                 {
-                    this.GameManager.soundManager.PlayEnemyHitSound();
+                    this.GameManager.SoundManager.PlayEnemyHitSound();
                     canvasParam.Children.Remove(bullet.Sprite);
                     this.checkIfEnemyIsAttackingEnemy(enemy);
                     this.removeEnemyAndUpdateScore(enemy);
@@ -125,7 +125,7 @@ namespace Galaga.Model
         {
             if (enemy is AttackEnemy enemyLevelThree)
             {
-                if (enemyLevelThree.isBonusShip)
+                if (enemyLevelThree.IsBonusShip)
                 {
                     this.handleBonusEnemyException();
                 }
@@ -135,15 +135,15 @@ namespace Galaga.Model
 
         private void handleBonusEnemyException()
         {
-            this.GameManager.enemyManager.bonusShipTimer.Stop();
-            if (this.GameManager.Level != 1 && !this.GameManager.playerManager.isDoubleShipActive)
+            this.GameManager.ManagerEnemy.BonusShipTimer.Stop();
+            if (this.GameManager.Level != 1 && !this.GameManager.PlayerManager.IsDoubleShipActive)
             {
                 this.GameManager.ActivateDoublePlayerShip();
             } else if (this.GameManager.Level == 1)
             {
                 this.GameManager.Player.Lives++;
             }
-            this.GameManager.soundManager.StopBonusEnemySound();
+            this.GameManager.SoundManager.StopBonusEnemySound();
             this.GameManager.playerPowerUp();
         }
 
@@ -151,14 +151,14 @@ namespace Galaga.Model
         {
             this.GameManager.WasCollision = true;
             this.canvas.Children.Remove(enemy.Sprite);
-            this.GameManager.enemyManager.Enemies.Remove(enemy);
+            this.GameManager.ManagerEnemy.Enemies.Remove(enemy);
 
             var amount = enemy.ScoreValue;
             this.GameManager.Player.Score += amount;
             
             this.GameManager.OnEnemyKilled();
 
-            if (this.GameManager.enemyManager.Enemies.Count == 0)
+            if (this.GameManager.ManagerEnemy.Enemies.Count == 0)
             {
                 this.GameManager.OnGameWon();
             }
@@ -171,7 +171,7 @@ namespace Galaga.Model
                 this.GameManager.WasCollision = false;
                 canvasParam.Children.Remove(bullet.Sprite);
                 dispatcherTimer.Stop();
-                this.GameManager.activeBullets.Remove(bullet);
+                this.GameManager.ActiveBullets.Remove(bullet);
                 this.activeBullets.Remove(bullet);
 
             }
@@ -182,7 +182,7 @@ namespace Galaga.Model
             canvasParam.Children.Remove(bullet.Sprite);
             this.GameManager.Player.BulletsShot--;
             dispatcherTimer.Stop();
-            this.GameManager.activeBullets.Remove(bullet);
+            this.GameManager.ActiveBullets.Remove(bullet);
             this.activeBullets.Remove(bullet);
         }
 
@@ -198,7 +198,7 @@ namespace Galaga.Model
         /// <param name="canTrackPlayer">tracks if enemy can track player or not</param>
         public void StartEnemyBulletMovement(Bullet bullet, Canvas canvasParam, bool canTrackPlayer)
         {
-            this.GameManager.soundManager.PlayEnemyFireSound();
+            this.GameManager.SoundManager.PlayEnemyFireSound();
             var timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(5)
@@ -254,7 +254,7 @@ namespace Galaga.Model
             {
                 return;
             }
-            if (this.GameManager.playerManager.isDoubleShipActive)
+            if (this.GameManager.PlayerManager.IsDoubleShipActive)
             {
                 
                 this.OneOfTwoPlayerDeath(enemyBullet, canvasParam);
@@ -274,15 +274,15 @@ namespace Galaga.Model
         {   
             if (enemyBullet.Intersects(this.player))
             {
-                this.GameManager.soundManager.PlayPlayerDeathSound();
+                this.GameManager.SoundManager.PlayPlayerDeathSound();
                 this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
-                this.GameManager.playerManager.removePlayer(this.player);
+                this.GameManager.PlayerManager.removePlayer(this.player);
             }
             else if (enemyBullet.Intersects(this.secondPlayer))
             {
-                this.GameManager.soundManager.PlayPlayerDeathSound();
+                this.GameManager.SoundManager.PlayPlayerDeathSound();
                 this.player.PlayExplosionAnimation(this.secondPlayer.X, this.secondPlayer.Y, canvasParam);
-                this.GameManager.playerManager.removePlayer(this.secondPlayer);
+                this.GameManager.PlayerManager.removePlayer(this.secondPlayer);
             }
             
         }
@@ -319,7 +319,7 @@ namespace Galaga.Model
 
         private void playerReturnTimer(DispatcherTimer playerReturnTimer)
         {
-            playerReturnTimer.Tick += (s, e) =>
+            playerReturnTimer.Tick += (_, _) =>
             {
                 if (this.player.Sprite.Parent != null)
                 {

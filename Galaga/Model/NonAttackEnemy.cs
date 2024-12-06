@@ -9,13 +9,17 @@ namespace Galaga.Model
     /// </summary>
     public class NonAttackEnemy: Enemy
     {
+        #region Data Members
+
         /// <summary>
         /// Gets the manager.
         /// </summary>
         /// <value>
         /// The manager.
         /// </value>
-        private EnemyManager manager { get; }
+        private EnemyManager Manager { get; }
+
+        #endregion
 
         #region Constructors
 
@@ -24,14 +28,18 @@ namespace Galaga.Model
         /// </summary>
         public NonAttackEnemy(ICollection<BaseSprite> sprites, int score, EnemyManager manager) : base(sprites, score)
         {
-            MoveEnemy(false);
-            this.manager = manager;
+            
+            this.Manager = manager;
             this.moveEnemyBasedOnLevel();
         }
 
+        #endregion
+
+        #region Methods
+
         private void moveEnemyBasedOnLevel()
         {
-            int level = this.manager.Manager.Level;
+            int level = this.Manager.Manager.Level;
             switch (level)
             {
                 case 1:
@@ -50,6 +58,8 @@ namespace Galaga.Model
                     {
                         MoveEnemyPatternOne();
                     }
+                    break;
+                case 4:
                     break;
                 default:
                     throw new ArgumentException("Invalid level");

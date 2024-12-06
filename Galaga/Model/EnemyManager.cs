@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System;
-using System.Threading;
-using Windows.UI.Xaml.Documents;
 
 namespace Galaga.Model
 {
-    
-
     /// <summary>
     /// manages enemies in the game
     /// </summary>
@@ -17,13 +13,15 @@ namespace Galaga.Model
     {
         #region Data Members
 
+        private readonly Canvas canvas;
+        private DispatcherTimer animationTimer;
+        private readonly CollisionManager collisionManager;
+
         /// <summary>
         /// list of enemies in game
         /// </summary>
         public readonly IList<Enemy> Enemies;
 
-        private readonly Canvas canvas;
-        private DispatcherTimer animationTimer;
         /// <summary>
         /// Gets the manager.
         /// </summary>
@@ -31,15 +29,16 @@ namespace Galaga.Model
         /// The manager.
         /// </value>
         public GameManager Manager { get; }
-        private readonly CollisionManager collisionManager;
+
         /// <summary>
         /// The bonus enemy active
         /// </summary>
         public bool BonusEnemyActive;
+
         /// <summary>
         /// The bonus ship timer
         /// </summary>
-        public DispatcherTimer bonusShipTimer;
+        public DispatcherTimer BonusShipTimer;
 
         #endregion
 
@@ -76,10 +75,10 @@ namespace Galaga.Model
             var canvasWidth = this.canvas.Width;
             var canvasMiddle = canvasWidth / half;
 
-            this.PlaceEnemy(EnemyType.Level1, 10, canvasMiddle, 300, 3, false, false);
-            this.PlaceEnemy(EnemyType.Level2, 20, canvasMiddle, 200, 4, false, false);
-            this.PlaceEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, true, false);
-            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 10, 5, true, true);
+            this.placeEnemy(EnemyType.Level1, 10, canvasMiddle, 300, 3, false, false);
+            this.placeEnemy(EnemyType.Level2, 20, canvasMiddle, 200, 4, false, false);
+            this.placeEnemy(EnemyType.Level3, 30, canvasMiddle, 100, 4, true, false);
+            this.placeEnemy(EnemyType.Level4, 40, canvasMiddle, 10, 5, true, true);
 
             this.addEnemiesToCanvas();
         }
@@ -89,52 +88,29 @@ namespace Galaga.Model
         /// </summary>
         public void PlaceEnemiesForBossRound()
         {
-            var half = 2.0;
-            var canvasWidth = this.canvas.Width;
-            var canvasMiddle = canvasWidth / half;
-
+            var canvasMiddle = this.canvas.Width / 2.0;
             var bossSprites = ShipFactory.CreateEnemyShip(EnemyType.Boss);
 
             this.checkIfAttackOrNonAttackEnemy(50, 150, true, bossSprites, canvasMiddle, false, true);
 
-            this.PlaceEnemy(EnemyType.Level4, 40, canvasMiddle, 300, 7, true, true);
+            var numOfEnemies = 7;
+            var distanceFromBoss = 100;
+
+            for (int i = 0; i < numOfEnemies; i++)
+            {
+                var xPosition = canvasMiddle + (i * distanceFromBoss) - (numOfEnemies - 1) * distanceFromBoss / 2.0;
+                this.checkIfAttackOrNonAttackEnemy(40, 150 + distanceFromBoss, true, ShipFactory.CreateEnemyShip(EnemyType.Level4), xPosition, false, true);
+            }
 
             this.addEnemiesToCanvas();
+            this.startSquareMovement(this.Enemies[0].Sprite, 100);
         }
 
-        private void addEnemiesToCanvas()
-        {
-            foreach (var enemy in this.Enemies)
-            {
-                if (enemy.Sprite.Parent != null)
-                {
-                    ((Panel)enemy.Sprite.Parent).Children.Remove(enemy.Sprite);
-                }
+        #endregion
 
-                foreach (var currSprite in enemy.Sprites)
-                {
-                    Canvas.SetLeft(currSprite, enemy.X);
-                    Canvas.SetTop(currSprite, enemy.Y);
-                    if (this.canvas.Children.Contains(currSprite))
-                    {
-                        this.canvas.Children.Remove(currSprite);
-                    }
-                    this.canvas.Children.Add(currSprite);
-                }
+        #region Private Methods
 
-            }
-        }
-
-        /// <summary>
-        /// Places the enemy.
-        /// </summary>
-        /// <param name="level">The Level.</param>
-        /// <param name="score">The score.</param>
-        /// <param name="canvasMiddle">The canvas middle.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="numOfEnemies">The number of enemies.</param>
-        /// <param name="isAttackEnemy">if set to <c>true</c> [is attack enemy].</param>
-        public void PlaceEnemy(EnemyType level, int score, double canvasMiddle, double y, int numOfEnemies,
+        private void placeEnemy(EnemyType level, int score, double canvasMiddle, double y, int numOfEnemies,
             bool isAttackEnemy, bool canTrackPlayer)
         {
             for (int i = 0; i < numOfEnemies; i++)
@@ -147,10 +123,6 @@ namespace Galaga.Model
                 this.checkIfAttackOrNonAttackEnemy(score, y, isAttackEnemy, sprites, xPosition, false, canTrackPlayer);
             }
         }
-
-        #endregion
-
-        #region Private Methods
 
         private void checkIfAttackOrNonAttackEnemy(int score, double y, bool isAttackEnemy, ICollection<BaseSprite> sprites,
             double xPosition, bool isBonusShip, bool canTrackPlayer)
@@ -201,6 +173,7 @@ namespace Galaga.Model
             return canvasMiddle - (numOfEnemies * widthDistance) / half;
 
         }
+
         /// <summary>
         /// Bonuses the enemy ship.
         /// </summary>
@@ -219,23 +192,108 @@ namespace Galaga.Model
                 this.canvas.Children.Add(currSprite);
             }
 
-            this.Manager.soundManager.PlayBonusEnenySound();
+            this.Manager.SoundManager.PlayBonusEnenySound();
             
-
         }
-        
+
+        private void startSquareMovement(BaseSprite boss, double speed)
+        {
+            var squareWidth = 800;
+            var squareHeight = 400;
+            var stepSize = 5;
+
+            var movementTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(1000 / speed)
+            };
+
+            movementTimer.Tick += (_, _) =>
+            {
+                for (int i = 1; i < this.Enemies.Count; i++)
+                {
+                    var enemy = this.Enemies[i];
+                    if (enemy.Sprite != boss)
+                    {
+                        this.moveEnemy(enemy, stepSize, squareWidth, squareHeight);
+                    }
+                }
+            };
+
+            movementTimer.Start();
+        }
+
+        private void moveEnemy(Enemy enemy, int stepSize, int squareWidth, int squareHeight)
+        {
+            switch (enemy.CurrDirection)
+            {
+                case MovementDirection.Right:
+                    enemy.X += stepSize;
+                    if (enemy.X >= squareWidth)
+                    {
+                        enemy.CurrDirection = MovementDirection.Up;
+                    }
+                    break;
+                case MovementDirection.Up:
+                    enemy.Y -= stepSize;
+                    if (enemy.Y <= 0)
+                    {
+                        enemy.CurrDirection = MovementDirection.Left;
+                    }
+                    break;
+                case MovementDirection.Left:
+                    enemy.X -= stepSize;
+                    if (enemy.X <= 0)
+                    {
+                        enemy.CurrDirection = MovementDirection.Down;
+                    }
+                    break;
+                case MovementDirection.Down:
+                    enemy.Y += stepSize;
+                    if (enemy.Y >= squareHeight)
+                    {
+                        enemy.CurrDirection = MovementDirection.Right;
+                    }
+                    break;
+            }
+
+            enemy.checkWhichSpriteIsVisible();
+        }
+
+        private void addEnemiesToCanvas()
+        {
+            foreach (var enemy in this.Enemies)
+            {
+                if (enemy.Sprite.Parent != null)
+                {
+                    ((Panel)enemy.Sprite.Parent).Children.Remove(enemy.Sprite);
+                }
+
+                foreach (var currSprite in enemy.Sprites)
+                {
+                    Canvas.SetLeft(currSprite, enemy.X);
+                    Canvas.SetTop(currSprite, enemy.Y);
+                    if (this.canvas.Children.Contains(currSprite))
+                    {
+                        this.canvas.Children.Remove(currSprite);
+                    }
+                    this.canvas.Children.Add(currSprite);
+                }
+
+            }
+        }
+
         /// <summary>
         /// Initializes bonushipTimer
         /// </summary>
-        public void  initializeBonusShipTimer()
-         {
-            this.bonusShipTimer = new DispatcherTimer
+        private void  initializeBonusShipTimer()
+        {
+            this.BonusShipTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(4)
             };
             var random = new Random();
 
-            this.bonusShipTimer.Tick += (_, _) =>
+            this.BonusShipTimer.Tick += (_, _) =>
             {
                 if (!this.BonusEnemyActive && random.NextDouble() < 0.3)
                 {
@@ -244,8 +302,9 @@ namespace Galaga.Model
                 }
             };
 
-            this.bonusShipTimer.Start();
+            this.BonusShipTimer.Start();
         }
+
         #endregion
     }
 
