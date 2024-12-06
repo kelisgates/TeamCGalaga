@@ -329,7 +329,7 @@ namespace Galaga.Model
             return this.Level >= MaxLevels;
         }
 
-        private async void initializeNextLevel()
+        private void initializeNextLevel()
         {
             foreach(var bullet in this.ActiveBullets)
             {
@@ -343,7 +343,7 @@ namespace Galaga.Model
         /// <summary>
         /// Players the power up. Let's player shoot all three bullets at the same time
         /// </summary>
-        public void playerPowerUp()
+        public async void playerPowerUp()
         {
             if (this.isPoweredUp)
             {
@@ -352,6 +352,8 @@ namespace Galaga.Model
 
             this.isPoweredUp = true;
             this.MaxPlayerBullets = 3 * this.MaxPlayerBullets;
+
+            Task.Delay(5000);
 
             this.isPoweredUp = false;
             this.MaxPlayerBullets /= 3;
