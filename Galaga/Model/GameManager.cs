@@ -353,7 +353,7 @@ namespace Galaga.Model
             this.isPoweredUp = true;
             this.MaxPlayerBullets = 3 * this.MaxPlayerBullets;
 
-            Task.Delay(5000);
+            await Task.Delay(5000);
 
             this.isPoweredUp = false;
             this.MaxPlayerBullets /= 3;
