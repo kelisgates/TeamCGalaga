@@ -6,23 +6,20 @@ using Windows.UI.Xaml;
 namespace Galaga.Model
 {
     /// <summary>
-    /// Manages collision detection and bullet movement.
+    /// class that manages the collisions in the game
     /// </summary>
     public class CollisionManager
     {
-        #region Data Members   
-        
+        #region Data Members
+
         /// <summary>
         /// The game manager
         /// </summary>
         public GameManager GameManager;
 
         private readonly Player player;
-
         private readonly Player secondPlayer;
-
         private readonly List<Bullet> activeBullets;
-
         private readonly Canvas canvas;
 
         /// <summary>
@@ -50,8 +47,8 @@ namespace Galaga.Model
         /// </summary>
         /// <param name="gameManager">The game manager.</param>
         /// <param name="player">The player.</param>
-        /// <param name="secondPlayer"> The second player</param>
-        /// <param name="activeBullets">The list of active bullets.</param>
+        /// <param name="secondPlayer">The second player.</param>
+        /// <param name="activeBullets">The active bullets.</param>
         public CollisionManager(GameManager gameManager, Player player, Player secondPlayer, List<Bullet> activeBullets)
         {
             this.GameManager = gameManager;
@@ -67,46 +64,39 @@ namespace Galaga.Model
         #region Player Methods
 
         /// <summary>
-        /// Starts the bullet movement.
+        /// Starts the player bullet movement.
         /// </summary>
         /// <param name="bullet">The bullet.</param>
-        /// <param name="canvasParam">The canvasParam.</param>
+        /// <param name="canvasParam">The canvas parameter.</param>
+        /// <param name="direction">The direction.</param>
         public void StartPlayerBulletMovement(Bullet bullet, Canvas canvasParam, int direction = 0)
         {
-            var timer = new DispatcherTimer
+            var timer = this.createTimer(timer =>
             {
-                Interval = TimeSpan.FromMilliseconds(5)
-            };
+                this.movePlayerBullet(bullet, canvasParam, direction, timer);
+            });
             this.Timers.Add(timer);
-            timer.Tick += (_, _) =>
-            {
-                var canvasBarrier = 0;
-                var canvasLeftBarrier = 0;
-                var canvasRightBarrier = 900;
-                if (bullet.Y > canvasBarrier && bullet.X > canvasLeftBarrier && bullet.X < canvasRightBarrier)
-                {
-                    var movementPerStep = 10;
-                  
-                    bullet.Y -= movementPerStep;
-                    var angleStep = 2;
-                    if (direction < 0)
-                    {
-                        bullet.X -= angleStep;
-                    }
-                    else if (direction > 0)
-                    {
-                        bullet.X += angleStep;
-                    }
-                    this.checkCollisionWithEnemy(bullet, canvasParam);
-                    this.updatePlayerBullet(bullet, timer, canvasParam);
-                }
-                else
-                {
-                    this.removePlayerBullet(bullet, timer, canvasParam);
-                }
-            };
-
             timer.Start();
+        }
+
+        private void movePlayerBullet(Bullet bullet, Canvas canvasParam, int direction, DispatcherTimer timer)
+        {
+            var canvasBarrier = 0;
+            var canvasLeftBarrier = 0;
+            var canvasRightBarrier = 900;
+            if (bullet.Y > canvasBarrier && bullet.X > canvasLeftBarrier && bullet.X < canvasRightBarrier)
+            {
+                var movementPerStep = 10;
+                bullet.Y -= movementPerStep;
+                var angleStep = 2;
+                bullet.X += direction < 0 ? -angleStep : direction > 0 ? angleStep : 0;
+                this.checkCollisionWithEnemy(bullet, canvasParam);
+                this.updateBullet(bullet, timer, canvasParam);
+            }
+            else
+            {
+                this.removeBullet(bullet, timer, canvasParam);
+            }
         }
 
         private void checkCollisionWithEnemy(Bullet bullet, Canvas canvasParam)
@@ -126,20 +116,18 @@ namespace Galaga.Model
                     this.removeEnemyAndUpdateScore(enemy);
                     break;
                 }
-
-                
             }
         }
 
         private void checkIfEnemyIsAttackingEnemy(Enemy enemy)
         {
-            var collisionCounter = 0;
             if (enemy is AttackEnemy enemyLevelThree)
             {
                 if (enemyLevelThree.IsBonusShip)
                 {
                     this.handleBonusEnemyException();
-                } 
+                }
+
                 enemyLevelThree.Timer.Stop();
             }
         }
@@ -150,10 +138,12 @@ namespace Galaga.Model
             if (this.GameManager.Level != 1 && !this.GameManager.PlayerManager.IsDoubleShipActive)
             {
                 this.GameManager.ActivateDoublePlayerShip();
-            } else if (this.GameManager.Level == 1)
+            }
+            else if (this.GameManager.Level == 1)
             {
                 this.GameManager.Player.Lives++;
             }
+
             this.GameManager.SoundManager.StopBonusEnemySound();
             this.GameManager.playerPowerUp();
         }
@@ -163,32 +153,24 @@ namespace Galaga.Model
             this.GameManager.WasCollision = true;
             this.canvas.Children.Remove(enemy.Sprite);
             this.GameManager.ManagerEnemy.Enemies.Remove(enemy);
-
-            var amount = enemy.ScoreValue;
-            this.GameManager.Player.Score += amount;
-            
+            this.GameManager.Player.Score += enemy.ScoreValue;
             this.GameManager.OnEnemyKilled();
-
             if (this.GameManager.ManagerEnemy.Enemies.Count == 0)
             {
                 this.GameManager.OnGameWon();
             }
         }
 
-        private void updatePlayerBullet(Bullet bullet, DispatcherTimer dispatcherTimer, Canvas canvasParam)
+        private void updateBullet(Bullet bullet, DispatcherTimer dispatcherTimer, Canvas canvasParam)
         {
             if (this.GameManager.WasCollision)
             {
                 this.GameManager.WasCollision = false;
-                canvasParam.Children.Remove(bullet.Sprite);
-                dispatcherTimer.Stop();
-                this.GameManager.ActiveBullets.Remove(bullet);
-                this.activeBullets.Remove(bullet);
-
+                this.removeBullet(bullet, dispatcherTimer, canvasParam);
             }
         }
 
-        private void removePlayerBullet(Bullet bullet, DispatcherTimer dispatcherTimer, Canvas canvasParam)
+        private void removeBullet(Bullet bullet, DispatcherTimer dispatcherTimer, Canvas canvasParam)
         {
             canvasParam.Children.Remove(bullet.Sprite);
             this.GameManager.Player.BulletsShot--;
@@ -205,58 +187,55 @@ namespace Galaga.Model
         /// Starts the enemy bullet movement.
         /// </summary>
         /// <param name="bullet">The bullet.</param>
-        /// <param name="canvasParam">The canvasParam.</param>
-        /// <param name="canTrackPlayer">tracks if enemy can track player or not</param>
+        /// <param name="canvasParam">The canvas parameter.</param>
+        /// <param name="canTrackPlayer">if set to <c>true</c> [can track player].</param>
         public void StartEnemyBulletMovement(Bullet bullet, Canvas canvasParam, bool canTrackPlayer)
         {
             this.GameManager.SoundManager.PlayEnemyFireSound();
-            var timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(5)
-            };
+            var timer = this.createTimer(timer => this.moveEnemyBullet(bullet, canvasParam, timer));
             this.Timers.Add(timer);
-
-            double velocityX = 0;
-            double velocityY = 0;
 
             if (canTrackPlayer)
             {
                 double deltaX = this.player.X - bullet.X;
                 double deltaY = this.player.Y - bullet.Y;
                 double angle = Math.Atan2(deltaY, deltaX);
-                double speed = 5; 
-                velocityX = Math.Cos(angle) * speed;
-                velocityY = Math.Sin(angle) * speed;
+                double speed = 5;
+                bullet.VelocityX = Math.Cos(angle) * speed;
+                bullet.VelocityY = Math.Sin(angle) * speed;
+            }
+            else
+            {
+                bullet.VelocityY = 10; // Move straight down if not tracking
             }
 
-            timer.Tick += (_, _) =>
-            {
-                var position = bullet.Y;
-                var canvasHeight = canvasParam.ActualHeight;
-
-                if (position < canvasHeight)
-                {
-                    if (canTrackPlayer)
-                    {
-                        bullet.X += velocityX;
-                        bullet.Y += velocityY;
-                    }
-                    else
-                    {
-                        var movementPerStep = 10;
-                        bullet.Y += movementPerStep;
-                        
-                    }
-                    this.checkCollisionWithPlayer(bullet, canvasParam, timer);
-                }
-                else
-                {
-                    canvasParam.Children.Remove(bullet.Sprite);
-                    timer.Stop();
-                }
-            };
-
             timer.Start();
+        }
+
+        private void moveEnemyBullet(Bullet bullet, Canvas canvasParam, DispatcherTimer timer)
+        {
+            var position = bullet.Y;
+            var canvasHeight = canvasParam.ActualHeight;
+            if (position < canvasHeight)
+            {
+                bullet.X += bullet.VelocityX;
+                bullet.Y += bullet.VelocityY;
+                this.checkCollisionWithPlayer(bullet, canvasParam, timer);
+            }
+            else
+            {
+                this.removeBullet(bullet, timer, canvasParam);
+            }
+        }
+
+        private void trackPlayer(Bullet bullet)
+        {
+            double deltaX = this.player.X - bullet.X;
+            double deltaY = this.player.Y - bullet.Y;
+            double angle = Math.Atan2(deltaY, deltaX);
+            double speed = 5;
+            bullet.X += Math.Cos(angle) * speed;
+            bullet.Y += Math.Sin(angle) * speed;
         }
 
         private void checkCollisionWithPlayer(Bullet enemyBullet, Canvas canvasParam, DispatcherTimer timer)
@@ -265,13 +244,12 @@ namespace Galaga.Model
             {
                 return;
             }
+
             if (this.GameManager.PlayerManager.IsDoubleShipActive && enemyBullet.Intersects(this.secondPlayer))
             {
-                
                 this.OneOfTwoPlayerDeath(enemyBullet, canvasParam);
-
             }
-            
+
             if (enemyBullet.Intersects(this.player))
             {
                 this.player.PlayExplosionAnimation(this.player.X, this.player.Y, canvasParam);
@@ -283,11 +261,10 @@ namespace Galaga.Model
                     this.GameManager.MaxPlayerBullets /= 2;
                 }
             }
-
-
         }
+
         private void OneOfTwoPlayerDeath(Bullet enemyBullet, Canvas canvasParam)
-        {   
+        {
             if (enemyBullet.Intersects(this.secondPlayer))
             {
                 this.GameManager.SoundManager.PlayPlayerDeathSound();
@@ -295,7 +272,6 @@ namespace Galaga.Model
                 this.GameManager.PlayerManager.removePlayer(this.secondPlayer);
                 this.GameManager.MaxPlayerBullets /= 2;
             }
-            
         }
 
         private void updateGameState(Bullet enemyBullet, Canvas canvasParam, DispatcherTimer timer)
@@ -305,11 +281,9 @@ namespace Galaga.Model
             {
                 this.GameManager.Player.Lives--;
             }
-            this.GameManager.OnPlayerHit();
 
-            canvasParam.Children.Remove(enemyBullet.Sprite);
-            timer.Stop();
-            
+            this.GameManager.OnPlayerHit();
+            this.removeBullet(enemyBullet, timer, canvasParam);
         }
 
         private void checkPlayerStatus()
@@ -322,29 +296,23 @@ namespace Galaga.Model
             {
                 this.GameManager.CanShoot = false;
                 this.canvas.Children.Remove(this.player.Sprite);
-                this.player.StartInvincibility(3);
-                var playerReturnTimer = new DispatcherTimer
-                {
-                    Interval = TimeSpan.FromSeconds(1)
-                };
-                this.playerReturnTimer(playerReturnTimer);
+                this.player.StartInvincibility(3); var playerReturnTimer = this.createTimer(timer => this.returnPlayer(timer));
+                playerReturnTimer.Interval = TimeSpan.FromSeconds(1);
+                playerReturnTimer.Start();
             }
         }
 
-        private void playerReturnTimer(DispatcherTimer playerReturnTimer)
+        private void returnPlayer(DispatcherTimer playerReturnTimer)
         {
-            playerReturnTimer.Tick += (_, _) =>
+            if (this.player.Sprite.Parent != null)
             {
-                if (this.player.Sprite.Parent != null)
-                {
-                    ((Panel)this.player.Sprite.Parent).Children.Remove(this.player.Sprite);
-                }
-                this.canvas.Children.Add(this.player.Sprite);
-                this.GameManager.CanShoot = true;
-                playerReturnTimer.Stop();
-                this.IsCollisionProcessed = false;
-            };
-            playerReturnTimer.Start();
+                ((Panel)this.player.Sprite.Parent).Children.Remove(this.player.Sprite);
+            }
+
+            this.canvas.Children.Add(this.player.Sprite);
+            this.GameManager.CanShoot = true;
+            playerReturnTimer.Stop();
+            this.IsCollisionProcessed = false;
         }
 
         #endregion
@@ -360,6 +328,16 @@ namespace Galaga.Model
             {
                 timer.Stop();
             }
+        }
+
+        private DispatcherTimer createTimer(Action<DispatcherTimer> tickAction)
+        {
+            var timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(5)
+            };
+            timer.Tick += (_, _) => tickAction(timer);
+            return timer;
         }
 
         #endregion

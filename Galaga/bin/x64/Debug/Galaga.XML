@@ -108,6 +108,15 @@
             </value>
             <returns>bool value is bullet is being shot</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "P:Galaga.Model.Bullet.VelocityX" -->
+        <member name="P:Galaga.Model.Bullet.VelocityY">
+            <summary>
+            Gets or sets the velocity y.
+            </summary>
+            <value>
+            The velocity y.
+            </value>
+        </member>
         <member name="M:Galaga.Model.Bullet.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.Bullet"/> class.
@@ -115,7 +124,7 @@
         </member>
         <member name="T:Galaga.Model.CollisionManager">
             <summary>
-            Manages collision detection and bullet movement.
+            class that manages the collisions in the game
             </summary>
         </member>
         <member name="F:Galaga.Model.CollisionManager.GameManager">
@@ -145,23 +154,24 @@
             </summary>
             <param name="gameManager">The game manager.</param>
             <param name="player">The player.</param>
-            <param name="secondPlayer"> The second player</param>
-            <param name="activeBullets">The list of active bullets.</param>
+            <param name="secondPlayer">The second player.</param>
+            <param name="activeBullets">The active bullets.</param>
         </member>
         <member name="M:Galaga.Model.CollisionManager.StartPlayerBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas,System.Int32)">
             <summary>
-            Starts the bullet movement.
+            Starts the player bullet movement.
             </summary>
             <param name="bullet">The bullet.</param>
-            <param name="canvasParam">The canvasParam.</param>
+            <param name="canvasParam">The canvas parameter.</param>
+            <param name="direction">The direction.</param>
         </member>
         <member name="M:Galaga.Model.CollisionManager.StartEnemyBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas,System.Boolean)">
             <summary>
             Starts the enemy bullet movement.
             </summary>
             <param name="bullet">The bullet.</param>
-            <param name="canvasParam">The canvasParam.</param>
-            <param name="canTrackPlayer">tracks if enemy can track player or not</param>
+            <param name="canvasParam">The canvas parameter.</param>
+            <param name="canTrackPlayer">if set to <c>true</c> [can track player].</param>
         </member>
         <member name="M:Galaga.Model.CollisionManager.StopAllTimers">
             <summary>
