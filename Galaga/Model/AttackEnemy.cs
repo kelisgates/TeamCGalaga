@@ -70,10 +70,9 @@ namespace Galaga.Model
 
                     break;
                 case 3:
-                    var y = 100;
-                    if (Y.Equals(y))
+                    if (ScoreValue == 30)
                     {
-                        MoveEnemyPatternTwo();
+                        MoveEnemyPatternThree();
                     }
                     else
                     {
@@ -169,8 +168,8 @@ namespace Galaga.Model
                     break;
 
                 case 2:
-                    minInterval = 4000;
-                    maxInterval = 500000;
+                    minInterval = 3000;
+                    maxInterval = 200000;
                     break;
                 case 3:
                     minInterval = 3000;

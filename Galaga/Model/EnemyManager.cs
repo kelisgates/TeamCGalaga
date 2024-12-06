@@ -103,7 +103,7 @@ namespace Galaga.Model
             }
 
             this.addEnemiesToCanvas();
-            this.startSquareMovement(this.Enemies[0].Sprite, 100);
+            this.startSquareMovement(this.Enemies[0].Sprite, 200);
         }
 
         #endregion

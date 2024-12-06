@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Galaga.Model
@@ -256,7 +255,6 @@ namespace Galaga.Model
             for (int i = -1; i <= 1; i++)
             {
                 var horizontalOffset = 15;
-                var verticalOffset = 10;
                 var bullet = new Bullet
                 {
                     IsShooting = true,

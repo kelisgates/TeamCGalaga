@@ -50,13 +50,13 @@ namespace Galaga.Model
 
                     break;
                 case 3:
-                    if (this.Y == 300)
+                    if (ScoreValue == 10)
                     {
                         MoveEnemyPatternTwo();
                     }
                     else
                     {
-                        MoveEnemyPatternOne();
+                        MoveEnemyPatternFour();
                     }
                     break;
                 case 4:

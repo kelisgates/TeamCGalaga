@@ -181,7 +181,6 @@ namespace Galaga.Model
             var speed = 5;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
-            this.MovingRight = true;
             this.movementTimer(resetSteps, MovementDirection.Right, speed, isBonusShip);
         }
 
@@ -190,10 +189,9 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternOne()
         {
-            var speed = 4;
+            var speed = 5;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
-            this.MovingRight = true;
             this.movementTimer(resetSteps, MovementDirection.Left, speed, false);
         }
 
@@ -202,10 +200,9 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternTwo()
         {
-            var speed = 5;
+            var speed = 7;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
-            this.MovingRight = true;
             this.movementTimer(resetSteps, MovementDirection.Right, speed, false);
         }
 
@@ -214,10 +211,9 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternThree()
         {
-            var speed = 6;
+            var speed = 7;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
-            this.MovingRight = false;
             this.movementTimer(resetSteps, MovementDirection.Left, speed, false);
         }
 
@@ -226,10 +222,9 @@ namespace Galaga.Model
         /// </summary>
         protected void MoveEnemyPatternFour()
         {
-            var speed = 7;
+            var speed = 5;
             var resetSteps = 0;
             this.SidewaysSteps = resetSteps;
-            this.MovingRight = true;
             this.movementTimer(resetSteps, MovementDirection.Right, speed, false);
         }
 
