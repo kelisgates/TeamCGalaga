@@ -108,22 +108,6 @@
             </value>
             <returns>bool value is bullet is being shot</returns>
         </member>
-        <member name="P:Galaga.Model.Bullet.Dx">
-            <summary>
-            Gets or sets the dx.
-            </summary>
-            <value>
-            The dx.
-            </value>
-        </member>
-        <member name="P:Galaga.Model.Bullet.Dy">
-            <summary>
-            Gets or sets the dy.
-            </summary>
-            <value>
-            The dy.
-            </value>
-        </member>
         <member name="M:Galaga.Model.Bullet.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.Bullet"/> class.
@@ -164,7 +148,7 @@
             <param name="secondPlayer"> The second player</param>
             <param name="activeBullets">The list of active bullets.</param>
         </member>
-        <member name="M:Galaga.Model.CollisionManager.StartPlayerBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas)">
+        <member name="M:Galaga.Model.CollisionManager.StartPlayerBulletMovement(Galaga.Model.Bullet,Windows.UI.Xaml.Controls.Canvas,System.Int32)">
             <summary>
             Starts the bullet movement.
             </summary>
@@ -462,6 +446,11 @@
         <member name="T:Galaga.Model.GameManager">
             <summary>
             Manages the Galaga game play
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.GameManager.MaxPlayerBullets">
+            <summary>
+            The maximum player bullets
             </summary>
         </member>
         <member name="F:Galaga.Model.GameManager.CanShoot">

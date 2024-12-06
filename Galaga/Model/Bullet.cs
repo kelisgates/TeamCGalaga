@@ -24,22 +24,6 @@
         /// <returns>bool value is bullet is being shot</returns>
         public bool IsShooting { get;  set; }
 
-        /// <summary>
-        /// Gets or sets the dx.
-        /// </summary>
-        /// <value>
-        /// The dx.
-        /// </value>
-        public double Dx { get; set; }
-
-        /// <summary>
-        /// Gets or sets the dy.
-        /// </summary>
-        /// <value>
-        /// The dy.
-        /// </value>
-        public double Dy { get; set; }
-
         #endregion
 
         #region Constructor

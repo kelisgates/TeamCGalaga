@@ -516,27 +516,22 @@ namespace Galaga.ViewModel
             var levelDialog = new ContentDialog
             {
                 Title = "Level Up!",
-                Content = $"You are now on Level {this.gameManager.Level}. Get ready!",
-                CloseButtonText = "OK",
-                DefaultButton = ContentDialogButton.Close
+                Content = $"You are now on Level {this.gameManager.Level}. Get ready! Next level Starts in 5 seconds.",
             };
-            await levelDialog.ShowAsync();
+            var  task = levelDialog.ShowAsync();
+            await Task.Delay(5000);
+            levelDialog.Hide();
+            
             if (this.gameManager.Level < 4)
             {
                 this.gameManager.placeEnemies();
-                var managerEnemyBonusShipTimer = this.gameManager.ManagerEnemy.BonusShipTimer;
-
-                if (managerEnemyBonusShipTimer != null)
-                {
-                    managerEnemyBonusShipTimer.Start();
-                }
-
                 this.LevelTextBlock = $"Level: {this.gameManager.Level}";
             } else if (this.gameManager.Level == 4)
             {
                 this.gameManager.StartBossRound();
                 this.LevelTextBlock = $"Level: {this.gameManager.Level}";
             }
+            this.gameManager.CanShoot = true;
         }
 
         #endregion

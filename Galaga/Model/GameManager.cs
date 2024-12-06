@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Galaga.Model
@@ -17,7 +18,11 @@ namespace Galaga.Model
         private readonly Canvas canvas;
         private const int MaxLevels = 4;
         private bool isPoweredUp;
-        private int maxPlayerBullets;
+
+        /// <summary>
+        /// The maximum player bullets
+        /// </summary>
+        public int MaxPlayerBullets;
 
         /// <summary>
         /// Checks if player can shoot
@@ -142,7 +147,7 @@ namespace Galaga.Model
 
             this.Level = 1;
             this.initializeGame();
-            this.maxPlayerBullets = 3;
+            this.MaxPlayerBullets = 3;
             
         }
 
@@ -196,7 +201,7 @@ namespace Galaga.Model
         /// <returns>Task waiting to see if player can shoot again</returns>
         public async Task PlayerShoot()
         {
-            if (!this.CanShoot || this.ActiveBullets.Count >= this.maxPlayerBullets)
+            if (!this.CanShoot || this.ActiveBullets.Count >= this.MaxPlayerBullets)
             {
                 return;
             }
@@ -206,12 +211,12 @@ namespace Galaga.Model
 
             var movementPerStep = 20;
 
-            if (this.isPoweredUp)
+            if (this.isPoweredUp && this.ActiveBullets.Count <= (this.MaxPlayerBullets - 3))
             {
 
                 this.playerPowerUpBullets(this.Player, movementPerStep);
             }
-            else
+            else if (!this.isPoweredUp) 
             {
                 this.fireBulletFromPlayer(this.Player, movementPerStep);
             }
@@ -256,13 +261,13 @@ namespace Galaga.Model
                 {
                     IsShooting = true,
                     X = player.X + movementPerStep + (i * horizontalOffset),
-                    Y = player.Y + (i * verticalOffset),
+                    Y = player.Y,
                 };
 
 
                 this.canvas.Children.Add(bullet.Sprite);
                 this.ActiveBullets.Add(bullet);
-                this.CollisionManager.StartPlayerBulletMovement(bullet, this.canvas);
+                this.CollisionManager.StartPlayerBulletMovement(bullet, this.canvas, i);
             }
         }
 
@@ -311,6 +316,7 @@ namespace Galaga.Model
             if (this.Level < MaxLevels)
             {
                 this.Level++;
+                this.CanShoot = false;
                 this.initializeNextLevel();
             } else
             {
@@ -323,19 +329,21 @@ namespace Galaga.Model
             return this.Level >= MaxLevels;
         }
 
-        private void initializeNextLevel()
+        private async void initializeNextLevel()
         {
-            this.CanShoot = false;
+            foreach(var bullet in this.ActiveBullets)
+            {
+                this.canvas.Children.Remove(bullet.Sprite);
+            }
             this.ActiveBullets.Clear();
             this.LevelChanged?.Invoke(this, EventArgs.Empty);
             this.ManagerEnemy.BonusEnemyActive = false;
-            this.CanShoot = true;
         }
 
         /// <summary>
         /// Players the power up. Let's player shoot all three bullets at the same time
         /// </summary>
-        public async void playerPowerUp()
+        public void playerPowerUp()
         {
             if (this.isPoweredUp)
             {
@@ -343,12 +351,10 @@ namespace Galaga.Model
             }
 
             this.isPoweredUp = true;
-            this.maxPlayerBullets = 3 * this.maxPlayerBullets;
-
-            await Task.Delay(10000);
+            this.MaxPlayerBullets = 3 * this.MaxPlayerBullets;
 
             this.isPoweredUp = false;
-            this.maxPlayerBullets /= 3;
+            this.MaxPlayerBullets /= 3;
         }
 
         /// <summary>
@@ -357,7 +363,7 @@ namespace Galaga.Model
         public void ActivateDoublePlayerShip()
         {
             this.PlayerManager.IsDoubleShipActive = true;
-            this.maxPlayerBullets = 6;
+            this.MaxPlayerBullets *= 2;
             this.PlayerManager.createSecondShip();
         }
         #endregion
