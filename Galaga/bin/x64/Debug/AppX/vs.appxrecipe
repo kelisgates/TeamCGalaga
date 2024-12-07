@@ -30,13 +30,13 @@
     <AppXManifest Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2024-12-07T19:41:55.078</Modified>
+      <Modified>2024-12-07T20:40:34.797</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\Galaga.exe">
       <PackagePath>entrypoint\Galaga.exe</PackagePath>
-      <Modified>2024-12-07T19:41:54.242</Modified>
+      <Modified>2024-12-07T20:40:33.947</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\HP\.nuget\packages\microsoft.azure.cognitiveservices.vision.customvision.prediction\2.0.0\lib\netstandard2.0\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll">
       <PackagePath>Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll</PackagePath>
@@ -62,8 +62,8 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2020-12-02T08:52:00.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\bonuEnemy.wav">
-      <PackagePath>Sounds\bonuEnemy.wav</PackagePath>
+    <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\bonusEnemy.wav">
+      <PackagePath>Sounds\bonusEnemy.wav</PackagePath>
       <Modified>2024-12-06T21:03:08.282</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\gameOver.wav">
@@ -88,7 +88,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\playerFire.wav">
       <PackagePath>Sounds\playerFire.wav</PackagePath>
-      <Modified>2024-12-06T21:03:08.296</Modified>
+      <Modified>2024-12-07T20:40:21.667</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\powerUpActive.wav">
+      <PackagePath>Sounds\powerUpActive.wav</PackagePath>
+      <Modified>2024-12-07T20:37:26.936</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -146,67 +150,67 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.028</Modified>
+      <Modified>2024-12-07T20:40:33.688</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\GameCanvas.xbf">
       <PackagePath>View\GameCanvas.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.028</Modified>
+      <Modified>2024-12-07T20:40:33.689</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\HighScoreDialog.xbf">
       <PackagePath>View\HighScoreDialog.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.028</Modified>
+      <Modified>2024-12-07T20:40:33.689</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\BaseSprite.xbf">
       <PackagePath>View\Sprites\BaseSprite.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.029</Modified>
+      <Modified>2024-12-07T20:40:33.689</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite.xbf">
       <PackagePath>View\Sprites\BossSprite\BossSprite.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.029</Modified>
+      <Modified>2024-12-07T20:40:33.689</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\BossSprite\BossSprite2.xbf">
       <PackagePath>View\Sprites\BossSprite\BossSprite2.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.029</Modified>
+      <Modified>2024-12-07T20:40:33.690</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\Bullet.xbf">
       <PackagePath>View\Sprites\Bullet.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.029</Modified>
+      <Modified>2024-12-07T20:40:33.690</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemeyL4Sprites\EnemyL4SpriteTwo.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.030</Modified>
+      <Modified>2024-12-07T20:40:33.690</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL1Sprites\EnemyL1SpriteTwo.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.030</Modified>
+      <Modified>2024-12-07T20:40:33.690</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL2Sprites\EnemyL2Sprite.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.030</Modified>
+      <Modified>2024-12-07T20:40:33.691</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL2Sprites\EnemyL2SpriteTwo.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.030</Modified>
+      <Modified>2024-12-07T20:40:33.691</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL3Sprites\EnemyL3Sprite.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.030</Modified>
+      <Modified>2024-12-07T20:40:33.691</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xbf">
       <PackagePath>View\Sprites\EnemyL1Sprites\EnemyL1Sprite.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.030</Modified>
+      <Modified>2024-12-07T20:40:33.691</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xbf">
       <PackagePath>View\Sprites\EnemeyL4Sprites\EnemyL4Sprite.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.031</Modified>
+      <Modified>2024-12-07T20:40:33.691</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xbf">
       <PackagePath>View\Sprites\EnemyL3Sprites\EnemyL3SpriteTwo.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.031</Modified>
+      <Modified>2024-12-07T20:40:33.691</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\View\Sprites\PlayerSprite.xbf">
       <PackagePath>View\Sprites\PlayerSprite.xbf</PackagePath>
-      <Modified>2024-12-07T19:41:54.031</Modified>
+      <Modified>2024-12-07T20:40:33.692</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -214,11 +218,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2024-12-07T16:54:22.317</Modified>
+      <Modified>2024-12-07T20:40:34.118</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\bin\x64\Debug\Core\Galaga.exe">
       <PackagePath>Galaga.exe</PackagePath>
-      <Modified>2024-12-07T19:41:55.073</Modified>
+      <Modified>2024-12-07T20:40:34.792</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

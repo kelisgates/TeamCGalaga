@@ -198,7 +198,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sounds\bonuEnemy.wav" />
+    <Content Include="Sounds\bonusEnemy.wav" />
     <Content Include="Sounds\gameOver.wav" />
     <Content Include="Sounds\gameWon.wav" />
     <Content Include="Properties\Default.rd.xml" />
@@ -212,10 +212,11 @@
     <Content Include="Sounds\enemyFire.wav" />
     <Content Include="Sounds\enemyHit.wav" />
     <Content Include="Sounds\playerDeath.wav" />
-    <Content Include="Sounds\playerFire.wav" />
     <Content Include="Assets\ExplosionImages\ExplosionImage1.PNG" />
     <Content Include="Assets\ExplosionImages\ExplosionImage2.PNG" />
     <Content Include="Assets\ExplosionImages\ExplosionImage3.PNG" />
+    <Content Include="Sounds\playerFire.wav" />
+    <Content Include="Sounds\powerUpActive.wav" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

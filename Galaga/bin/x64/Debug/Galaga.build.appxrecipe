@@ -46,8 +46,8 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\bonuEnemy.wav">
-      <PackagePath>Sounds\bonuEnemy.wav</PackagePath>
+    <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\bonusEnemy.wav">
+      <PackagePath>Sounds\bonusEnemy.wav</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\gameOver.wav">
       <PackagePath>Sounds\gameOver.wav</PackagePath>
@@ -66,6 +66,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\playerFire.wav">
       <PackagePath>Sounds\playerFire.wav</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Sounds\powerUpActive.wav">
+      <PackagePath>Sounds\powerUpActive.wav</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>

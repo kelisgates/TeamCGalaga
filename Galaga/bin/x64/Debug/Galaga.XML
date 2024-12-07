@@ -937,6 +937,16 @@
             Stops the bonus enemy sound.
             </summary>
         </member>
+        <member name="M:Galaga.Model.SoundManager.PlayPowerUpSound">
+            <summary>
+            Plays the power up sound.
+            </summary>
+        </member>
+        <member name="M:Galaga.Model.SoundManager.StopPowerUpSound">
+            <summary>
+            Stops the power up sound.
+            </summary>
+        </member>
         <member name="T:Galaga.ViewModel.GameManagerViewModel">
             <summary>
             Game manager view model.

@@ -19,6 +19,7 @@ namespace Galaga.Model
         private readonly MediaPlayer gameOverSound;
         private readonly MediaPlayer gameWonSound;
         private readonly MediaPlayer bonusEnemySound;
+        private readonly MediaPlayer powerUpActiveSound;
 
         #endregion
 
@@ -36,6 +37,7 @@ namespace Galaga.Model
             this.gameOverSound = new MediaPlayer();
             this.gameWonSound = new MediaPlayer();
             this.bonusEnemySound = new MediaPlayer{IsLoopingEnabled = true};
+            this.powerUpActiveSound = new MediaPlayer { IsLoopingEnabled = true };
         }
 
         #endregion
@@ -101,7 +103,7 @@ namespace Galaga.Model
         /// </summary>
         public void PlayBonusEnenySound()
         {
-            this.bonusEnemySound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/bonuEnemy.wav"));
+            this.bonusEnemySound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/bonusEnemy.wav"));
             this.bonusEnemySound.Play();
         }
 
@@ -111,6 +113,23 @@ namespace Galaga.Model
         public void StopBonusEnemySound()
         {
             this.bonusEnemySound.Pause();
+        }
+
+        /// <summary>
+        /// Plays the power up sound.
+        /// </summary>
+        public void PlayPowerUpSound()
+        {
+            this.powerUpActiveSound.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Sounds/powerUpActive.wav"));
+            this.powerUpActiveSound.Play();
+        }
+
+        /// <summary>
+        /// Stops the power up sound.
+        /// </summary>
+        public void StopPowerUpSound()
+        {
+            this.powerUpActiveSound.Pause();
         }
 
         #endregion

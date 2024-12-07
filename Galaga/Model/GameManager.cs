@@ -216,12 +216,12 @@ namespace Galaga.Model
             {
                 return;
             }
-
+            this.SoundManager.PlayPowerUpSound();
             this.PlayerManager.PlayerPoweredUp = true;
             this.PlayerManager.MaxPlayerBullets *= 3;
 
             await Task.Delay(5000);
-
+            this.SoundManager.StopPowerUpSound();
             this.PlayerManager.PlayerPoweredUp = false;
             this.PlayerManager.MaxPlayerBullets /= 3;
         }
