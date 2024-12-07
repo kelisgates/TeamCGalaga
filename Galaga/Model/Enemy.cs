@@ -263,7 +263,7 @@ namespace Galaga.Model
                 {
                     X = 0;
                 }
-                this.checkWhichSpriteIsVisible();
+                this.CheckWhichSpriteIsVisible();
                 this.HorizontalSteps--;
                 
                 if (this.HorizontalSteps == MovementPerStep)
@@ -297,7 +297,7 @@ namespace Galaga.Model
             }
 
 
-            this.checkWhichSpriteIsVisible();
+            this.CheckWhichSpriteIsVisible();
 
             this.SidewaysSteps++;
             if (this.SidewaysSteps == MovementPerStep)
@@ -310,7 +310,7 @@ namespace Galaga.Model
         /// <summary>
         /// checks which sprite is visible.
         /// </summary>
-        public void checkWhichSpriteIsVisible()
+        public void CheckWhichSpriteIsVisible()
         {
             var spriteArray = new List<BaseSprite>(this.Sprites);
             BaseSprite visibleSprite = this.IsFirstSpriteVisible ? spriteArray[0] : spriteArray[1];

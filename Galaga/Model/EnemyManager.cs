@@ -256,7 +256,7 @@ namespace Galaga.Model
                     break;
             }
 
-            enemy.checkWhichSpriteIsVisible();
+            enemy.CheckWhichSpriteIsVisible();
         }
 
         private void addEnemiesToCanvas()

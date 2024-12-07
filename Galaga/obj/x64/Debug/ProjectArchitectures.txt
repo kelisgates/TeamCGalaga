@@ -1,1 +1,1 @@
-C:\Users\kg00281\Desktop\TeamCGalaga\TeamCGalaga\Galaga\Galaga.csproj;x64
+E:\Fall 2024\Program Construction\Assignment\kelis\Galaga\Galaga.csproj;x64

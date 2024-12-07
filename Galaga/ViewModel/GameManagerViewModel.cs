@@ -264,13 +264,13 @@ namespace Galaga.ViewModel
             switch (args.VirtualKey)
             {
                 case VirtualKey.Left:
-                    this.gameManager.Player.IsMovingLeft = true;
+                    this.gameManager.PlayerManager.Player.IsMovingLeft = true;
                     break;
                 case VirtualKey.Right:
-                    this.gameManager.Player.IsMovingRight = true;
+                    this.gameManager.PlayerManager.Player.IsMovingRight = true;
                     break;
                 case VirtualKey.Space:
-                    this.gameManager.Player.IsShooting = true;
+                    this.gameManager.PlayerManager.Player.IsShooting = true;
                     break;
             }
         }
@@ -280,32 +280,32 @@ namespace Galaga.ViewModel
             switch (args.VirtualKey)
             {
                 case VirtualKey.Left:
-                    this.gameManager.Player.IsMovingLeft = false;
+                    this.gameManager.PlayerManager.Player.IsMovingLeft = false;
                     break;
                 case VirtualKey.Right:
-                    this.gameManager.Player.IsMovingRight = false;
+                    this.gameManager.PlayerManager.Player.IsMovingRight = false;
                     break;
                 case VirtualKey.Space:
-                    this.gameManager.Player.IsShooting = false;
+                    this.gameManager.PlayerManager.Player.IsShooting = false;
                     break;
             }
         }
 
         private async Task gameMovementLoop()
         {
-            if (this.gameManager.Player.IsMovingLeft)
+            if (this.gameManager.PlayerManager.Player.IsMovingLeft)
             {
                 this.gameManager.PlayerManager.MovePlayerLeft();
             }
 
-            if (this.gameManager.Player.IsMovingRight)
+            if (this.gameManager.PlayerManager.Player.IsMovingRight)
             {
                 this.gameManager.PlayerManager.MovePlayerRight();
             }
 
-            if (this.gameManager.Player.IsShooting)
+            if (this.gameManager.PlayerManager.Player.IsShooting)
             {
-                await this.gameManager.PlayerShoot();
+                await this.gameManager.PlayerManager.PlayerShoot();
             }
         }
 
@@ -395,14 +395,14 @@ namespace Galaga.ViewModel
         private void onPlayerHit(object sender, EventArgs e)
         {
             this.gameManager.SoundManager.PlayPlayerDeathSound();
-            if (this.gameManager.Player.Lives == 0)
+            if (this.gameManager.PlayerManager.Player.Lives == 0)
             {
-                this.LivesTextBlock = $"Lives: {this.gameManager.Player.Lives}";
+                this.LivesTextBlock = $"Lives: {this.gameManager.PlayerManager.Player.Lives}";
                 this.GameOverVisibility = Visibility.Visible;
             }
             else
             {
-                this.LivesTextBlock = $"Lives: {this.gameManager.Player.Lives}";
+                this.LivesTextBlock = $"Lives: {this.gameManager.PlayerManager.Player.Lives}";
             }
         }
 
@@ -411,7 +411,7 @@ namespace Galaga.ViewModel
             this.gameManager.SoundManager.PlayGameWonSound();
             this.gameManager.CollisionManager.StopAllTimers();
             this.GameWonVisibility = Visibility.Visible;
-            await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.Level);
+            await this.checkAndAddHighScore(this.gameManager.PlayerManager.Player.Score, this.gameManager.Level);
             var dialog = new ContentDialog()
             {
                 Title = "You Won!",
@@ -473,7 +473,7 @@ namespace Galaga.ViewModel
         {
             this.gameManager.SoundManager.PlayGameOverSound();
             this.gameManager.CollisionManager.StopAllTimers();
-            await this.checkAndAddHighScore(this.gameManager.Player.Score, this.gameManager.Level);
+            await this.checkAndAddHighScore(this.gameManager.PlayerManager.Player.Score, this.gameManager.Level);
             var dialog = new ContentDialog()
             {
                 Title = "Game Over!",
@@ -502,16 +502,13 @@ namespace Galaga.ViewModel
         private void onEnemyKilled(object sender, EventArgs e)
         {
             this.gameManager.SoundManager.PlayEnemyHitSound();
-            this.ScoreTextBlock = $"Score: {this.gameManager.Player.Score}";
-            this.LivesTextBlock = $"Lives: {this.gameManager.Player.Lives}";
+            this.ScoreTextBlock = $"Score: {this.gameManager.PlayerManager.Player.Score}";
+            this.LivesTextBlock = $"Lives: {this.gameManager.PlayerManager.Player.Lives}";
         }
 
         private async void onLevelChanged(object sender, EventArgs e)
         {
-            if (this.gameManager.ManagerEnemy.BonusShipTimer != null)
-            {
-                this.gameManager.ManagerEnemy.BonusShipTimer.Stop();
-            }
+            this.gameManager.ManagerEnemy.BonusShipTimer?.Stop();
             this.gameManager.ManagerEnemy.Enemies.Clear();
             var levelDialog = new ContentDialog
             {
@@ -524,14 +521,14 @@ namespace Galaga.ViewModel
             
             if (this.gameManager.Level < 4)
             {
-                this.gameManager.placeEnemies();
+                this.gameManager.PlaceEnemies();
                 this.LevelTextBlock = $"Level: {this.gameManager.Level}";
             } else if (this.gameManager.Level == 4)
             {
                 this.gameManager.StartBossRound();
                 this.LevelTextBlock = $"Level: {this.gameManager.Level}";
             }
-            this.gameManager.CanShoot = true;
+            this.gameManager.PlayerManager.PlayerCanShoot = true;
         }
 
         #endregion

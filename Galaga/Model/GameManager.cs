@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
@@ -13,25 +12,8 @@ namespace Galaga.Model
     {
         #region Data members
 
-        private const double PlayerOffsetFromBottom = 30;
         private readonly Canvas canvas;
         private const int MaxLevels = 4;
-        private bool isPoweredUp;
-
-        /// <summary>
-        /// The maximum player bullets
-        /// </summary>
-        public int MaxPlayerBullets;
-
-        /// <summary>
-        /// Checks if player can shoot
-        /// </summary>
-        public bool CanShoot = true;
-
-        /// <summary>
-        /// list of active bullets
-        /// </summary>
-        public List<Bullet> ActiveBullets;
 
         /// <summary>
         /// EnemyManagerDataMember
@@ -91,26 +73,6 @@ namespace Galaga.Model
         #region Properties
 
         /// <summary>
-        /// player object
-        /// </summary>
-        /// <returns>Player object</returns>
-        public Player Player { get; private set; }
-        /// <summary>
-        /// player object
-        /// </summary>
-        /// <returns>Player object</returns>
-        public Player SecondPlayer { get; private set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is Player bullet active.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is Player bullet active; otherwise, <c>false</c>.
-        /// </value>
-        /// <returns>bool value if player bullet is active</returns>
-        public bool IsPlayerBulletActive { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [was collision].
         /// </summary>
         /// <value>
@@ -118,13 +80,7 @@ namespace Galaga.Model
         /// </value>
         /// <returns>bool value if collision occurred</returns>
         public bool WasCollision { get; set; }
-        /// <summary>
-        /// Gets the enemy manager.
-        /// </summary>
-        /// <value>
-        /// The enemy manager.
-        /// </value>
-        public EnemyManager EnemyManagerDataMember => this.ManagerEnemy;
+
         /// <summary>
         /// Canvas
         /// </summary>
@@ -146,7 +102,6 @@ namespace Galaga.Model
 
             this.Level = 1;
             this.initializeGame();
-            this.MaxPlayerBullets = 3;
             
         }
 
@@ -156,17 +111,16 @@ namespace Galaga.Model
 
         private void initializeGame()
         {
-            this.createAndPlacePlayer();
-            this.CollisionManager = new CollisionManager(this, this.Player, this.SecondPlayer, this.ActiveBullets);
-            this.ActiveBullets = new List<Bullet>();
-            this.placeEnemies();
+            this.PlayerManager = new PlayerManager(this.canvas, this);
+            this.CollisionManager = new CollisionManager(this, this.PlayerManager.Player, this.PlayerManager.SecondPlayer, this.PlayerManager.ActiveBullets);
+            this.PlaceEnemies();
             this.SoundManager = new SoundManager();
         }
 
         /// <summary>
         /// Places the enemies.
         /// </summary>
-        public void placeEnemies()
+        public void PlaceEnemies()
         {
             this.ManagerEnemy = new EnemyManager(this.canvas, this, this.CollisionManager);
             this.ManagerEnemy.PlaceEnemies();
@@ -180,94 +134,9 @@ namespace Galaga.Model
             this.ManagerEnemy.PlaceEnemiesForBossRound();
         }
 
-        private void createAndPlacePlayer()
-        {
-            
-            this.PlayerManager = new PlayerManager(this.canvas);
-            this.PlayerManager.CreateAndPlacePlayer();
-            this.Player = this.PlayerManager.Player;
-            this.SecondPlayer = this.PlayerManager.SecondPlayer;
-            
-        }
-
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Player shoot a bullet.
-        /// </summary>
-        /// <returns>Task waiting to see if player can shoot again</returns>
-        public async Task PlayerShoot()
-        {
-            if (!this.CanShoot || this.ActiveBullets.Count >= this.MaxPlayerBullets)
-            {
-                return;
-            }
-
-            this.SoundManager.PlayPlayerFireSound();
-            this.CanShoot = false;
-
-            var movementPerStep = 20;
-
-            if (this.isPoweredUp && this.ActiveBullets.Count <= (this.MaxPlayerBullets - 3))
-            {
-
-                this.playerPowerUpBullets(this.Player, movementPerStep);
-            }
-            else if (!this.isPoweredUp) 
-            {
-                this.fireBulletFromPlayer(this.Player, movementPerStep);
-            }
-
-            if (this.PlayerManager.IsDoubleShipActive && this.SecondPlayer != null)
-            {
-                if (this.isPoweredUp)
-                {
-                    this.playerPowerUpBullets(this.SecondPlayer, movementPerStep);
-                }
-                else
-                {
-                    this.fireBulletFromPlayer(this.SecondPlayer, movementPerStep);
-                }
-            }
-
-            await Task.Delay(300);
-            this.CanShoot = true;
-        }
-
-        private void fireBulletFromPlayer(Player player, int movementPerStep)
-        {
-            var bullet = new Bullet
-            {
-                IsShooting = true,
-                X = player.X + movementPerStep,
-                Y = player.Y,
-            };
-
-            this.canvas.Children.Add(bullet.Sprite);
-            this.ActiveBullets.Add(bullet);
-            this.CollisionManager.StartPlayerBulletMovement(bullet, this.canvas);
-        }
-
-        private void playerPowerUpBullets(Player player, int movementPerStep)
-        {
-            for (int i = -1; i <= 1; i++)
-            {
-                var horizontalOffset = 15;
-                var bullet = new Bullet
-                {
-                    IsShooting = true,
-                    X = player.X + movementPerStep + (i * horizontalOffset),
-                    Y = player.Y,
-                };
-
-
-                this.canvas.Children.Add(bullet.Sprite);
-                this.ActiveBullets.Add(bullet);
-                this.CollisionManager.StartPlayerBulletMovement(bullet, this.canvas, i);
-            }
-        }
 
         /// <summary>
         /// Called when [enemy killed].
@@ -296,7 +165,7 @@ namespace Galaga.Model
         /// </summary>
         public void OnGameOver()
         {
-            this.CanShoot = false;
+            this.PlayerManager.PlayerCanShoot = false;
             Debug.WriteLine("game manager onGame invoked");
             this.GameOver?.Invoke(this, EventArgs.Empty);
         }
@@ -314,7 +183,7 @@ namespace Galaga.Model
             if (this.Level < MaxLevels)
             {
                 this.Level++;
-                this.CanShoot = false;
+                this.PlayerManager.PlayerCanShoot = false;
                 this.initializeNextLevel();
             } else
             {
@@ -329,11 +198,11 @@ namespace Galaga.Model
 
         private void initializeNextLevel()
         {
-            foreach(var bullet in this.ActiveBullets)
+            foreach(var bullet in this.PlayerManager.ActiveBullets)
             {
                 this.canvas.Children.Remove(bullet.Sprite);
             }
-            this.ActiveBullets.Clear();
+            this.PlayerManager.ActiveBullets.Clear();
             this.LevelChanged?.Invoke(this, EventArgs.Empty);
             this.ManagerEnemy.BonusEnemyActive = false;
         }
@@ -341,20 +210,20 @@ namespace Galaga.Model
         /// <summary>
         /// Players the power up. Let's player shoot all three bullets at the same time
         /// </summary>
-        public async void playerPowerUp()
+        public async void PlayerPowerUp()
         {
-            if (this.isPoweredUp)
+            if (this.PlayerManager.PlayerPoweredUp)
             {
                 return;
             }
 
-            this.isPoweredUp = true;
-            this.MaxPlayerBullets = 3 * this.MaxPlayerBullets;
+            this.PlayerManager.PlayerPoweredUp = true;
+            this.PlayerManager.MaxPlayerBullets *= 3;
 
             await Task.Delay(5000);
 
-            this.isPoweredUp = false;
-            this.MaxPlayerBullets /= 3;
+            this.PlayerManager.PlayerPoweredUp = false;
+            this.PlayerManager.MaxPlayerBullets /= 3;
         }
 
         /// <summary>
@@ -363,8 +232,8 @@ namespace Galaga.Model
         public void ActivateDoublePlayerShip()
         {
             this.PlayerManager.IsDoubleShipActive = true;
-            this.MaxPlayerBullets *= 2;
-            this.PlayerManager.createSecondShip();
+            this.PlayerManager.MaxPlayerBullets *= 2;
+            this.PlayerManager.CreateSecondShip();
         }
         #endregion
 

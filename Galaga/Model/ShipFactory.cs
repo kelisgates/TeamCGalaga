@@ -30,6 +30,10 @@ namespace Galaga.Model
         /// </summary>
         Level4,
         /// <summary>
+        /// The bonus enemy
+        /// </summary>
+        Bonus,
+        /// <summary>
         /// The boss
         /// </summary>
         Boss
@@ -40,16 +44,6 @@ namespace Galaga.Model
     /// </summary>
     public static class ShipFactory
     {
-
-        /// <summary>
-        /// Creates the player ship.
-        /// </summary>
-        /// <returns></returns>
-        public static GameObject CreatePlayerShip()
-        {
-            return new Player();
-        }
-
         /// <summary>
         /// Creates the enemy ship.
         /// </summary>

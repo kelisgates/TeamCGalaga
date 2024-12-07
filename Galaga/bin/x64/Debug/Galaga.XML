@@ -108,7 +108,14 @@
             </value>
             <returns>bool value is bullet is being shot</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Galaga.Model.Bullet.VelocityX" -->
+        <member name="P:Galaga.Model.Bullet.VelocityX">
+            <summary>
+            Gets or sets the velocity x.
+            </summary>
+            <value>
+            The velocity x.
+            </value>
+        </member>
         <member name="P:Galaga.Model.Bullet.VelocityY">
             <summary>
             Gets or sets the velocity y.
@@ -309,7 +316,7 @@
             Moves the enemy pattern four.
             </summary>
         </member>
-        <member name="M:Galaga.Model.Enemy.checkWhichSpriteIsVisible">
+        <member name="M:Galaga.Model.Enemy.CheckWhichSpriteIsVisible">
             <summary>
             checks which sprite is visible.
             </summary>
@@ -458,21 +465,6 @@
             Manages the Galaga game play
             </summary>
         </member>
-        <member name="F:Galaga.Model.GameManager.MaxPlayerBullets">
-            <summary>
-            The maximum player bullets
-            </summary>
-        </member>
-        <member name="F:Galaga.Model.GameManager.CanShoot">
-            <summary>
-            Checks if player can shoot
-            </summary>
-        </member>
-        <member name="F:Galaga.Model.GameManager.ActiveBullets">
-            <summary>
-            list of active bullets
-            </summary>
-        </member>
         <member name="F:Galaga.Model.GameManager.ManagerEnemy">
             <summary>
             EnemyManagerDataMember
@@ -523,27 +515,6 @@
             Occurs when [Level changed].
             </summary>
         </member>
-        <member name="P:Galaga.Model.GameManager.Player">
-            <summary>
-            player object
-            </summary>
-            <returns>Player object</returns>
-        </member>
-        <member name="P:Galaga.Model.GameManager.SecondPlayer">
-            <summary>
-            player object
-            </summary>
-            <returns>Player object</returns>
-        </member>
-        <member name="P:Galaga.Model.GameManager.IsPlayerBulletActive">
-            <summary>
-            Gets or sets a value indicating whether this instance is Player bullet active.
-            </summary>
-            <value>
-              <c>true</c> if this instance is Player bullet active; otherwise, <c>false</c>.
-            </value>
-            <returns>bool value if player bullet is active</returns>
-        </member>
         <member name="P:Galaga.Model.GameManager.WasCollision">
             <summary>
             Gets or sets a value indicating whether [was collision].
@@ -552,14 +523,6 @@
               <c>true</c> if [was collision]; otherwise, <c>false</c>.
             </value>
             <returns>bool value if collision occurred</returns>
-        </member>
-        <member name="P:Galaga.Model.GameManager.EnemyManagerDataMember">
-            <summary>
-            Gets the enemy manager.
-            </summary>
-            <value>
-            The enemy manager.
-            </value>
         </member>
         <member name="P:Galaga.Model.GameManager.Canvas">
             <summary>
@@ -571,7 +534,7 @@
             Initializes a new instance of the <see cref="T:Galaga.Model.GameManager"/> class.
             </summary>
         </member>
-        <member name="M:Galaga.Model.GameManager.placeEnemies">
+        <member name="M:Galaga.Model.GameManager.PlaceEnemies">
             <summary>
             Places the enemies.
             </summary>
@@ -580,12 +543,6 @@
             <summary>
             Starts the boss round.
             </summary>
-        </member>
-        <member name="M:Galaga.Model.GameManager.PlayerShoot">
-            <summary>
-            Player shoot a bullet.
-            </summary>
-            <returns>Task waiting to see if player can shoot again</returns>
         </member>
         <member name="M:Galaga.Model.GameManager.OnEnemyKilled">
             <summary>
@@ -607,7 +564,7 @@
             Called when [player hit].
             </summary>
         </member>
-        <member name="M:Galaga.Model.GameManager.playerPowerUp">
+        <member name="M:Galaga.Model.GameManager.PlayerPowerUp">
             <summary>
             Players the power up. Let's player shoot all three bullets at the same time
             </summary>
@@ -809,6 +766,26 @@
             player manager
             </summary>
         </member>
+        <member name="F:Galaga.Model.PlayerManager.PlayerCanShoot">
+            <summary>
+            Checks if the player can shoot
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.PlayerManager.MaxPlayerBullets">
+            <summary>
+            The maximum player bullets
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.PlayerManager.ActiveBullets">
+            <summary>
+            list of active bullets
+            </summary>
+        </member>
+        <member name="F:Galaga.Model.PlayerManager.PlayerPoweredUp">
+            <summary>
+            Temporary power is active for player
+            </summary>
+        </member>
         <member name="F:Galaga.Model.PlayerManager.Player">
             <summary>
             The player
@@ -824,11 +801,12 @@
             The is double ship active
             </summary>
         </member>
-        <member name="M:Galaga.Model.PlayerManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+        <member name="M:Galaga.Model.PlayerManager.#ctor(Windows.UI.Xaml.Controls.Canvas,Galaga.Model.GameManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Galaga.Model.PlayerManager"/> class.
             </summary>
             <param name="canvas">The canvas.</param>
+            <param name="gameManager"></param>
         </member>
         <member name="M:Galaga.Model.PlayerManager.MovePlayerLeft">
             <summary>
@@ -845,12 +823,18 @@
             Creates and place player.
             </summary>
         </member>
-        <member name="M:Galaga.Model.PlayerManager.createSecondShip">
+        <member name="M:Galaga.Model.PlayerManager.PlayerShoot">
+            <summary>
+            Player shoot a bullet.
+            </summary>
+            <returns>Task waiting to see if player can shoot again</returns>
+        </member>
+        <member name="M:Galaga.Model.PlayerManager.CreateSecondShip">
             <summary>
             Creates the second ship.
             </summary>
         </member>
-        <member name="M:Galaga.Model.PlayerManager.removePlayer(Galaga.Model.Player)">
+        <member name="M:Galaga.Model.PlayerManager.RemovePlayer(Galaga.Model.Player)">
             <summary>
             Removes the player.
             </summary>
@@ -881,6 +865,11 @@
             The level4 enemy
             </summary>
         </member>
+        <member name="F:Galaga.Model.EnemyType.Bonus">
+            <summary>
+            The bonus enemy
+            </summary>
+        </member>
         <member name="F:Galaga.Model.EnemyType.Boss">
             <summary>
             The boss
@@ -890,12 +879,6 @@
             <summary>
             ship factory class
             </summary>
-        </member>
-        <member name="M:Galaga.Model.ShipFactory.CreatePlayerShip">
-            <summary>
-            Creates the player ship.
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:Galaga.Model.ShipFactory.CreateEnemyShip(Galaga.Model.EnemyType)">
             <summary>

@@ -141,11 +141,11 @@ namespace Galaga.Model
             }
             else if (this.GameManager.Level == 1)
             {
-                this.GameManager.Player.Lives++;
+                this.GameManager.PlayerManager.Player.Lives++;
             }
 
             this.GameManager.SoundManager.StopBonusEnemySound();
-            this.GameManager.playerPowerUp();
+            this.GameManager.PlayerPowerUp();
         }
 
         private void removeEnemyAndUpdateScore(Enemy enemy)
@@ -153,7 +153,7 @@ namespace Galaga.Model
             this.GameManager.WasCollision = true;
             this.canvas.Children.Remove(enemy.Sprite);
             this.GameManager.ManagerEnemy.Enemies.Remove(enemy);
-            this.GameManager.Player.Score += enemy.ScoreValue;
+            this.GameManager.PlayerManager.Player.Score += enemy.ScoreValue;
             this.GameManager.OnEnemyKilled();
             if (this.GameManager.ManagerEnemy.Enemies.Count == 0)
             {
@@ -173,9 +173,9 @@ namespace Galaga.Model
         private void removeBullet(Bullet bullet, DispatcherTimer dispatcherTimer, Canvas canvasParam)
         {
             canvasParam.Children.Remove(bullet.Sprite);
-            this.GameManager.Player.BulletsShot--;
+            this.GameManager.PlayerManager.Player.BulletsShot--;
             dispatcherTimer.Stop();
-            this.GameManager.ActiveBullets.Remove(bullet);
+            this.GameManager.PlayerManager.ActiveBullets.Remove(bullet);
             this.activeBullets.Remove(bullet);
         }
 
@@ -228,16 +228,6 @@ namespace Galaga.Model
             }
         }
 
-        private void trackPlayer(Bullet bullet)
-        {
-            double deltaX = this.player.X - bullet.X;
-            double deltaY = this.player.Y - bullet.Y;
-            double angle = Math.Atan2(deltaY, deltaX);
-            double speed = 5;
-            bullet.X += Math.Cos(angle) * speed;
-            bullet.Y += Math.Sin(angle) * speed;
-        }
-
         private void checkCollisionWithPlayer(Bullet enemyBullet, Canvas canvasParam, DispatcherTimer timer)
         {
             if (this.IsCollisionProcessed)
@@ -257,8 +247,8 @@ namespace Galaga.Model
                 this.checkPlayerStatus();
                 if (this.GameManager.PlayerManager.IsDoubleShipActive)
                 {
-                    this.GameManager.PlayerManager.removePlayer(this.secondPlayer);
-                    this.GameManager.MaxPlayerBullets /= 2;
+                    this.GameManager.PlayerManager.RemovePlayer(this.secondPlayer);
+                    this.GameManager.PlayerManager.MaxPlayerBullets /= 2;
                 }
             }
         }
@@ -269,8 +259,8 @@ namespace Galaga.Model
             {
                 this.GameManager.SoundManager.PlayPlayerDeathSound();
                 this.player.PlayExplosionAnimation(this.secondPlayer.X, this.secondPlayer.Y, canvasParam);
-                this.GameManager.PlayerManager.removePlayer(this.secondPlayer);
-                this.GameManager.MaxPlayerBullets /= 2;
+                this.GameManager.PlayerManager.RemovePlayer(this.secondPlayer);
+                this.GameManager.PlayerManager.MaxPlayerBullets /= 2;
             }
         }
 
@@ -279,7 +269,7 @@ namespace Galaga.Model
             this.IsCollisionProcessed = true;
             if (!this.GameManager.PlayerManager.IsDoubleShipActive)
             {
-                this.GameManager.Player.Lives--;
+                this.GameManager.PlayerManager.Player.Lives--;
             }
 
             this.GameManager.OnPlayerHit();
@@ -288,13 +278,13 @@ namespace Galaga.Model
 
         private void checkPlayerStatus()
         {
-            if (this.GameManager.Player.Lives == 0)
+            if (this.GameManager.PlayerManager.Player.Lives == 0)
             {
                 this.GameManager.OnGameOver();
             }
             else
             {
-                this.GameManager.CanShoot = false;
+                this.GameManager.PlayerManager.PlayerCanShoot = false;
                 this.canvas.Children.Remove(this.player.Sprite);
                 this.player.StartInvincibility(3); var playerReturnTimer = this.createTimer(timer => this.returnPlayer(timer));
                 playerReturnTimer.Interval = TimeSpan.FromSeconds(1);
@@ -310,7 +300,7 @@ namespace Galaga.Model
             }
 
             this.canvas.Children.Add(this.player.Sprite);
-            this.GameManager.CanShoot = true;
+            this.GameManager.PlayerManager.PlayerCanShoot = true;
             playerReturnTimer.Stop();
             this.IsCollisionProcessed = false;
         }
